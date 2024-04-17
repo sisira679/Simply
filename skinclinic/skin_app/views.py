@@ -170,7 +170,7 @@ def user_login(request):
                     return redirect("userdashboard")
                 elif user.role == "DeliveryBoy":
                     request.session['username'] = username
-                    return redirect("deliverydash")
+                    return redirect("availableorder")
                 elif user.username == "admin":
                     request.session['username'] = username
                     return redirect("indexadmin")
@@ -2573,64 +2573,64 @@ def get_time_slots(request):
 
 
 
-@csrf_exempt
-def chatgpt(request):
-    return render(request, 'chatgpt.html')
+# @csrf_exempt
+# def chatgpt(request):
+#     return render(request, 'chatgpt.html')
 
 
-from django.shortcuts import render
-from django.http import JsonResponse
+# from django.shortcuts import render
+# from django.http import JsonResponse
 
-def generate_response(request):
-    if request.method == 'POST':
-        user_input = request.POST.get('user_input').lower()
-        if 'simplyskin' in user_input:
-            response_data = {'response': "Simplyskin make Healthier the skin, better the lifestyle ! How can I assist you today?"}
-        elif 'brand' in user_input:
-            # Get all brand names from the database
-            brand_names = Brand.objects.values_list('brand_name', flat=True)
-            # Convert queryset to list
-            brand_list = list(brand_names)
-            # Format response with brand names
-            brand_response = ", ".join(brand_list)
-            response_data = {'response': f"Here are the brand names: {brand_response}"}
-        elif 'products' in user_input:
-             response_data = {
-        'response': "We offer a wide range of skin care products. <a href='/display_product/'>Browse our collection online!</a>" }
-        elif 'product' in user_input:
-             response_data = {
-        'response': "We offer a wide range of skin care products. <a href='/display_product/'>Browse our collection online!</a>" }
-        elif 'doctor' in user_input:
-            response_data = {
-                'response': "Looking to book an appointment with a doctor? Click here <a href='/appointment.html'>here</a> to schedule your visit!"}
-        elif 'hi' in user_input:
-            response_data = {'response': "hellooo"}
-        elif 'hairfall' in user_input or 'hair' in user_input:
-            response_data = {'response': "Struggling with hairfall? Explore our range of products specifically designed to target HairFall. <a href='/display_product/'>Browse now!</a>"}
-        elif 'acne' in user_input:
-            response_data = {'response': "Struggling with acne? Explore our range of products specifically designed to target acne-prone skin. <a href='/display_product/'>Browse now!</a>"}
-        elif 'skincare for oily skin' in user_input:
-            response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day."}
-        elif 'doctor' in user_input or 'appointment' in user_input:
-            # Redirect to appointment page
-            return redirect('appointment')
-        elif 'doctor' in user_input or 'appointment' in user_input:
-            response_data = {'response': "Looking to book an appointment with a doctor? Click <a href='/appointment/'>here</a> to schedule your visit!"}
-        elif 'return policy' in user_input:
-            response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
-        elif 'offers' in user_input or 'discounts' in user_input:
-            response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
-        elif 'order' in user_input or 'delivery' in user_input:
-            response_data = {'response': "For information about your order or delivery, please contact our customer support at support@simplyskin.com."}
-        elif ' acnetreatment' in user_input or 'suggest acne treatment' in user_input:
-            response_data = {'response': "The best treatment for acne is HydraFacial. It deeply cleanses, exfoliates, and hydrates the skin, reducing acne and improving overall skin health. You can learn more about HydraFacial and other services <a href='/service_list/'>here</a>."}
+# def generate_response(request):
+#     if request.method == 'POST':
+#         user_input = request.POST.get('user_input').lower()
+#         if 'simplyskin' in user_input:
+#             response_data = {'response': "Simplyskin make Healthier the skin, better the lifestyle ! How can I assist you today?"}
+#         elif 'brand' in user_input:
+#             # Get all brand names from the database
+#             brand_names = Brand.objects.values_list('brand_name', flat=True)
+#             # Convert queryset to list
+#             brand_list = list(brand_names)
+#             # Format response with brand names
+#             brand_response = ", ".join(brand_list)
+#             response_data = {'response': f"Here are the brand names: {brand_response}"}
+#         elif 'products' in user_input:
+#              response_data = {
+#         'response': "We offer a wide range of skin care products. <a href='/display_product/'>Browse our collection online!</a>" }
+#         elif 'product' in user_input:
+#              response_data = {
+#         'response': "We offer a wide range of skin care products. <a href='/display_product/'>Browse our collection online!</a>" }
+#         elif 'doctor' in user_input:
+#             response_data = {
+#                 'response': "Looking to book an appointment with a doctor? Click here <a href='/appointment.html'>here</a> to schedule your visit!"}
+#         elif 'hi' in user_input:
+#             response_data = {'response': "hellooo"}
+#         elif 'hairfall' in user_input or 'hair' in user_input:
+#             response_data = {'response': "Struggling with hairfall? Explore our range of products specifically designed to target HairFall. <a href='/display_product/'>Browse now!</a>"}
+#         elif 'acne' in user_input:
+#             response_data = {'response': "Struggling with acne? Explore our range of products specifically designed to target acne-prone skin. <a href='/display_product/'>Browse now!</a>"}
+#         elif 'skincare for oily skin' in user_input:
+#             response_data = {'response': "For oily skin, we recommend starting with a gentle cleanser, followed by a toner to balance oil production. Consider using a lightweight, oil-free moisturizer and a mattifying sunscreen during the day."}
+#         elif 'doctor' in user_input or 'appointment' in user_input:
+#             # Redirect to appointment page
+#             return redirect('appointment')
+#         elif 'doctor' in user_input or 'appointment' in user_input:
+#             response_data = {'response': "Looking to book an appointment with a doctor? Click <a href='/appointment/'>here</a> to schedule your visit!"}
+#         elif 'return policy' in user_input:
+#             response_data = {'response': "We want you to be satisfied with your purchase! Our return policy allows for returns within 30 days of delivery."}
+#         elif 'offers' in user_input or 'discounts' in user_input:
+#             response_data = {'response': "Check out our latest offers and discounts on premium beauty products. Don't miss out on great deals!"}
+#         elif 'order' in user_input or 'delivery' in user_input:
+#             response_data = {'response': "For information about your order or delivery, please contact our customer support at support@simplyskin.com."}
+#         elif ' acnetreatment' in user_input or 'suggest acne treatment' in user_input:
+#             response_data = {'response': "The best treatment for acne is HydraFacial. It deeply cleanses, exfoliates, and hydrates the skin, reducing acne and improving overall skin health. You can learn more about HydraFacial and other services <a href='/service_list/'>here</a>."}
        
-        else:
-            response_data = {'response': "Sorry, I don't understand."}
+#         else:
+#             response_data = {'response': "Sorry, I don't understand."}
 
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'error': 'Invalid request method'})
+#         return JsonResponse(response_data)
+#     else:
+#         return JsonResponse({'error': 'Invalid request method'})
 
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
@@ -2688,3 +2688,87 @@ def chat_room(request):
         'chats_received': chats_received,
     }
     return render(request, 'chat_room.html', context)
+
+
+from django.shortcuts import render
+from .models import Order
+
+def available_orders(request):
+    # Query the database for all orders
+    all_orders = Order.objects.all()
+
+    # Pass all_orders data to the template
+    return render(request, 'availableorders.html', {'available_orders':all_orders})
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Order
+import random
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+
+
+@login_required(login_url='login')
+def delivery_update_status(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        delivery_status = request.POST.get('delivery_status')
+
+        if delivery_status == 'Delivered':
+            otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+            send_mail(
+                'Delivery Confirmation OTP',
+                f'Your OTP for order {order.id} is: {otp}',
+                settings.EMAIL_HOST_USER,
+                [order.user.email],
+                fail_silently=False,
+            )
+
+            # Store OTP and order ID in session for later verification
+            request.session['delivery_status_otp'] = otp
+            request.session['otp_order_id'] = str(order_id)
+
+            messages.info(request, 'OTP has been sent to the customer for delivery confirmation.')
+            return redirect('otp_verification', order_id=order_id)  # Redirect to OTP verification page with order_id
+
+        else:
+            order.delivery_status = delivery_status
+            order.save()
+            messages.success(request, 'Delivery status updated successfully.')
+            return redirect('available_orders')  # Redirect to the delivery boy dashboard
+
+    return render(request, "deliveryupdatestatus.html", {'order': order})
+
+@login_required(login_url='login')
+def otp_verification(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+
+    if request.method == 'POST':
+        submitted_otp = request.POST.get('otp')
+        session_order_id = request.session.get('otp_order_id')
+
+        if str(order_id) == session_order_id and submitted_otp == request.session.get('delivery_status_otp'):
+            # OTP is correct, update the delivery status
+            order.delivery_status = 'Delivered'
+            order.save()
+
+            # Clear OTP and order ID from session
+            del request.session['delivery_status_otp']
+            del request.session['otp_order_id']
+
+            # Redirect to a success page or the delivery details page
+            messages.success(request, 'Order marked as delivered successfully.')
+            return redirect('available_orders')
+        else:
+            # OTP is incorrect, render the OTP verification page with error message
+            messages.error(request, 'Incorrect OTP. Please try again.')
+            return render(request, 'otp_verification.html', {'order': order, 'error_message': 'Incorrect OTP. Please try again.'})
+
+    else:
+        return render(request, 'otp_verify.html', {'order':order})

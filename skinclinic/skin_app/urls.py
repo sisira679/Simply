@@ -154,10 +154,13 @@ urlpatterns = [
     path('products/', views.product_admin, name='product_admin'),
     path('admin_dashboard.html', views.admin_dashboard, name='admin_dashboard'),
     path('user_list.html',views.user_list,name='user_list.html'),
-    path('chatgpt/', views.chatgpt, name='chatgpt'),
-    path('generate-response/',views.generate_response, name='generate_response'),
+    # path('chatgpt/', views.chatgpt, name='chatgpt'),
+    # path('generate-response/',views.generate_response, name='generate_response'),
     path('register/delivery-boy/', views.register_delivery_boy, name='register_delivery_boy'),
    path('chat/', views.chat_room, name='chat_room'),
+   path('availableorders/', views.available_orders, name='available_orders'),
+   path('deliveryupdatestatus/<int:order_id>/', views.delivery_update_status, name='delivery_update_status'),
+    path('otp-verification/<int:order_id>/', views.otp_verification, name='otp_verification'),
 
 
 
