@@ -37,7 +37,7 @@ import uuid
 # from .forms import PrescriptionForm
 # from .models import  Prescription
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
