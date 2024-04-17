@@ -1,0 +1,403 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SIMPLY SKIN - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white;
+    }
+    /* Add this CSS in your stylesheets or <style> tag in the HTML file */
+      .profile-picture-round {
+          width: 50px; /* Set the desired width */
+          height: 50px; /* Set the desired height */
+          border-radius: 50%; /* Make the element round */
+          overflow: hidden; /* Hide any overflow content */
+      }
+      
+      .profile-picture-round img {
+          width: 100%; /* Make sure the image fills the round container */
+          height: 100%; /* Make sure the image fills the round container */
+          object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      
+  
+  </style>
+</head>
+
+<body>
+  
+  <!-- ======= Header ======= -->
+
+  
+ 
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% static '/index.html'%}">SIMPLY SKIN</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="{% static '/index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% static '/#hero'%}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#about'%}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#services'%}">Services</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+        <ul>
+          <li class="dropdown">
+              <a class="nav-link scrollto" href="#" id="usernameDropdown" name="profile_picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <strong> Welcome, {{ user.username }}</strong> <i class="bi bi-caret-down"></i>
+                  <div class="profile-picture-round">
+                    {% if user_profile.profile_picture %}
+                      <img src="{{ user_profile.profile_picture.url }}" alt="User Profile Picture">
+                    {% else %}
+                    <!-- Display a default profile picture or an empty image -->
+                      <img src="{% static '/assets/img/profile_default.png' %}" alt="Default Profile Picture">
+                    {% endif %}
+                  </div>
+                </a>
+              <ul class="dropdown-menu" aria-labelledby="usernameDropdown">
+                  <li><a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                  <li><a href="{% url 'profile' %}"><i class="bi bi-person"></i> Profile</a></li>
+                  <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
+              </ul>
+          </li>
+      </ul>
+      
+        {% else %}
+          <ul>
+          <li><a href="login.html"><button class="bn33">Sign In</button></a></li>
+      </ul>
+      <ul>
+        <li><a href="register.html"><button class="bn33">Register</button></a></li>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </ul>
+     {% endif %}
+    </nav><!-- .navbar -->
+    
+    </div>
+
+  </header>
+ <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="container text-center text-md-left" >
+      <h1>Your best skin  <span>investment </span></h1>
+      <h2>“Be good to your skin. You’ll wear it every day for the rest of your life.”</h2>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+<!-- ======= Services Section ======= -->
+<section id="services" class="services section-bg">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Services</h2>
+      <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="icon-box">
+          <i class="bi bi-briefcase"></i>
+          <h4><a href="#">Lorem Ipsum</a></h4>
+          <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4 mt-lg-0">
+        <div class="icon-box">
+          <i class="bi bi-card-checklist"></i>
+          <h4><a href="#">Dolor Sitema</a></h4>
+          <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-bar-chart"></i>
+          <h4><a href="#">Sed ut perspiciatis</a></h4>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-binoculars"></i>
+          <h4><a href="#">Nemo Enim</a></h4>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-brightness-high"></i>
+          <h4><a href="#">Magni Dolore</a></h4>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-calendar4-week"></i>
+          <h4><a href="#">Eiusmod Tempor</a></h4>
+          <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section><!-- End Services Section -->
+    
+    
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="{% static '/assets/img/unisex.png'%}" class="img-fluid" alt="">
+        
+          </div>
+         
+          
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+   
+    
+  
+             
+
+
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Team</h2>
+          <p>Sit sint consectetur velit quos quisquam cupiditate nemo qui</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="assets/img/team/team-1.jpg" alt="">
+              <h4>Walter White</h4>
+              <span>Chief Executive Officer</span>
+              <p>
+                Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut aut aut
+              </p>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="assets/img/team/team-2.jpg" alt="">
+              <h4>Sarah Jhinson</h4>
+              <span>Product Manager</span>
+              <p>
+                Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum temporibus
+              </p>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="assets/img/team/team-3.jpg" alt="">
+              <h4>William Anderson</h4>
+              <span>CTO</span>
+              <p>
+                Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
+              </p>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+   
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Lumia</h3>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Lumia</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/lumia-bootstrap-business-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+      <div class="social-links text-center text-md-right pt-3 pt-md-0">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    </div>
+  </form>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static '/assets/vendor/purecounter/purecounter_vanilla.js'%}"></script>
+  <script src="{% static '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/waypoints/noframework.waypoints.js'%}"></script>
+  <script src="{% static '/assets/vendor/php-email-form/validate.js'%}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Check for the stored theme in session or cookie
+    const storedTheme = sessionStorage.getItem('theme') || document.cookie.replace(/(?:(?:^|.*;\s*)theme\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
+    // Set the theme on load
+    document.documentElement.setAttribute('data-theme', storedTheme);
+
+    // Function to set the theme
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        sessionStorage.setItem('theme', theme);
+        document.cookie = `theme=${theme}`;
+        
+        // Send a request to the server to update the theme in the database (optional)
+        fetch(`/set_theme/${theme}/`);
+    }
+
+    // Set the selected option in the dropdown based on the stored theme
+    document.getElementById('theme-selector').value = storedTheme;
+</script>
+
+</body>
+
+</html>

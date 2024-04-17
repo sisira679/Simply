@@ -1,0 +1,342 @@
+{% comment %} 
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Book Service</title>
+     <!-- Include Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <!-- Include Bootstrap Datepicker CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+     <style>
+         /* Additional CSS styles for the datepicker */
+         .datepicker-dropdown {
+             z-index: 9999 !important; /* Ensure datepicker appears on top of other elements */
+         }
+ 
+         /* Custom CSS to display time slots inside a square shape */
+         .time-slot-square {
+             display: inline-block;
+             width: 80px; /* Increased width */
+             height: 80px; /* Increased height */
+             background-color: yellow; /* Yellow color */
+             border: 1px solid #ccc;
+             margin-right: 10px;
+             text-align: center;
+             line-height: 80px; /* Adjust line height for vertical centering */
+             cursor: pointer;
+         }
+ 
+         .time-slot-square input[type="radio"] {
+             display: none; /* Hide the actual radio button */
+         }
+ 
+         .time-slot-square input[type="radio"] + label {
+             cursor: pointer;
+         }
+ 
+         .time-slot-square input[type="radio"]:checked + label {
+             background-color: #5cb85c; /* Green color for selected time slot */
+             color: #fff;
+         }
+ 
+         .time-slot-square.disabled {
+             background-color: #e9e9e9; /* Dimmed background color for disabled time slots */
+             cursor: not-allowed;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="container">
+         <h1>Book Service: {{ service.name }}</h1>
+         <form method="post">
+             {% csrf_token %}
+             <div class="form-group">
+                 <label for="id_date">Date</label>
+                 <input type="date" class="form-control" name="date" id="id_date" min="{{ today }}" required>
+             </div>
+             <div class="form-group" id="timeSlotsContainer">
+                 <label>Time Slot</label><br>
+                 <!-- Time slots will be inserted here dynamically -->
+             </div>
+             <button type="submit" class="btn btn-primary">Book Now</button>
+         </form>
+     </div>
+     <!-- Include Bootstrap JS -->
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <!-- Include Bootstrap Datepicker JS -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+     <script>
+         document.addEventListener('DOMContentLoaded', function () {
+             const dateInput = document.getElementById('id_date');
+ 
+             dateInput.addEventListener('change', function () {
+                 const selectedDate = this.value;
+                 fetchTimeSlots(selectedDate);
+             });
+ 
+             function fetchTimeSlots(selectedDate) {
+                 const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+                 timeSlotsContainer.innerHTML = ''; // Clear existing time slots
+                 
+                 fetch(`/get-time-slots/?date=${selectedDate}&service_id={{ service.id }}`)
+                     .then(response => response.json())
+                     .then(data => {
+                         data.forEach((timeSlot, index) => {
+                             const timeSlotSquare = document.createElement('div');
+                             timeSlotSquare.classList.add('time-slot-square');
+                             
+                             // Check if the time slot is already booked
+                             if (timeSlot.booked) {
+                                 timeSlotSquare.classList.add('disabled');
+                             } else {
+                                 const radioInput = document.createElement('input');
+                                 radioInput.type = 'radio';
+                                 radioInput.name = 'time_slot';
+                                 radioInput.value = timeSlot.time_slot;
+                                 radioInput.id = 'time_slot_' + timeSlot.id + '_' + index; // Unique id based on time slot ID and index
+ 
+                                 const label = document.createElement('label');
+                                 label.htmlFor = 'time_slot_' + timeSlot.id + '_' + index; // Matching label for attribute with input id
+                                 label.textContent = timeSlot.time_slot;
+ 
+                                 timeSlotSquare.appendChild(radioInput);
+                                 timeSlotSquare.appendChild(label);
+ 
+                                 // Add event listener to highlight selected time slot
+                                 radioInput.addEventListener('change', function() {
+                                     const checkedRadio = document.querySelector('input[name="time_slot"]:checked');
+                                     if (checkedRadio) {
+                                         checkedRadio.parentElement.classList.add('selected');
+                                     }
+                                 });
+                             }
+ 
+                             timeSlotsContainer.appendChild(timeSlotSquare);
+                         });
+                     })
+                     .catch(error => console.error('Error fetching time slots:', error));
+             }
+ 
+             var today = new Date().toISOString().split('T')[0];
+             dateInput.setAttribute('min', today);
+         });
+     </script>
+ </body>
+ </html>  {% endcomment %}
+
+{% comment %} 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Book Service: {{ service.name }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_date">Date</label>
+                <input type="date" class="form-control" name="date" id="id_date" required>
+            </div>
+            <div class="form-group">
+                <label for="id_time_slot">Time Slot</label>
+                <select class="form-control" name="time_slot" id="id_time_slot" required>
+                    <option value="">Select a Time Slot</option>
+                    {% for time_slot in time_slots %}
+                        <option value="{{ time_slot.time_slot }}">{{ time_slot.time_slot }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Now</button>
+        </form>
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // This script can be used to dynamically update the available time slots based on the selected date
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('id_date');
+    const timeSlotSelect = document.getElementById('id_time_slot');
+
+    dateInput.addEventListener('change', function () {
+        // Fetch available time slots based on the selected date
+        const selectedDate = this.value;
+        fetchTimeSlots(selectedDate);
+    });
+
+    function fetchTimeSlots(selectedDate) {
+        // Make an AJAX request to fetch available time slots
+        // Replace '/get-time-slots/' with the appropriate URL in your Django app
+        fetch(`/get-time-slots/?date=${selectedDate}&service_id={{ service.id }}`)
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing options
+                timeSlotSelect.innerHTML = '<option value="">Select a Time Slot</option>';
+                // Populate the select element with fetched time slots
+                data.forEach(timeSlot => {
+                    const option = document.createElement('option');
+                    option.value = timeSlot.time_slot;
+                    option.textContent = timeSlot.time_slot;
+                    timeSlotSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching time slots:', error));
+    }
+});
+
+    </script>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS for yellow button */
+       
+        /* Custom CSS for form */
+        .container1 {
+            background-color: #fff; /* White background for container */
+            border-radius: 10px; /* Rounded corners for container */
+            padding: 10px; /* Reduce padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a shadow */
+            margin-top: 20px; /* Reduce space from the top */
+            width: 50%; /* Specify width */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+        h1 {
+            color: #007bff; /* Blue heading color */
+            text-align: center; /* Center-align heading */
+        }
+        .btn-yellow {
+            background-color: yellow;
+            color: black; /* Ensuring text color is visible on yellow background */
+            border: none; /* Remove border */
+            margin-right: 5px; /* Add some spacing between buttons */
+            margin-bottom: 5px; /* Add some spacing between buttons */
+        }
+        .btn-yellow:hover {
+            background-color: #ffd700; /* Lighten the background color on hover */
+        }
+        .btn-yellow:disabled {
+            background-color: #ffc107; /* Change background color for disabled state */
+            cursor: not-allowed; /* Change cursor style for disabled state */
+        }
+        input[type="date"] {
+            width: 100%; /* Make date input full width */
+            padding: 10px; /* Add some padding */
+            margin-bottom: 10px; /* Add some spacing between date input and buttons */
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+    </style>
+    {% include 'home.html'%}
+    <br><br><br>
+</head>
+<body>
+    <div class="container1">
+        <h1>Book Service: {{ service.name }}</h1>
+        <form method="post" id="bookingForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_date">Date</label>
+                <input type="date" class="form-control" name="date" id="id_date" required>
+            </div>
+            <div class="form-group" id="timeSlotContainer">
+                <!-- Time slot buttons will be dynamically added here -->
+            </div>
+            <!-- Hidden input field to store the selected time slot -->
+            <input type="hidden" name="time_slot" id="id_time_slot">
+        </form>
+        
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // This script can be used to dynamically update the available time slots based on the selected date
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('id_date');
+    const timeSlotContainer = document.getElementById('timeSlotContainer');
+    const bookingForm = document.getElementById('bookingForm');
+
+    dateInput.addEventListener('change', function () {
+        // Fetch available time slots based on the selected date
+        const selectedDate = this.value;
+        fetchTimeSlots(selectedDate);
+    });
+
+    function fetchTimeSlots(selectedDate) {
+        // Make an AJAX request to fetch available time slots
+        // Replace '/get-time-slots/' with the appropriate URL in your Django app
+        fetch(`/get-time-slots/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: `date=${selectedDate}&service_id={{ service.id }}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing time slot buttons
+                timeSlotContainer.innerHTML = '';
+                // Populate the container with fetched time slot buttons
+                data.forEach(timeSlot => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.classList.add('btn', 'btn-secondary', 'mr-2', 'mb-2');
+                    button.textContent = timeSlot.time_slot;
+
+                    // Check if the time slot is already booked
+                    if (timeSlot.is_booked) {
+                        button.classList.add('disabled'); // Disable the button
+                    } else {
+                        // Enable the button and add click event listener
+                        button.addEventListener('click', function () {
+                            // Set the selected time slot value to the hidden input field
+                            document.getElementById('id_time_slot').value = timeSlot.time_slot;
+                            // Submit the form
+                            bookingForm.submit();
+                        });
+                    }
+                    timeSlotContainer.appendChild(button);
+                });
+            })
+            .catch(error => console.error('Error fetching time slots:', error));
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var dateInput = document.getElementById('id_date');
+
+    // Get today's date
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    // Set min attribute to today's date
+    dateInput.setAttribute('min', today);
+});
+    </script>
+</body>
+</html>

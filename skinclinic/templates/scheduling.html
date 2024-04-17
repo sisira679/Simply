@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Set the height of the body to the viewport height */
+            margin: 0; /* Remove default margin */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        
+       
+        
+
+        table {
+            margin-top: 30px; /* Add some space at the top of the table */
+        }
+      
+
+        .messages {
+            color: red;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200vh; /* Adjust the height as needed */
+            margin-top: 350px; /* Adjust the top margin to move the container down */
+        }
+        
+        .form-container {
+            width: 400px; /* Adjust the width of the form container as needed */
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        /* Style the form elements */
+        label {
+            display: block; /* Display labels in a block to create vertical spacing */
+            margin-bottom: 8px; /* Add margin below labels for spacing */
+        }
+        
+        select, input {
+            margin-bottom: 16px; /* Add margin below form elements for spacing */
+        }
+        
+        button {
+            background-color:#009efb; /* Green background color */
+            color: white; /* White text color */
+            padding: 10px 15px; /* Add padding to the button */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Add rounded corners to the button */
+            cursor: pointer; /* Add a pointer cursor on hover */
+        }
+        
+        button:hover {
+            background-color: #45a049; /* Darker green color on hover */
+        }
+        .schedules-table {
+            width: 60%; /* Adjust the width as needed */
+            margin: 20px auto; /* Center the table and adjust the top margin as needed */
+            padding: 10px; /* Add padding for spacing */
+        }
+        
+        .schedules-table h2 {
+            font-size: 18px; /* Adjust the font size as needed */
+            margin-bottom: 10px; /* Adjust the margin as needed */
+        }
+        
+        .schedules-table table {
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+        
+        .schedules-table th, .schedules-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .schedules-table th {
+            background-color: #f2f2f2; /* Adjust the background color as needed */
+        }
+        
+
+    </style>
+    {% include 'doctor.html'%}
+</head>
+
+
+    
+<body>
+    
+   
+
+<br><br>
+<div class="container">
+    <br><br>
+    <div class="form-container">
+        
+        <h1>Doctor Schedule</h1>
+    <form method="post" action="{% url 'scheduling' %}">
+        {% csrf_token %}
+        
+        {% comment %} <label for="date">Date:</label>
+        <input type="date" name="date" required> {% endcomment %}
+
+        <label for="date">Date:</label>
+        <input type="date" id="id_date" name="date" id ="date" value="yyyy-mm-dd" onfocus="if (this.value === 'yyyy-mm-dd') this.value = '';" onblur="if (this.value === '') this.value = 'yyyy-mm-dd';">
+
+
+
+        
+        <br>
+        
+        <label for="time_slot">Time slot:</label>
+<select name="time_slot" id="time_slot" required>
+    <option id="option_1" value="08:00 AM - 08:30 AM">08:00 AM - 08:30 AM</option>
+    <option id="option_2" value="09:00 AM - 09:30 AM">09:00 AM - 09:30 AM</option>
+    <option id="option_3" value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM</option>
+    <option id="option_4" value="11:00 AM - 11:30 AM">11:00 AM - 11:30 AM</option>
+    <option id="option_5" value="12:00 PM - 12:30 PM">12:00 AM - 12:30 AM</option>
+    <option id="option_6" value="3:00 PM - 3:30 PM">3:00 PM - 3:30 PM</option>
+    <option id="option_7" value="4:00 PM - 4:30 PM">4:00 PM - 4:30 PM</option>
+    <option id="option_8" value="5:00 PM - 5:30 PM">5:00 PM - 5:30 PM</option>
+    <option id="option_9" value="6:00 PM - 6:30 PM">6:00 PM - 6:30 PM</option>
+    <option id="option_10" value="7:00 PM - 7:30 PM">7:00 PM - 7:30 PM</option>
+</select>
+
+
+
+
+            <!-- Add more options as needed -->
+        </select>
+        <br>
+        <button type="submit" id="add_schedule">Add Schedule</button>
+    </form>
+   </div>
+
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    {% endif %}
+</ul>
+<!-- Display existing schedules in a table -->
+<!-- Display existing schedules in a table -->
+<div class="schedules-table">
+<h2>Existing Schedules</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for schedule in doctor_schedules %}
+            <tr>
+                <td>{{ schedule.date|date }}</td>
+                <td>{{ schedule.time_slot }}</td>
+                <td>
+                    <form method="post" action="{% url 'delete_schedule' schedule.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#id_date", {
+            enableTime: false, // Set to true if you want to enable time selection
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            // Add more options as needed
+        });
+    }); 
+</script>
+</body>
+</html>

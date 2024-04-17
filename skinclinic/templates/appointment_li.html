@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin-top:-200px;
+           
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top:-30px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+{% include 'admin.html'%}
+<body>
+
+   
+    <table>
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Doctor Name</th>
+                <th>Time Slot</th>
+                <th>Date</th>
+                <th>User Name</th>
+                <th>Payment Method</th>
+                <!-- Add other columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.id }}</td>
+                    <td>{{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+                    <td>{{ appointment.time_slot }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.user.first_name }} {{ appointment.user.last_name }}</td>
+                    
+                    {% for payment in payments %}
+                        {% if payment.appointment.id == appointment.id %}
+                            <td>{{ payment.method }}</td>
+                            <!-- Add other payment-related columns as needed -->
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

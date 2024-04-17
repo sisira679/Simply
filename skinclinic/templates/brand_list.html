@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue mixed */
+            margin: 0;
+            padding: 0;
+        }
+        .container4 {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .brand {
+            width: calc(33.33% - 20px); /* Adjusted width to fit three in a row */
+            float: left;
+            margin: 10px;
+            background-color: #ffffff; /* White */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .brand img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center; /* Center align the heading */
+            padding-bottom: 10px; /* Add some space below the heading */
+            background: linear-gradient(to right, #0077cc, #004c99); /* Gradient effect with multiple blue shades */
+            -webkit-background-clip: text; /* Apply gradient to text */
+            -webkit-text-fill-color: transparent; /* Hide original text color */
+        }
+        p {
+            margin: 5px 0;
+        }
+        .add-button {
+            background-color: #002366; /* Dark blue */
+            color: #ffffff; /* White */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block; /* Make the button a block element */
+            margin: 20px auto; /* Center align the button */
+            text-align: center; /* Center align the button text */
+        }
+        .add-button:hover {
+            background-color: #004080; /* Dark blue - darker shade */
+        }
+        
+    </style>
+</head>
+{% include 'admin.html'%}
+<body>
+    <br><br>
+    <div class="container4">
+        <h2>Brands</h2> <!-- Heading for the list of brands -->
+        <button class="add-button" onclick="window.location.href='/add_brand.html'">Add Brand</button> <!-- Styled add brand button -->
+        {% for brand in brands %}
+        <div class="brand">
+            <img src="{{ brand.brand_logo.url }}" alt="{{ brand.brand_name }}">
+            <h2>{{ brand.brand_name }}</h2>
+            <p><strong>Agent Name:</strong> {{ brand.agent_name }}</p>
+            <p><strong> Email:</strong> {{ brand.agent_email }}</p>
+            <p><strong> Phone:</strong> {{ brand.agent_phone }}</p>
+            <!-- Add more details as needed -->
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

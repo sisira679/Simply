@@ -1,0 +1,21 @@
+<!-- confirmation_email.html -->
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Appointment Confirmation</h1>
+    <p>Selected Time Slot: {{ selected_slot }}</p>
+    <p>Doctor Name: {{ doctor_name }}</p>
+
+    <form method="post" action="{% url 'confirm_booking' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="selected_slot" value="{{ selected_slot }}">
+        <input type="hidden" name="doctor_name" value="{{ doctor_name }}">
+        <input type="hidden" name="email" value="{{ email }}"> <!-- Add email as a hidden field -->
+
+        <p>Are you sure you want to confirm this appointment?</p>
+
+        <button type="submit">Confirm</button>
+    </form>
+</body>
+</html>

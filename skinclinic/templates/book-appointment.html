@@ -1,0 +1,18 @@
+<!-- book_appointment.html -->
+<h2>Book Appointment</h2>
+<form method="post" action="{% url 'book_appointment' doctor_id=doctor.id %}">
+  {% csrf_token %}
+  <label for="selected_date">Select Date:</label>
+  <input type="date" name="selected_date" required>
+  <br>
+  <label for="selected_time">Select Time:</label>
+  <select name="selected_time" required>
+    {% for time, availability in appointment.time_slots.items %}
+      {% if availability %}
+        <option value="{{ time }}">{{ time }}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+  <br>
+  <button type="submit">Book Appointment</button>
+</form>

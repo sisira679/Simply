@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SIMPLY SKIN - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #c55340, #a14131); /* Adjusted gradient colors */
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white; /* Text color set to white */
+  }
+  
+  
+    /* Add this CSS in your stylesheets or <style> tag in the HTML file */
+      .profile-picture-round {
+          width: 50px; /* Set the desired width */
+          height: 50px; /* Set the desired height */
+          border-radius: 50%; /* Make the element round */
+          overflow: hidden; /* Hide any overflow content */
+      }
+      
+      .profile-picture-round img {
+          width: 100%; /* Make sure the image fills the round container */
+          height: 100%; /* Make sure the image fills the round container */
+          object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      .button-32 {
+        background-color: #fff000;
+        border-radius: 12px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: center;
+        transition: 200ms;
+        width: 100%;
+        box-sizing: border-box;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      
+      .button-32:not(:disabled):hover,
+      .button-32:not(:disabled):focus {
+        outline: 0;
+        background: #f4e603;
+        box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+      }
+      
+      .button-32:disabled {
+        filter: saturate(0.2) opacity(0.5);
+        -webkit-filter: saturate(0.2) opacity(0.5);
+        cursor: not-allowed;
+      }
+      .custom-dropdown-toggle {
+        cursor: pointer;
+    }
+
+    .custom-dropdown-toggle::after {
+        display: none; /* Hide the default arrow */
+    }
+    /* Add this CSS to your stylesheet */
+    /* styles.css */
+
+    #header {
+      background-color: #d7887b;
+    }
+    
+    #header a {
+      color: white;
+      font-weight: bold;
+      font-size: 15px; /* Adjust the font size as needed */
+    }
+    
+    
+  </style>
+</head>
+
+<body>
+  
+  <!-- ======= Header ======= -->
+ 
+  
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% static '/index.html'%}" style="font-size: 24px;">SIMPLY SKIN</a></h1>
+
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="{% static '/index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% url 'userdashboard' %}">Home</a></li>
+          {% comment %} <li><a class="nav-link scrollto" href="{% static '/#about'%}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#services'%}">Services</a></li> {% endcomment %}
+          {% if appointment %}
+          <li><a class="nav-link scrollto" href="{% url 'view_appointment_details' appointment.id %}">View Details</a></li>
+      {% else %}
+          <!-- Handle the case where appointment is not available -->
+      {% endif %}
+          <li><a class="nav-link scrollto" href="{% url 'display_product' %}">Product</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'service_list' %}">Service</a></li>
+
+        </ul>
+        {% if user.is_authenticated %}
+        
+        <ul>
+          <li>
+              <a href="{% url 'appointment' %}">
+                  &nbsp;<button class="button-32" id="button-32" role="button">Make Appointment</button>
+              </a>
+          </li>
+      </ul>
+      <ul>
+        <li>
+        
+            
+          <a href="{% url 'chatgpt' %}">
+            <img src="{% static 'assets/img/bot.gif' %}" alt="Bot Icon" style="width: 60px; height: auto; vertical-align: middle;">
+        </a>
+           
+          
+            
+          </li>
+        <ul>
+          <li class="dropdown">
+              <a class="nav-link scrollto" href="#" id="usernameDropdown" name="profile_picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <strong> Welcome, {{ user.first_name }} {{ user.last_name }}</strong> <i class="bi bi-caret-down"></i>
+                  <div class="profile-picture-round">
+                    {% if user_profile.profile_picture %}
+                      <img src="{{ user_profile.profile_picture.url }}" alt="User Profile Picture">
+                    {% else %}
+                    <!-- Display a default profile picture or an empty image -->
+                      <img src="{% static '/assets/img/profile_default.png' %}" alt="Default Profile Picture">
+                    {% endif %}
+                  </div>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="usernameDropdown">
+                  <li><a href="{% url 'logout' %}" style="color: black;"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                  <li><a href="{% url 'profile' %}" style="color: black;"><i class="bi bi-person"></i> Profile</a></li>
+                  <li><a href="{% url 'order_summary' %}" style="color: black;"><i class="bi bi-person"></i> Order Summary</a></li>
+              </ul>
+              
+      
+        {% else %}
+          <ul>
+          <li><a href="login.html"><button class="bn33">Sign In</button></a></li>
+      </ul>
+      <ul>
+        <li><a href="register.html"><button class="bn33">Register</button></a></li>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </ul>
+     {% endif %}
+    </nav><!-- .navbar -->
+    
+  </div>
+    </div>
+
+  </header>

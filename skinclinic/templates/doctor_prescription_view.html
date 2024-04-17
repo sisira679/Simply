@@ -1,0 +1,22 @@
+<!-- doctor_prescription_view.html -->
+<html>
+    <body>
+    <div class="page-content">
+        <h2>Prescription for {{ appointment.user.first_name }}</h2>
+
+        {% if prescription %}
+        <h2>Prescription for {{ prescription.appointment.user.first_name }}</h2>
+        <p>Medicine Name: {{ prescription.medicine_name }}</p>
+        <p>Dosage: {{ prescription.dosage }}</p>
+        <p>Duration: {{ prescription.duration }}</p>
+        <p>Advice Given: {{ prescription.advice_given }}</p>
+        <p>Follow Up: {{ prescription.follow_up }}</p>
+        <p>Appointment Time: {{ prescription.appointment.time_slot }}</p>
+        <p>Appointment Date: {{ prescription.appointment.date }}</p>
+            <!-- Add other prescription details here -->
+        {% else %}
+            <p>No prescription available for this appointment.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

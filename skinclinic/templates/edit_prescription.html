@@ -1,0 +1,46 @@
+<!-- edit_prescription.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Prescription</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initially hide the "Save" button
+            $("#saveButton").hide();
+
+            // Function to toggle between "Edit" and "Save" buttons
+            $("#editButton").click(function () {
+                $("#editButton").hide();
+                $("#saveButton").show();
+
+                // Enable form fields for editing
+                $("form :input").prop("disabled", false);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Edit Prescription</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        
+        <!-- Main Prescription Form -->
+        {{ form.as_p }}
+
+        <!-- Medicine Formset -->
+        <div id="medicineFieldsContainer">
+            {% for form in formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </div>
+
+        <!-- Edit and Save buttons -->
+        <button type="button" id="editButton">Edit</button>
+        <button type="submit" id="saveButton">Save</button>
+    </form>
+</body>
+</html>

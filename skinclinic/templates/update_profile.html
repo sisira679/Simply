@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .moving-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            position: relative;
+            animation: colorChange 2s infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes colorChange {
+            0% { color: #007bff; }
+            25% { color: #00ff00; }
+            50% { color: #ff0000; }
+            75% { color: #ffff00; }
+            100% { color: #007bff; }
+        }
+
+        .dash-widget {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dash-widget-bg2 {
+            color: #007bff;
+        }
+
+        .dash-widget-info {
+            margin-top: 20px;
+        }
+
+        .widget-title2 {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background: linear-gradient(to right, #0056b3, #00aa00); /* Two colors for the gradient */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #00ff00, #ff0000 ); /* Two colors for the hover gradient */
+        }
+       
+        
+        
+
+        
+       
+    </style>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-6">
+            <div class="dash-widget">
+                <span class="dash-widget-bg2"><i class="fa fa-user-o"></i></span>
+                <div class="dash-widget-info text-right">
+                    <div class="moving-text">Welcome, Dr. {{ user.first_name }} {{ user.last_name }}!</div>
+                    <span class="widget-title2" style="font-size: 18px; color: #555; margin-bottom: 20px;">To get started, please update your profile. After Update Login Once Again</span>
+                    <div class="btn-container">
+                        <a href="{% url 'doctorprofile' %}" class="btn btn-primary">Update Profile</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    
+
+    <img src="{% static 'assets/img/firstgif.gif' %}" alt="Moving Gif" style="display: block; margin: 0 auto;">
+</div>
+</div>
+    <script>
+        // You can add additional JavaScript for more dynamic effects here
+    </script>
+
+</body>
+
+</html>

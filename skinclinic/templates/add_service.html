@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service</title>
+    <style>
+      /* General styles */
+      /* General styles */
+      .container5 {
+          max-width: 700px;
+          margin: 20px auto; /* Adjusted margin for better spacing */
+          padding: 20px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          background-color: white; /* Changed background color to white */
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      h1 {
+          text-align: center;
+          color: #333;
+          text-transform: uppercase;
+          font-size: 24px;
+          margin-top: 0; /* Removed default margin for h1 */
+      }
+      
+      /* Form styles */
+      form {
+          margin-top: 20px;
+      }
+      
+      form label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+          color: #555;
+      }
+      
+      form input[type="text"],
+      form textarea {
+          width: calc(100% - 16px); /* Consider padding when calculating width */
+          padding: 10px;
+          margin-bottom: 20px;
+          border: 1px solid #009ce7; /* Changed border color */
+          border-radius: 5px;
+          box-sizing: border-box;
+          transition: border-color 0.3s ease;
+      }
+      
+      form input[type="text"]:focus,
+      form textarea:focus {
+          border-color: #007bff; /* Changed focus border color */
+      }
+      
+      form button {
+          width: 100%;
+          padding: 12px 0;
+          background-color: #009ce7; /* Changed button background color */
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+      
+      form button:hover {
+          background-color: #0056b3; /* Changed button hover color */
+      }
+      
+    </style>
+</head>
+{% include 'admin.html'%}
+<br><br><br>
+<body>
+    <div class="container5">
+        <h1>Add Service</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var nameField = document.getElementById("id_name");
+    
+                nameField.addEventListener("input", function() {
+                    var name = nameField.value;
+                    var regex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    
+                    if (!regex.test(name)) {
+                        nameField.setCustomValidity("Name should contain only alphabets with spaces between words");
+                    } else {
+                        nameField.setCustomValidity("");
+                    }
+                });
+            
+    
+    });
+    
+    
+        </script>
+    </div>
+</body>
+</html>

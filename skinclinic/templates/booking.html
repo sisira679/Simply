@@ -1,0 +1,354 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SIMPLY SKIN - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white;
+    }
+    /* Add this CSS in your stylesheets or <style> tag in the HTML file */
+      .profile-picture-round {
+          width: 50px; /* Set the desired width */
+          height: 50px; /* Set the desired height */
+          border-radius: 50%; /* Make the element round */
+          overflow: hidden; /* Hide any overflow content */
+      }
+      
+      .profile-picture-round img {
+          width: 100%; /* Make sure the image fills the round container */
+          height: 100%; /* Make sure the image fills the round container */
+          object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      .button-32 {
+        background-color: #fff000;
+        border-radius: 12px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: center;
+        transition: 200ms;
+        width: 100%;
+        box-sizing: border-box;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      
+      .button-32:not(:disabled):hover,
+      .button-32:not(:disabled):focus {
+        outline: 0;
+        background: #f4e603;
+        box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+      }
+      
+      .button-32:disabled {
+        filter: saturate(0.2) opacity(0.5);
+        -webkit-filter: saturate(0.2) opacity(0.5);
+        cursor: not-allowed;
+      }
+      /* Container styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4; /* Background color for the entire page */
+      }
+  
+      #container {
+        background-color: #fff; /* Background color for the container */
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 60px; /*
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+  
+      /* Container styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4; /* Background color for the entire page */
+    }
+
+    #container {
+      width: 80%; /* Set the desired width for the container */
+      margin: 20px auto; /* Center the container */
+      background-color: #fff; /* Background color for the container */
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading styles */
+    h2 {
+      color: #4285f4; /* Set your desired color for the heading */
+      text-align: center;
+    }
+
+    /* Form styles */
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="date"],
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+  
+    #submit-button {
+      background: linear-gradient(to right, #3498db, #2ecc71); /* Blue to Green gradient */
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #submit-button:hover {
+      background: linear-gradient(to right, #2ecc71, #3498db); /* Green to Blue gradient on hover */
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+  
+      /* Time slots container styles */
+      h3 {
+        color: #333;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+  
+      button {
+        background-color: #28a745;
+        color: #fff;
+        padding: 8px 16px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+  
+      button:hover {
+        background-color: #218838;
+      }
+      .profile-picture-round {
+        width: 200px; /* Set the desired width for the profile picture */
+        height: 200px; /* Set the desired height for the profile picture */
+        border-radius: 50%; /* Make the element round */
+        overflow: hidden; /* Hide any overflow content */
+      }
+  
+      .profile-picture-round img {
+        width: 50%; /* Make sure the image fills the round container */
+        height: 50%; /* Make sure the image fills the round container */
+        object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      button.booked {
+        background-color: #ccc; /* Use a dim color for booked slots */
+        cursor: not-allowed;   /* Optionally, change cursor for booked slots */
+      }
+  </style>
+</head>
+
+<body>
+  
+ 
+ <!-- End Header -->
+    {% include 'home.html' %}
+    
+
+<body>
+  <div id="container">
+    <h2>Book Appointment with Dr {{ doctor.first_name }} {{ doctor.last_name }}</h2>
+    <form id="appointment-form" method="post" action="">
+      {% csrf_token %}
+
+      <label for="id_date">Select Date:</label>
+      <input type="date" id="id_date" name="date" id ="date" value="yyyy-mm-dd" onfocus="if (this.value === 'yyyy-mm-dd') this.value = '';" onblur="if (this.value === '') this.value = 'yyyy-mm-dd';">
+
+
+      <!-- The visible input field to display the selected time slot -->
+      <input type="hidden" id="id_selected_time_slot" name="time_slot" readonly>
+ 
+      <h3>Available Time Slots:</h3>
+      <ul id="available-time-slots">
+        <!-- Doctor slots for the selected date will be dynamically added here as buttons -->
+      </ul>
+
+      <!-- Add a placeholder message -->
+<p id="select-date-placeholder" style="color: red;">Please select a date to view available time slots.</p>
+
+
+      {{ form.reason.label_tag }} {{ form.reason }}
+
+     <br><br>
+      <!-- Use a regular button outside the form to trigger the submission -->
+      <button type="button" id="submit-button">Book Appointment</button>
+    </form>
+  </div>
+
+  <!-- GIF image related to doctor-patient interaction -->
+  {% comment %} <img src="your_doctor_patient.gif" alt="Doctor-Patient Interaction" style="max-width: 100%; margin-top: 20px;"> {% endcomment %}
+
+  <script>
+  
+    
+    document.getElementById('id_date').addEventListener('change', function () {
+      var selectedDate = this.value;
+      var timeSlotsContainer = document.getElementById('available-time-slots');
+      var selectedTimeSlotInput = document.getElementById('id_selected_time_slot');
+      var selectDatePlaceholder = document.getElementById('select-date-placeholder');
+  
+      // Clear existing time slots
+      timeSlotsContainer.innerHTML = '';
+  
+      // Check if a date is selected
+      if (selectedDate) {
+        // Fetch available and booked time slots for the selected date using AJAX
+        fetch('/get_time_slots/' + selectedDate + '/?doctor_id={{ doctor.id }}')
+          .then(response => response.json())
+          .then(data => {
+            // Check if there are available time slots
+            if (data.available.length > 0) {
+              // Hide the placeholder and show the available time slots
+              selectDatePlaceholder.style.display = 'none';
+              timeSlotsContainer.style.display = 'block';
+  
+              data.available.forEach(function (timeSlot) {
+                var button = document.createElement('button');
+                button.textContent = timeSlot;
+  
+                // Check if the time slot is already booked
+                if (data.booked.includes(timeSlot)) {
+                  button.classList.add('booked');  // Apply a CSS class for booked slots
+                  button.addEventListener('click', function () {
+                    alert('This time slot is already booked. Please choose another time slot.');
+                  });
+                } else {
+                  button.addEventListener('click', function () {
+                    // Set the selected time slot to the visible input field
+                    selectedTimeSlotInput.value = timeSlot;
+                  });
+                }
+  
+                timeSlotsContainer.appendChild(button);
+              });
+            } else {
+              // Display a message if no available time slots
+              selectDatePlaceholder.style.display = 'block';
+              timeSlotsContainer.style.display = 'none';
+            }
+          })
+          .catch(error => console.error('Error fetching time slots:', error));
+      } else {
+        // Show the placeholder and hide the available time slots if no date is selected
+        selectDatePlaceholder.style.display = 'block';
+        timeSlotsContainer.style.display = 'none';
+      }
+    });
+    // Use a regular button click event to trigger a custom function
+    document.getElementById('submit-button').addEventListener('click', function(event) {
+      // Prevent the default form submission behavior
+      event.preventDefault();
+
+      // Check if a time slot has been selected
+      var selectedTimeSlot = document.getElementById('id_selected_time_slot').value;
+      if (selectedTimeSlot) {
+        // Add your additional logic here if needed
+
+        // Trigger the form submission function
+        submitForm();
+      } else {
+        // Display an error message or handle the case where a time slot is not selected
+        alert('Please select a time slot before booking.');
+      }
+    });
+
+    // Custom function to handle form submission
+    function submitForm() {
+      // Submit the form using JavaScript
+      document.getElementById('appointment-form').submit();
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      flatpickr("#id_date", {
+          dateFormat: "Y-m-d",
+          minDate: "today",
+      });
+  });
+  </script>
+</body>
+</html>

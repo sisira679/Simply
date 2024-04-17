@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f0f0f0; /* Set a light background color for the entire page */
+  }
+  
+  h2 {
+      color: #333; /* Set the text color for the heading */
+  }
+  
+  form {
+      max-width: 400px; /* Set a maximum width for the form */
+      margin: 20px auto; /* Center the form horizontally */
+      background-color: #e6f7ff; /* Set a light blue background color for the form */
+      padding: 20px;
+      border-radius: 8px; /* Add rounded corners to the form */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  }
+  
+  label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333; /* Set the text color for labels */
+  }
+  
+  input,
+  textarea,
+  select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+  }
+  
+  button {
+      background-color: #ff9933; /* Set an orange background color for the button */
+      color: #fff; /* Set the text color for the button */
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+  }
+  
+  button:hover {
+      background-color: #e68a00; /* Darken the button color on hover */
+  }
+
+  
+</style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png' %}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                  {% if doctor_profile.profile_picture %}
+                                   <img class="rounded-circle" src="{{doctor_profile.profile_picture.url }}" width="24" alt="Doctor Profile Picture">
+                                  {% else %}
+                                   <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                  {% endif %}
+                                  <span class="status online"></span>
+                            </span>
+                            {% if user.is_authenticated %}
+                            <span>Welcome,Dr.{{ user.username }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'doctorprofile' %}">Edit Profile</a>
+                            <a class="dropdown-item" href="{% url 'changepassword' %}">change password</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="doctordashboard.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="{% url 'today_appointments' %}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_dashboard.html"><i class="fa fa-hospital-o"></i> <span>All Patients</span></a>
+                        </li>
+                        <li>
+                            <a href="scheduling.html"><i class="fa fa-calendar-check-o"></i> <span>Scheduling</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="apply_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave status</span></a>
+                        </li>
+						
+					
+						
+                          
+                      
+                       
+						
+                       
+                      
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="page-wrapper">
+          <div class="headers" style="text-align: center;">
+            <h2 style="font-family: 'Arial', sans-serif; color: #ff9933; font-weight: bold; text-shadow: 2px 2px 2px #e68a00;">
+                A<span style="color: #e68a00;">p</span>p<span style="color: #ff9933;">l</span>y for Lea<span style="color: #ff9933;">v</span>e
+            </h2>
+        </div>
+          <form method="post" action="{% url 'apply_leave' %}">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit">Submit Leave Request</button>
+          </form>
+
+</div>
+                {% else %}	
+                {% endif %}
+											
+
+                    
+    <script>
+        // Disable the back button to prevent navigating back to the previous page
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/Chart.bundle.js'%}"></script>
+    <script src="{% static 'assets1/js/chart.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+
+</body>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

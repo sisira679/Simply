@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        /* Style for container */
+        .order-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Style for order ID */
+        .order-id {
+            font-weight: bold;
+            color: blue;
+        }
+
+        /* Style for username */
+        .username {
+            font-weight: bold;
+            color: green;
+        }
+
+        /* Style for total amount */
+        .total-amount {
+            font-weight: bold;
+            color: red;
+        }
+
+        /* Style for payment ID */
+        .payment-id {
+            font-weight: bold;
+            color: orange;
+        }
+
+        /* Style for payment status */
+        .payment-status {
+            font-weight: bold;
+            color: purple;
+        }
+
+        /* Style for created at */
+        .created-at {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Style for horizontal rule */
+        hr {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        /* Style for product image */
+        .product-image {
+            max-width: 100px; /* Adjust the maximum width of the image */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Ensure proper spacing */
+            margin-bottom: 10px; /* Add some space below the image */
+        }
+    </style>
+</head>
+{% include 'home.html'%}
+<body>
+    <br><br><br>
+    <h1 style="text-align: center; font-weight: bold;">Order Summary</h1>
+    <ul>
+        {% for order in orders %}
+            <div class="order-container">
+                <li>
+                    {% if order.product.image_url %}
+                        <img src="{{ order.product.image_url }}" alt="Product Image" class="product-image">
+                    {% endif %}
+                    <strong class="order-id">Order ID:</strong> {{ order.id }}<br>
+                    <strong class="username">User:</strong> {{ order.user.username }}<br>
+                    <strong class="total-amount">Total Amount:</strong> {{ order.total_amount }}<br>
+                    <strong class="payment-id">Payment ID:</strong> {{ order.payment_id }}<br>
+                    <strong class="payment-status">Payment Status:</strong>  {{ order.payment_status }}</p>
+                    <br>
+                    <strong class="created-at">Created At:</strong> {{ order.created_at }}<br>
+                    <hr>
+                </li>
+            </div>
+        {% empty %}
+            <li>No orders found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

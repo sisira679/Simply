@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .container {
+      margin: 0 auto;
+      max-width: 800px; /* Adjust as needed */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #f9f9f9; /* Light color for table body */
+    margin: 0 auto; /* Centers the table horizontally */
+}
+
+  th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+  
+  /* Style for Date */
+  .date-th {
+      background-color: #bbdefb; /* Light blue */
+      color: white; /* Text color for th */
+  }
+  
+  /* Style for Time Slot */
+  .time-th {
+      background-color: #81c784; /* Light green */
+      color: white; /* Text color for th */
+  }
+  
+  /* Style for Patient Name */
+  .name-th {
+      background-color: #ffcc80; /* Light orange */
+      color: white; /* Text color for th */
+  }
+  
+  /* Style for Email */
+  .email-th {
+      background-color: #f48fb1; /* Light pink */
+      color: white; /* Text color for th */
+  }
+  
+  /* Style for Reason */
+  .reason-th {
+      background-color: #90a4ae; /* Light gray */
+      color: white; /* Text color for th */
+  }
+  
+  /* Style for Prescription */
+  .prescription-th {
+      background-color: #bcaaa4; /* Light brown */
+      color: white; /* Text color for th */
+  }
+  
+  /* Style for today's appointments */
+  .today {
+      background-color: #c8e6c9; /* Light green */
+  }
+  
+  /* Style for tomorrow's appointments */
+  .tomorrow {
+      background-color: #bbdefb; /* Light blue */
+  }
+  
+  /* Style for the prescription button */
+  .prescription-button {
+      display: inline-block;
+      padding: 10px;
+      background-color: #4CAF50; /* Green */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+  
+  .prescription-button.added {
+      background-color: #f44336; /* Red */
+  }
+  
+  h2 {
+      color: #333;
+      text-align: center;
+  }
+  
+  
+  .appointments {
+      margin: 20px;
+  }
+  
+  .appointment-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+  }
+  
+  </style>
+  
+</head>
+{% include 'doctor.html'%}
+<body>
+    
+  
+  <title>Today's Appointments</title>
+</head>
+<br><br><br>
+<body>
+  <div class="banner">
+    <h1 style="text-align: center;">Today Appointment</h1>
+</div>
+
+
+
+    {% if today_appointments %}
+     
+      <table>
+        <thead>
+          <tr>
+            <th class="date-th">Date</th>
+            <th class="time-th">Time Slot</th>
+            <th class="name-th">Patient Name</th>
+            <th class="email-th">Email</th>
+            <th class="reason-th">Reason</th>
+            <th class="prescription-th">Prescription</th>
+            <th class="email-th">History</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in today_appointments %}
+            <tr class="today">
+              <td>{{ appointment.date }}</td>
+              <td>{{ appointment.time_slot }}</td>
+              <td>{{ appointment.user.first_name }}</td>
+              <td>{{ appointment.user.email }}</td>
+              <td>{{ appointment.reason }}</td>
+              <td>
+                <a href="{% url 'add_prescription' appointment.id %}">
+                    <button class="prescription-button {% if appointment.prescription %}added{% endif %}"
+                            {% if appointment.prescription %}disabled{% endif %}>
+                        {% if appointment.prescription %}View Prescription{% else %}Add Prescription{% endif %}
+                    </button>
+                </a>
+            </td>
+            <td>
+              <a href="{% url 'view_patient_history' appointment.user.id %}">
+                  <button class="prescription-button">View History</button>
+              </a>
+          </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+    <p style="text-align: center; color: #333; font-family: Arial, sans-serif;">
+      <span style="font-size: 80px;">📅</span> No scheduled appointments for today.
+  </p>
+  
+    {% endif %}
+    

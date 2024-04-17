@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+
+    <style>
+        /* Reset default browser styles */
+        body, h1, h2, p, ul, ol, li, figure, figcaption, blockquote, dl, dd, dt {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            display: block;
+            max-width: 100px;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-buttons form,
+        .action-buttons a {
+            margin-right: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            background-color: #007bff; /* Dark blue */
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #0056b3; /* Medium blue */
+        }
+
+        .action-buttons a {
+            text-decoration: none;
+        }
+
+        .action-buttons a button {
+            background-color: #ffc107; /* Yellow */
+            color: #000;
+        }
+
+        .action-buttons a button:hover {
+            background-color: #e0a800; /* Darker yellow */
+        }
+    </style>
+</head>
+<body>
+    <h1>Product List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Quality</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th>Sale Price</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Subcategory</th>
+                <th>Actions</th>
+                <th>Communication</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products|dictsort:"id" %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td><img src="{{ product.image.url }}" alt="{{ product.name }}"></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quality }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.discount }}</td>
+                <td>{{ product.sale_price }}</td>
+                <td>{{ product.status }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.subcategory }}</td>
+                <td class="action-buttons">
+                    <form action="{% url 'delete_product' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="{% url 'update_product' product.id %}"><button>Update</button></a>
+                    
+                </td>
+                <td>
+                    {% if product.brand.agent_phone %}
+                        <a href="{% url 'whatsapp_chat' product.brand.agent_phone %}">
+                            <!-- Your WhatsApp icon or button goes here -->
+                            <!-- Example icon: -->
+                            <img src="whatsapp_icon.png" alt="WhatsApp">
+                        </a>
+                    {% else %}
+                        <!-- Handle case where agent_phone is empty or not available -->
+                        No WhatsApp contact available
+                    {% endif %}
+                </td>
+                
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

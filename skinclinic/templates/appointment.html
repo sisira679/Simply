@@ -1,0 +1,354 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SIMPLY SKIN - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white;
+    }
+    /* Add this CSS in your stylesheets or <style> tag in the HTML file */
+      .profile-picture-round {
+          width: 50px; /* Set the desired width */
+          height: 50px; /* Set the desired height */
+          border-radius: 50%; /* Make the element round */
+          overflow: hidden; /* Hide any overflow content */
+      }
+      
+      .profile-picture-round img {
+          width: 100%; /* Make sure the image fills the round container */
+          height: 100%; /* Make sure the image fills the round container */
+          object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      .button-32 {
+        background-color: #fff000;
+        border-radius: 12px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: center;
+        transition: 200ms;
+        width: 100%;
+        box-sizing: border-box;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      
+      .button-32:not(:disabled):hover,
+      .button-32:not(:disabled):focus {
+        outline: 0;
+        background: #f4e603;
+        box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+      }
+      
+      .button-32:disabled {
+        filter: saturate(0.2) opacity(0.5);
+        -webkit-filter: saturate(0.2) opacity(0.5);
+        cursor: not-allowed;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .header {
+        background-color: lavender;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+    }
+    .banner {
+        background: linear-gradient(to right, lavender, lightblue);
+        color: black;
+        padding: 30px;
+        text-align: center;
+        font-size: 35px;
+        font-family: "Arial", sans-serif;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+        .form-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .text-field {
+            flex: 1;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+   
+        .submit-button {
+            padding: 10px 20px;
+            background-color: lavender;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: lightblue;
+        }
+
+        /* ... (remaining styles) ... */
+
+    .appointment-form {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    input[type="text"], input[type="email"], input[type="date"], button {
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: lavender;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: lightblue;
+    }
+    #specializations-dropdown {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .profile-picture img {
+      width: 150px; /* Set the width of the profile picture */
+      height: 150px; /* Set the height of the profile picture */
+      object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+  }
+  
+  #doctor-cards-container .card {
+    width: 280px; /* Set the width of the card container */
+    height: 390px; /* Set the height of the card container */
+    /* Add any other styling properties you want */
+}
+
+  /* Add some styles to position the overlay */
+  .not-available-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7); /* Adjust the background color and opacity as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Add this to your CSS file or style tag */
+.rounded-circle {
+    border-radius: 30%;
+}
+#doctor-cards-container .card-title {
+    font-size: 18px; /* Set the font size to your preference */
+    font-weight: bold; /* Set the font weight to your preference */
+    color: #333; /* Set the color to your preference */
+    /* Add any other styling properties you want */
+}
+
+
+  </style>
+</head>
+
+<body>
+    {% include 'home.html'%}
+{% comment %}   
+  <!-- ======= Header ======= -->
+ 
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% static '/index.html'%}">SIMPLY SKIN</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="{% static '/index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% static '/#hero'%}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#about'%}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#services'%}">Services</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul> {% endcomment %}
+        {% if user.is_authenticated %}
+      
+      
+       
+
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Appointment</title>
+
+
+<body>
+    <br><br><br><br><br><br>
+<form method="get" action="{% url 'appointment' %}">
+   
+
+   
+    <div class="container text-center">
+        <div class="row justify-content-center" style="width: 30vw;">
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <label for="specializations" class="label"></label>
+                    <select name="specializations" class="form-control" required>
+                        <option value="">Select Specialization</option>
+                        <option value="medical_dermatology" {% if selected_specialization == "medical_dermatology" %} selected {% endif %}>Medical Dermatology</option>
+                        <option value="cosmetic_dermatology" {% if selected_specialization == "cosmetic_dermatology" %} selected {% endif %}>Cosmetic Dermatology</option>
+                        <option value="laser_dermatology" {% if selected_specialization == "laser_dermatology" %} selected {% endif %}>Laser Dermatology</option>
+                        <option value="hair_treatment" {% if selected_specialization == "hair_treatment" %} selected {% endif %}>Hair Treatment</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="submit-button" style="padding: 10px; background-color: lavender; color: black; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease;"
+                    onmouseover="this.style.backgroundColor='lightblue'" onmouseout="this.style.backgroundColor='lavender'">Submit</button>
+            </div>
+        </div>
+    </div>
+    
+  {% endif %}
+  
+</form>
+<br>
+{% comment %} 
+<div id="doctor-cards-container" class="row">
+    {% for doctor in doctors %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="profile-picture rounded-circle mx-auto mt-3">
+                    {% if doctor.doctorprofile.profile_picture %}
+                        <img src="{{ doctor.doctorprofile.profile_picture.url }}" class="card-img-top rounded-circle" alt="{{ doctor.first_name }} Profile Picture">
+                    {% else %}
+                        <!-- Display a default profile picture or an empty image -->
+                        <img src="{% static 'path/to/default/profile_picture.png' %}" class="card-img-top rounded-circle" alt="{{ doctor.first_name }} Profile Picture">
+                    {% endif %}
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title"> Dr {{ doctor.first_name }} {{ doctor.last_name }}</h5>
+                    
+                    {% if not doctor.on_leave %}
+                        <a href="{% url 'book_appointment' doctor.id %}" class="btn btn-primary">Book Appointment</a>
+                    {% else %}
+                        <p class="text-danger">Not Available (On Leave)</p>
+                    {% endif %}
+                    
+                    <!-- Add more doctor information here -->
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div> {% endcomment %}
+
+<div id="doctor-cards-container" class="row">
+    {% for doctor in doctors %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="profile-picture rounded-circle mx-auto mt-3">
+                    {% if doctor.doctorprofile.profile_picture %}
+                        <img src="{{ doctor.doctorprofile.profile_picture.url }}" class="card-img-top rounded-circle" alt="{{ doctor.first_name }} Profile Picture">
+                    {% else %}
+                        <!-- Display a default profile picture or an empty image -->
+                        <img src="{% static 'path/to/default/profile_picture.png' %}" class="card-img-top rounded-circle" alt="{{ doctor.first_name }} Profile Picture">
+                    {% endif %}
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title"> Dr {{ doctor.first_name }} {{ doctor.last_name }}</h5>
+                    
+        
+                    <!-- Display the specialization -->
+                    
+                    <!-- Display the consultation fee -->
+                    <p><strong>Consultation Fee:</strong> {% if doctor.doctorprofile.consultation_fee %}{{ doctor.doctorprofile.consultation_fee }} RS {% else %}Not specified{% endif %}</p>
+
+                    <!-- Display the email and phone from DoctorProfile -->
+                    <p><strong>Email:</strong> {{ doctor.email }}</p>
+                    <p><strong>Phone:</strong> {{ doctor.doctorprofile.phonenumber }}</p>
+                    {% if not doctor.on_leave %}
+                    <a href="{% url 'book_appointment' doctor.id %}" class="btn btn-primary" id="book">Book Appointment</a>
+                {% else %}
+                    <p class="text-danger">Not Available (On Leave)</p>
+                {% endif %}
+
+
+                    <!-- Add more doctor information here -->
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

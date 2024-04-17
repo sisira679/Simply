@@ -1,0 +1,435 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 80%;
+            display: flex;
+        }
+
+        .left-panel {
+            width: 70%;
+            padding: 20px;
+            background-color: #343a40;
+            margin-top: 730px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .round-box {
+            width: 150px;
+            height: 150px;
+            background-color: #fff;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .round-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .right-panel {
+            width: 110%;
+            margin-top: 700px;
+            padding: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            margin-left: 80px;
+            position: relative;
+        }
+
+        .form-control {
+            width: 60%;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.2;
+            border-radius: 0.25rem;
+            margin-top: 8px;
+        }
+
+        
+
+        hr {
+            width: 55%;
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin-left: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png' %}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                       
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                  {% if doctor_profile.profile_picture %}
+                                   <img class="rounded-circle" src="{{doctor_profile.profile_picture.url }}" width="24" alt="Doctor Profile Picture">
+                                  {% else %}
+                                   <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                  {% endif %}
+                                  <span class="status online"></span>
+                            </span>
+                            
+                            <span>Welcome,Dr.{{ user.username }}</span>
+                         
+                        </a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </li>                    
+            </div>
+        </div>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <br><br><br><br>
+        <body>
+           <br>
+            <div class="container">
+                <div class="left-panel">
+                    <div class="round-box" id="uploaded-image-box">
+                        {% if doctor_profile.profile_picture %}
+                            <img id="uploaded-image" src="{{ doctor_profile.profile_picture.url }}" alt="User Image">
+                        {% else %}
+                            <img id="uploaded-image" src="#" alt="User Image">
+                        {% endif %}
+                    </div>
+                    <br>
+                    <h4><b>{{user_profile.first_name}}  {{user_profile.last_name}}</b></h4>
+                    <label>&nbsp; &nbsp; &nbsp; &nbsp;Email: {{ user.email }}</label>
+                </div>
+        
+                <div class="right-panel">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+
+                                <form method="post" action="" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <label for="user-image" class="label">Upload Profile Image</label>
+                                    <input type="file" name="profile_picture" id="user-image" class="form-control" accept="image/*" {% if doctor_profile.profile_picture %}required{% endif %} onchange="updateFileName(this)">
+                                    <span id="file-name-placeholder">
+                                        {% if doctor_profile.profile_picture %}
+                                            {{doctor_profile.profile_picture.name }}
+                                        {% endif %}
+                                    </span>
+                                    <hr>
+                                       
+                                    <label for="phonenumber" class="label">Phone Number</label>
+                                    <input type="text" name="phonenumber" id="phonenumber" class="form-control" value="{{ doctor_profile.phonenumber }}" {% if not doctor_profile.phonenumber %}required{% endif %}>
+                                    
+                                    <div id="phonenumber-error" class="text-danger"></div>
+
+                                    <label for="dob" class="label">Date of Birth</label>
+                                    <input type="date" name="dob" id="dob" class="form-control" value="{% if doctor_profile.dob %}{{ doctor_profile.dob|date:'Y-m-d' }}{% endif %}" {% if not doctor_profile.dob %}required{% endif %} max="{% now 'Y-m-d' %}" oninput="calculateAge(this)">
+                                    <span id="dob-error" class="text-danger"></span>
+
+                                    <label for="age" class="label">Age</label>
+                                    <input type="number" name="age" id="age" class="form-control" value="{% if doctor_profile.age %}{{ doctor_profile.age }}{% endif %}" {% if not doctor_profile.age %}required{% endif %} readonly>
+                                    
+                                    <label for="address" class="label">Address</label>
+                                    <input type="text" name="address" id="address" class="form-control" value="{% if doctor_profile.address %}{{ doctor_profile.address }}{% endif %}" {% if not doctor_profile.address %}required{% endif %} readonly>
+
+                                    <label for="City" class="label">City</label>
+                                    <input type="text" name="city" id="city" class="form-control" value="{% if doctor_profile.city %}{{ doctor_profile.city }}{% endif %}" {% if not doctor_profile.city %}required{% endif %} readonly>
+                                    
+                                    <label for="id-proof-image" class="label">Upload ID Proof Image (PNG, JPG, JPEG)</label>
+                                    <input type="file" name="id_proof_image" id="id-proof-image" class="form-control" accept="image/png, image/jpeg, image/jpg" {% if doctor_profile.id_proof_image %}required{% endif %}>
+                                    <hr>
+                                    
+                                    <label for="consultation_fee" class="label">Consultation Fee</label>
+                                    <input type="number" name="consultation_fee" id="consultation_fee" class="form-control" value="{% if doctor_profile.consultation_fee %}{{ doctor_profile.consultation_fee }}{% endif %}" {% if not doctor_profile.consultation_fee %}required{% endif %}>
+                                    
+                                    <label for="state" class="label">State</label>
+                                    <select name="state" id="state" class="form-control" {% if not doctor_profile.state %}required{% endif %}>
+                                        <option value="">Select State</option>
+                                        {% for state in indian_states %}
+                                            <option value="{{ state }}" {% if doctor_profile.state == state %}selected{% endif %}>{{ state }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <hr>
+
+                                    <!-- PDF Uploaders -->
+                                    <label for="pdf-certificate-1" class="label">Upload PDF Certificate 1:</label>
+                                    <input type="file" name="pdf_certificate_1" id="pdf-certificate-1" class="form-control" accept=".pdf" {% if doctor_profile.pdf_certificate_1 %}required{% endif %}>
+                                    
+                                    <label for="pdf-certificate-2" class="label">Upload PDF Certificate 2:</label>
+                                    <input type="file" name="pdf_certificate_2" id="pdf-certificate-2" class="form-control" accept=".pdf" {% if doctor_profile.pdf_certificate_2 %}required{% endif %}>
+                                    
+                                    <label for="pdf-certificate-3" class="label">Upload PDF Certificate 3:</label>
+                                    <input type="file" name="pdf_certificate_3" id="pdf-certificate-3" class="form-control" accept=".pdf" {% if doctor_profile.pdf_certificate_3 %}required{% endif %}>
+                                    <hr>
+                                    
+                                    
+                                    <div class="form-group">
+                                        {% if created %}
+                                            <button type="submit" class="btn btn-lg btn-success" id="save-button">Save</button>
+                                        {% else %}
+                                            <button type="button" class="btn btn-lg btn-primary" id="edit-button">Edit</button>
+                                            <button type="submit" class="btn btn-lg btn-success" id="save-button" style="display: none;">Save</button>
+                                        {% endif %}
+                                        
+        
+            
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        
+          
+            <!-- Add this div where it makes sense, for example, at the end of the body -->
+            <div id="hasDetails" style="display:none;" data-has-details="{% if doctor_profile.phonenumber or doctor_profile.dob or doctor_profile.age or doctor_profile.state or doctor_profile.bloodgroup %}true{% else %}false{% endif %}"></div>
+        
+            <!-- Your existing scripts -->
+            <script>
+                var hasDetails = document.getElementById('hasDetails').getAttribute('data-has-details') === 'true';
+                
+                document.addEventListener('DOMContentLoaded', function() {
+                    toggleReadOnly(hasDetails);
+                });
+        
+                document.getElementById('edit-button').addEventListener('click', function() {
+                    toggleReadOnly(false);
+                });
+        
+                function toggleReadOnly(readOnly) {
+                    var formFields = document.querySelectorAll('.form-control');
+                    formFields.forEach(function(field) {
+                        field.readOnly = readOnly;
+                    });
+        
+                    document.getElementById('save-button').style.display = readOnly ? 'none' : 'block';
+                    document.getElementById('edit-button').style.display = readOnly ? 'block' : 'none';
+                }
+                var hasDetails = document.getElementById('hasDetails').getAttribute('data-has-details') === 'true';
+                        
+                document.addEventListener('DOMContentLoaded', function() {
+                    toggleReadOnly(hasDetails);
+                });
+        
+                document.getElementById('edit-button').addEventListener('click', function() {
+                    toggleReadOnly(false);
+                });
+        
+                function toggleReadOnly(readOnly) {
+                    var formFields = document.querySelectorAll('.form-control');
+                    formFields.forEach(function(field) {
+                        field.readOnly = readOnly;
+                    });
+        
+                    document.getElementById('save-button').style.display = readOnly ? 'none' : 'block';
+                    document.getElementById('edit-button').style.display = readOnly ? 'block' : 'none';
+                }
+                
+                {% comment %} function calculateAge() {
+                    var dob = document.getElementById("dob").value;
+                    var dobDate = new Date(dob);
+                    var today = new Date();
+                    var age = today.getFullYear() - dobDate.getFullYear();
+                
+                    // Check if the birthday has occurred this year or not
+                    if (today.getMonth() < dobDate.getMonth() || (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())) {
+                        age--;
+                    }
+                
+                    // Get the current year
+                    var currentYear = today.getFullYear();
+                
+                    // Get the selected year from the Date of Birth input
+                    var selectedYear = dobDate.getFullYear();
+                
+                    // Check if the selected year is in the future
+                    if (selectedYear > currentYear) {
+                        // Display validation error (you can customize this according to your UI framework)
+                        alert("Invalid Date of Birth. Please select a past date.");
+                        // Clear the input field value to prevent further submission
+                        document.getElementById("dob").value = "";
+                        // Optional: You can focus on the input field to bring the user's attention
+                        document.getElementById("dob").focus();
+                        // Optional: You can clear the age field as well
+                        document.getElementById("age").value = "";
+                        return;
+                    }
+                
+                    // Update the age input field
+                    document.getElementById("age").value = age;
+                } {% endcomment %}
+                function calculateAge(dobInput) {
+                    var ageInput = document.getElementById("age");
+                    var dob = dobInput.value;
+                    var dobDate = new Date(dob);
+                    var today = new Date();
+                    var age = today.getFullYear() - dobDate.getFullYear();
+            
+                    // Check if the birthday has occurred this year or not
+                    if (today.getMonth() < dobDate.getMonth() || (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())) {
+                        age--;
+                    }
+            
+                    // Get the current year
+                    var currentYear = today.getFullYear();
+            
+                    // Get the selected year from the Date of Birth input
+                    var selectedYear = dobDate.getFullYear();
+            
+                    // Check if the selected year is in the future
+                    if (selectedYear > currentYear) {
+                        // Display validation error
+                        document.getElementById("dob-error").textContent = 'Invalid Date of Birth. Please select a past date.';
+                        // Clear the input field value to prevent further submission
+                        dobInput.value = "";
+                        // Clear the age field
+                        ageInput.value = "";
+                        // Optional: You can focus on the input field to bring the user's attention
+                        dobInput.focus();
+                    } else {
+                        document.getElementById("dob-error").textContent = '';
+                        ageInput.value = age;
+                    }
+                }
+                
+                
+                document.getElementById("user-image").addEventListener("change", function(event) {
+                    var fileName = event.target.files[0] ? event.target.files[0].name : "No file chosen";
+                    document.getElementById("file-name-placeholder").textContent = fileName;
+                  });
+        
+                    function updateFileName(input) {
+                        var fileName = input.value.split("\\").pop();
+                        var filePlaceholder = document.getElementById("file-name-placeholder");
+                    
+                        if (fileName) {
+                            filePlaceholder.textContent = fileName;
+                        }
+                    }
+                
+                    
+        {% comment %} $(document).ready(function() {
+        // Attach input change event handlers
+        $('input[name="start_date"], input[name="end_date"]').change(function() {
+        // Get the values of the start and end dates
+        var startDate = new Date($('input[name="start_date"]').val());
+        var endDate = new Date($('input[name="end_date"]').val());
+        
+        // Calculate the difference in years
+        var diff = endDate.getFullYear() - startDate.getFullYear();
+        
+        // Adjust the difference if the end date has not occurred yet this year
+        if (endDate.getMonth() < startDate.getMonth() || (endDate.getMonth() === startDate.getMonth() && endDate.getDate() < startDate.getDate())) {
+            diff--;
+        }
+        
+        // Update the total years input field
+        $('#total_years').val(diff);
+        });
+        
+        // Add more experience functionality (if needed)
+        $('#addMoreExperience').click(function() {
+        // Clone the experience container and append it to the parent container
+        $('#experience-container').clone().appendTo('#parent-container');
+        
+        // Clear input values in the cloned container
+        $('#experience-container input').val('');
+        
+        // Clear total years value in the cloned container
+        $('#experience-container #total_years').val('');
+        });
+        }); {% endcomment %}
+        const phonenumberInput = document.getElementById('phonenumber');
+    const phonenumberError = document.getElementById('phonenumber-error');
+
+    phonenumberInput.addEventListener('input', function () {
+        validatePhoneNumber(this.value.trim());
+    });
+
+    function validatePhoneNumber(phonenumber) {
+        const regex = /^[1-9]\d{9}$/;
+
+        if (regex.test(phonenumber)) {
+            phonenumberError.textContent = '';
+        } else {
+            phonenumberError.textContent = 'Invalid phone number. It should be 10 digits, cannot start with 0, and should not contain spaces, special characters, or letters.';
+        }
+    }
+        
+            </script>
+        </body>
+        
+        </html>

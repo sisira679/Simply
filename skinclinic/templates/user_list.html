@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+          
+            text-align: center;
+          
+         
+        }
+
+
+
+     
+
+        table {
+            width: 80%;
+            margin: 60px auto; /* Adjust margin to make room for the back button */
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #009efb; /* Change to your desired color */
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png'%}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        <div class="drop-scroll">
+                            <ul class="notification-list">
+                       
+                                <li class="notification-message">
+                                    <a href="activities.html">
+                                        <div class="media">
+											<span class="avatar">V</span>
+											<div class="media-body">
+												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
+												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+											</div>
+                                        </div>
+                                    </a>
+                                </li>
+                              
+                                
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities.html">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
+                </li>
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                <span class="status online"></span>
+                            </span>
+                            <span>Admin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="#">Edit Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="indexadmin.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+						<li id="doctor_button">
+                            <a href="doctorprofile_list.html"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
+                        </li>
+                        <li>
+                            <a href="user_list.html"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'appointment_li' %}">
+                                <i class="fa fa-calendar"></i>
+                                <span>Appointments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="admin_dashboard.html"><i class="fa fa-calendar-check-o"></i> <span>Leave</span></a>
+                        </li>
+                        <li>
+                            <a href="doctorprofile_list.html"><i class="fa fa-hospital-o"></i> <span>Doctor List</span></a>
+                        </li>
+						
+						
+					
+                        
+          
+                                  
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                      
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    
+                        </div>
+                    </div>
+                  
+                       
+											
+
+                    
+    <script>
+        // Disable the back button to prevent navigating back to the previous page
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/Chart.bundle.js'%}"></script>
+    <script src="{% static 'assets1/js/chart.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+
+</body>
+
+
+
+
+
+<body>
+ 
+    <h1>Registered User Details</h1>
+    <table>
+        <thead>
+            <tr>
+               
+                <th>Username</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+              
+                <!-- Add more columns for additional user fields -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            {% if user.role == 'User' %}
+            <tr>
+                
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+           
+                <!-- Add more columns for additional user fields -->
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

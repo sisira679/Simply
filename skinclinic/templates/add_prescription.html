@@ -1,0 +1,190 @@
+ <html>
+    <title>Medical Prescription</title>
+    <head>
+        <style>
+            /* Center the page content */
+.page-wrapper {
+    width: 80%;
+    margin: 0 auto;
+    margin: 0 auto; /* Center the page horizontally */
+    text-align: center; /* Center the form content */
+}
+
+/* Style the centered heading */
+.centered-heading {
+    text-align: center;
+}
+
+/* Style the form columns */
+.form-columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Style the prescription form */
+.prescription-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto; /* Center the page horizontally */
+}
+
+/* Style form labels */
+.form-column label {
+    font-weight: bold;
+}
+
+/* Style form inputs */
+.form-column input[type="text"],
+.form-column select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+/* Style the suggest service button */
+button[type="button"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style the delete button */
+input[type="submit"][value="Delete"] {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"][value="Delete"]:hover {
+    background-color: #c82333;
+}
+
+/* Style the Add Prescription button */
+input[type="submit"][value="Add Prescription"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+input[type="submit"][value="Add Prescription"]:hover {
+    background-color: #218838;
+}
+#prescription-table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+}
+
+#prescription-table th, #prescription-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#prescription-table th {
+    background-color: #f2f2f2;
+}
+
+#prescription-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#prescription-table tr:hover {
+    background-color: #ddd;
+}
+
+        </style>
+  {% include 'doctor.html'%}
+    </head>
+ 
+ <body>
+ <br><br>
+ <div class="page-wrapper">
+    <form method="post">
+        <div class="centered-heading">
+            <h3>MEDICAL PRESCRIPTION ADD</h3>
+        </div>
+       
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+
+        <div id="prescription-fields" class="form-columns">
+            <div class="prescription-form">
+                <div class="form-column">
+                    <label for="{{ form.medicine.id_for_label }}">Medicine:</label>
+                    {{ form.medicine }}
+                </div>
+                <div class="form-column">
+                    <label for="{{ form.dosage.id_for_label }}">Dosage:</label>
+                    {{ form.dosage }}
+                </div>
+                <div class="form-column">
+                    <label for="{{ form.duration.id_for_label }}">Duration:</label>
+                    {{ form.duration }}
+                </div>
+            
+            </div>
+        </div>
+        <a href="{% url 'suggest_service' appointment_id=appointment.id %}">
+            <button type="button">Suggest Service</button>
+        </a>
+        
+        <input type="submit" value="Add Prescription">
+        <br><br>
+        <table id="prescription-table">
+            <thead>
+                <tr>
+                    <th>Medicine</th>
+                    <th>Dosage</th>
+                    <th>Duration</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prescription in prescriptions %}
+                    <tr>
+                        <td>{{ prescription.medicine }}</td>
+                        <td>{{ prescription.dosage }}</td>
+                        <td>{{ prescription.duration }}</td>
+                        <td>
+                            <form action="{% url 'delete_prescription' prescription.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<script>
+   
+    
+    
+</script>
+
+
+</body>
+</html>

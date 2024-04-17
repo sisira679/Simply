@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .doctor-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            margin-top:50px;
+        }
+
+        .profile-photo-container {
+            overflow: hidden;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background-color: #f0f0f0; /* Light background color */
+        }
+
+        .profile-photo {
+            max-width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .details-container {
+            text-align: left;
+            margin-bottom: 20px;
+            background-color: #f9f9f9; /* Light background color */
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .details-container p {
+            margin: 5px 0;
+        }
+
+        .fee-container {
+            background-color: #f0f0f0; /* Light background color */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .specializations-container {
+            background-color: #f9f9f9; /* Light background color */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .certificate-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #f0f0f0; /* Light background color */
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .certificate-list-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .certificate-list-item i {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #28a745;
+        }
+    </style>
+</head>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png' %}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                  {% if doctor_profile.profile_picture %}
+                                   <img class="rounded-circle" src="{{doctor_profile.profile_picture.url }}" width="24" alt="Doctor Profile Picture">
+                                  {% else %}
+                                   <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                  {% endif %}
+                                  <span class="status online"></span>
+                            </span>
+                        
+                            <span>Welcome,Admin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'doctorprofile' %}">Edit Profile</a>
+                            <a class="dropdown-item" href="{% url 'changepassword' %}">change password</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+
+
+
+    
+<body>
+
+<div class="doctor-container">
+    
+
+    <h2>{{ doctor.user.first_name }} {{ doctor.user.last_name }}</h2>
+    <div class="details-container">
+        <p>Email: {{ doctor.user.email }}</p>
+        <p>Address: {{ doctor.address }}, {{ doctor.city }}, {{ doctor.state }}</p>
+        <p>Date of Birth: {{ doctor.dob }}</p>
+        <p>Age: {{ doctor.age }}</p>
+        <p>Phone Number: {{ doctor.phonenumber }}</p>
+    </div>
+
+    <div class="fee-container">
+        <p>Consultation Fee: {{ doctor.consultation_fee }} RS</p>
+        <p>Specializations:
+            {% for specialization in doctor.user.specializations.all %}
+                {{ specialization.get_specializations_display }}
+                {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+
+  
+   
+    
+    <div class="id-container">
+        <p>Certificates And ID:</p>
+        <p>Download ID Proof: <a href="{{ doctor.id_proof_image.url }}" download><span class="download-icon"></span>Download</a></p>
+    </div>
+    <ul class="certificate-list">
+        {% if doctor.pdf_certificate_1 %}
+            <li class="certificate-list-item">
+                <i class="fas fa-download"></i>
+                <a href="{{ doctor.pdf_certificate_1.url }}" download>{{ doctor.user.first_name }} - Graduate Certificate</a>
+            </li>
+        {% endif %}
+        {% if doctor.pdf_certificate_2 %}
+            <li class="certificate-list-item">
+                <i class="fas fa-download"></i>
+                <a href="{{ doctor.pdf_certificate_2.url }}" download>{{ doctor.user.first_name }} - MS Certificate</a>
+            </li>
+        {% endif %}
+        {% if doctor.pdf_certificate_3 %}
+            <li class="certificate-list-item">
+                <i class="fas fa-download"></i>
+                <a href="{{ doctor.pdf_certificate_3.url }}" download>{{ doctor.user.first_name }} - {{ doctor.user.specializations.first.get_specializations_display }} Certificate</a>
+            </li>
+        {% endif %}
+    </ul>
+
+    <!-- Add more details as needed -->
+</div>
+</div>
+</body>
+</html>

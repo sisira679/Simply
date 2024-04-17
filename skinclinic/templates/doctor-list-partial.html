@@ -1,0 +1,29 @@
+{% for user in users %}
+    {% if user.role == 'Doctor' %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+                {% if user.specializations.all %}
+                    <ul>
+                        {% for specialization in user.specializations.all %}
+                            {{ specialization.get_specializations_display }}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    No specializations found.
+                {% endif %}
+            </td>
+            <td>
+                <a class="delete-button" href="{% url 'delete-doctor' user.id %}">Delete</a>
+            </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="7">No doctors found.</td>
+    </tr>
+{% endfor %}

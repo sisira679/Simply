@@ -1,0 +1,10 @@
+<!-- Add this wherever you want to display the success message -->
+{% if prescription_added_success %}
+    <p class="success-message">Prescription added successfully!</p>
+{% endif %}
+
+<!-- Your existing prescription form goes here -->
+<form method="post" action="{% url 'add_prescription' appointment.id %}">
+    <!-- Your form fields -->
+    <button type="submit">Submit Prescription</button>
+</form>

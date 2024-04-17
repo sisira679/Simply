@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete Doctor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .confirmation-container {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 60%;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .confirmation-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .confirm-button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .cancel-button {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Confirm Deletion</h1>
+    <div class="confirmation-container">
+        <p class="confirmation-message">Are you sure you want to delete the worker '{{ Doctor.username }}'? This action cannot be undone.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button class="confirm-button" id="confirm-button" type="submit">Confirm Delete</button>
+        </form><br><br>
+        
+        <a class="cancel-button" href="{% url 'doctor-list' %}">Cancel</a>
+    </div>
+</body>
+</html>

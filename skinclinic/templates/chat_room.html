@@ -1,0 +1,36 @@
+<!-- chat_room.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="content" placeholder="Type your message here..."></textarea>
+            <button type="submit">Send</button>
+        </form>
+        <h2>Sent Messages</h2>
+        <ul>
+            {% for chat in chats_sent %}
+                <li>{{ chat.content }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Received Messages</h2>
+        <ul>
+            {% for chat in chats_received %}
+                {% if chat.sender != user %}
+                    <li>{{ chat.content }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">login</a> to access the chat room.</p>
+    {% endif %}
+</body>
+</html>

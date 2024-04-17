@@ -1,0 +1,375 @@
+{% load static %}
+{% include 'home.html' %}
+  <!DOCTYPE html>
+
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Registration Form</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <style>
+          body {
+              background-color: #f4ece1;
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center center;
+              background-attachment: fixed;
+          }
+  
+          .form-container {
+              background-color: #c55340;
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              text-align: center;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+  
+          .input-container {
+              margin-bottom: 20px;
+              position: relative;
+          }
+  
+          .input-container i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"] {
+            width: calc(50% - 7px); /* Adjusted width */
+            display: inline-block;
+            vertical-align: top;
+            padding: 14px 20px; /* Adjusted padding */
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px; /* Increased font size */
+            box-sizing: border-box;
+        }
+          .radio-buttons {
+              text-align: left;
+              margin-top: 20px;
+          }
+  
+          .radio-buttons label {
+              margin-right: 20px;
+          }
+  
+          .signup-button {
+              background-color: #007BFF;
+              color: #fff;
+              border: none;
+              border-radius: 3px;
+              padding: 14px 20px;
+              font-size: 18px;
+              cursor: pointer;
+              transition: background-color 0.3s;
+          }
+  
+          .signup-button:hover {
+              background-color: #0056b3;
+          }
+          h2 {
+            font-size: 2.5em; /* Adjust the font size as needed */
+            font-family: 'Comic Sans MS', cursive; /* Use a creative font */
+            color: #c55340; /* Set a vibrant color */
+            text-shadow: 2px 2px 4px #000; /* Add a subtle shadow */
+            background-image: linear-gradient(to right, #a14131, #d7887b); /* Gradient background */
+            -webkit-background-clip: text; /* Clip text to the background */
+            -webkit-text-fill-color: transparent; /* Make text transparent to reveal background */
+            padding: 10px; /* Add padding for spacing */
+            display: block; /* Make the element a block to center it */
+            text-align: center; /* Center the text */
+            border-radius: 10px; /* Add border radius for rounded corners */
+          }
+          
+      </style>
+  </head>
+  <body>
+      <br><br><br><br><br>
+      <h2>Registration Form</h2>
+      <div class="form-container">
+
+          <form action="{% url 'register' %}" method="post">
+              {% csrf_token %}
+              <div class="input-container">
+                <i class="fas fa-user"></i>
+                  <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+                 
+                  <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+                
+              </div>
+              <div class="input-container">
+                  <input type="text" id="username" name="username" placeholder="User Name" required>
+                  <input type="email" id="email" name="email" placeholder="Email" required>
+                  <i class="fas fa-envelope"></i>
+              </div>
+              <div class="input-container">
+                  <input type="password" id="password" name="password" placeholder="Password" required>
+                  <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                  <i class="fas fa-lock"></i>
+              </div>
+              <div class="input-container radio-buttons">
+                  <input type="radio" id="male" name="gender" value="male" required>
+                  <label for="male">Male</label>
+                  <input type="radio" id="female" name="gender" value="female" required>
+                  <label for="female">Female</label>
+                  <input type="radio" id="other" name="gender" value="other" required>
+                  <label for="other">Other</label>
+              </div>
+              <button type="submit" class="signup-button"><i class="fas fa-user-plus"></i> Sign Up</button>
+          </form>
+          <p><b><a href="{% url 'login' %}">I already have an account</a></b></p>
+          {% if error_message %}
+          <div style="color: red;">
+              {{ error_message }}
+          </div>
+          {% endif %}
+      </div>
+  
+  
+  
+  <script>
+      var passwordInput = document.getElementById("password");
+      var passwordError = document.getElementById("password-error");
+      var passwordHint = document.getElementById("password-hint");
+      var passwordToggle = document.getElementById("password-toggle");
+
+// Initially hide the eye icon
+passwordToggle.style.display = "none";
+
+// Add an event listener to the password input
+passwordInput.addEventListener("input", function() {
+    // Check if the input value is not empty
+    if (passwordInput.value.trim() !== "") {
+        passwordToggle.style.display = "block"; // Show the eye icon
+    } else {
+        passwordToggle.style.display = "none"; // Hide the eye icon
+    }
+       
+    passwordToggle.addEventListener("click", function() {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text"; // Show the password
+            passwordToggle.classList.remove("fa-eye-slash");
+            passwordToggle.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password"; // Hide the password
+            passwordToggle.classList.remove("fa-eye");
+            passwordToggle.classList.add("fa-eye-slash");
+        }
+    
+        passwordInput.addEventListener("input", function() {
+            if (event.inputType === "deleteContentBackward") {
+                // Clear the validation message when backspace is pressed
+                passwordError.textContent = "";
+                return;
+            }
+        });  });
+    
+          var password = passwordInput.value;
+          var uppercaseRegex = /[A-Z]/;
+          var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+          var numberRegex = /[0-9]/;
+          var spaceRegex = /\s/;
+  
+          var isValid = true;
+          var errorMessage = "";
+          
+  
+          // Check if password contains at least one capital letter
+          if (!uppercaseRegex.test(password)) {
+              isValid = false;
+              errorMessage = "Password must contain at least one capital letter.";
+          } else if (!specialCharRegex.test(password)) { // Check if password contains special characters
+              isValid = false;
+              errorMessage = "Password must contain special characters.";
+          } else if (!numberRegex.test(password)) { // Check if password contains numbers
+              isValid = false;
+              errorMessage = "Password must contain numbers (0-9).";
+          } else if (password.length <= 6) { // Check if password length is less than or equal to 6
+              isValid = false;
+              errorMessage = "Password must be longer than 6 characters.";
+          } else if (spaceRegex.test(password)) { // Check if password contains spaces
+              isValid = false;
+              errorMessage = "Password should not contain spaces.";
+          }
+          
+          // Display validation message
+          passwordError.textContent = errorMessage;
+  
+          // Display success message if password is valid
+          if (isValid && password.length > 0) {
+              passwordError.innerHTML = "&#10004; Password is valid.";
+              passwordError.style.color = "green"; 
+          }
+        
+      });  
+      
+     passwordInput.addEventListener("keydown", function(event) {
+    // Clear the error message when backspace is pressed
+    if (event.key === "Backspace") {
+        passwordError.textContent = "";
+    }
+    });
+    passwordInput.addEventListener("focus", function() {
+    passwordHint.textContent = "Hint: No space, at least one uppercase letter, one number from 0-9, one special character, and at least 6 characters long.";
+    passwordHint.style.display = "block";
+});
+    passwordInput.addEventListener("input", function() {
+    passwordHint.style.display = "none"; // Hide the hint when the user starts typing
+});
+
+// Add an event listener to the password input for blur event (when the input loses focus)
+     passwordInput.addEventListener("blur", function() {
+    passwordHint.style.display = "none";
+});
+passwordInput.addEventListener("click", function() {
+    // Show the hint box when the user clicks on the input
+    passwordHint.style.display = "block";
+    displayHint = true; // Set displayHint to true so the hint will reappear after clicking
+});
+
+// Add an event listener to the password input for keydown event (detect backspace)
+    passwordInput.addEventListener("keydown", function(event) {
+    if (event.key === "Backspace") {
+        // Show the hint box when backspace is pressed
+        passwordHint.style.display = "block";
+        displayHint = true; // Set displayHint to true so the hint will reappear after backspace
+    }
+});
+var passwordInput = document.getElementById("password");
+var confirmPasswordInput = document.getElementById("confirm_password");
+var confirmPasswordError = document.getElementById("confirm-password-error");
+var confirmEyeToggle = document.getElementById("eye-confirm-password");
+
+// Initially hide the eye icon for confirm password
+confirmEyeToggle.style.display = "none";
+
+// Add an event listener to the password input
+passwordInput.addEventListener("input", function() {
+    // Check if the input value is not empty
+    if (passwordInput.value.trim() !== "") {
+        passwordToggle.style.display = "block"; // Show the eye icon
+    } else {
+        passwordToggle.style.display = "none"; // Hide the eye icon
+    }
+});
+
+// Event listener for confirm password input
+confirmPasswordInput.addEventListener("input", function() {
+    // Check if the input value is not empty
+    if (confirmPasswordInput.value.trim() !== "") {
+        confirmEyeToggle.style.display = "block"; // Show the eye icon
+    } else {
+        confirmEyeToggle.style.display = "none"; // Hide the eye icon
+    }
+
+    // Check if the passwords match
+    if (confirmPasswordInput.value === passwordInput.value) {
+        confirmPasswordError.textContent = "Password match ✔️";
+        confirmPasswordError.style.color = "green";
+    } else {
+        confirmPasswordError.textContent = "Password does not match ❌";
+        confirmPasswordError.style.color = "red";
+    }
+});
+
+// Event listener for eye icon toggle for confirm password
+confirmEyeToggle.addEventListener("click", function() {
+    if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = "text"; // Show the password
+        confirmEyeToggle.classList.remove("fa-eye-slash");
+        confirmEyeToggle.classList.add("fa-eye");
+    } else {
+        confirmPasswordInput.type = "password"; // Hide the password
+        confirmEyeToggle.classList.remove("fa-eye");
+        confirmEyeToggle.classList.add("fa-eye-slash");
+    }
+});
+
+// Clear the validation message when backspace is pressed
+confirmPasswordInput.addEventListener("input", function(event) {
+    if (event.inputType === "deleteContentBackward") {
+        confirmPasswordError.textContent = "";
+        return;
+    }
+});
+
+  
+  var emailInput = document.getElementById("email");
+  var errorSpan = document.getElementById("email-error");
+  
+  emailInput.addEventListener("input", function() {
+      var email = emailInput.value;
+      // Updated regular expression pattern
+      var pattern = /^[a-z][a-z0-9._]+@(gmail\.com|in|org)$/;
+  
+      // Check if the email matches the required pattern
+      if (!email.match(pattern)) {
+          errorSpan.textContent = "Invalid email format. Please enter a valid email address ending with @gmail.com, @in, or @org.";
+      } else {
+          errorSpan.textContent = ""; // Clear error message
+  
+          // Check if the email is already registered using AJAX
+          // Your AJAX code goes here
+      }
+      if (event.inputType === "deleteContentBackward") {
+          errorSpan.textContent = ""; // Clear error message for backspace
+          return;
+      }
+  });
+  const usernameInput = document.getElementById('username');
+  const hintMessage = document.getElementById('hint-message');
+  const usernameError = document.getElementById('first-name-error');
+  
+  function showHintMessage() {
+      hintMessage.textContent = 'Username must start with a capital letter, followed by lowercase letters, characters, and numbers (maximum 10 characters).';
+      hintMessage.style.color = 'blue'; 
+  }
+  
+  function hideHintMessage() {
+      hintMessage.textContent = '';
+  }
+  
+  function validateUsername() {
+      const username = usernameInput.value;
+  
+      // Check if the username starts with a capital letter
+      if (!/^[A-Z].*$/.test(username)) {
+          usernameError.textContent = 'Username must start with a capital letter.';
+      } else if (!/^[A-Z][a-zA-Z0-9]{0,9}$/.test(username)) {
+          // Check if the username contains characters other than uppercase letters, lowercase letters, and numbers
+          usernameError.textContent = 'Username can only contain uppercase letters followed by lowercase letters, characters, and numbers (maximum 10 characters).';
+      } else if (/\s/.test(username)) {
+          // Check if the username contains white spaces
+          usernameError.textContent = 'Username cannot contain white spaces.';
+      } else {
+          usernameError.textContent = ''; // Clear the error message if the username is valid
+      }
+  
+      // Perform additional form validation logic here if needed
+      // checkFormValidity();
+  }
+  
+  usernameInput.addEventListener('focus', showHintMessage);
+  usernameInput.addEventListener('input', function() {
+      hideHintMessage();
+      validateUsername();
+  });
+  
+
+      
+  </script>
+  </body>
+  </html>
+  
+
+        

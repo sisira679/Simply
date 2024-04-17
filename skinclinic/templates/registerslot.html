@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+    <title>Registered Time Slots</title>
+</head>
+<body>
+    <h1>Registered Time Slots</h1>
+
+    <h2>Morning Slots:</h2>
+    <ul>
+        {% for slot in registered_morning_slots %}
+            <li>{{ slot.slot_time }}</li>
+        {% empty %}
+            <li>No registered morning slots</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Afternoon Slots:</h2>
+    <ul>
+        {% for slot in registered_afternoon_slots %}
+            <li>{{ slot.slot_time }}</li>
+        {% empty %}
+            <li>No registered afternoon slots</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Add your additional content here -->
+</body>
+</html>

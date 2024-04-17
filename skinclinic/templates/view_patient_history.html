@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #e2f0ff;
+        }
+
+        .date-time-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .medicine-container {
+            margin-top: 5px;
+        }
+
+        .reason-container {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png' %}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                  {% if doctor_profile.profile_picture %}
+                                   <img class="rounded-circle" src="{{doctor_profile.profile_picture.url }}" width="24" alt="Doctor Profile Picture">
+                                  {% else %}
+                                   <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                  {% endif %}
+                                  <span class="status online"></span>
+                            </span>
+                            {% if user.is_authenticated %}
+                            <span>Welcome,Dr.{{ user.username }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'doctorprofile' %}">Edit Profile</a>
+                            <a class="dropdown-item" href="{% url 'changepassword' %}">change password</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="doctordashboard.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="{% url 'today_appointments' %}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_dashboard.html"><i class="fa fa-hospital-o"></i> <span>All Patients</span></a>
+                        </li>
+                        <li>
+                            <a href="scheduling.html"><i class="fa fa-calendar-check-o"></i> <span>Scheduling</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="apply_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave status</span></a>
+                        </li>
+						
+					
+						
+                          
+                      
+                       
+						
+                       
+                      
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+ 
+
+        <div class="page-wrapper">
+
+<body>
+    <div class="page-content">
+        <h3>Patient Prescription History - {{ patient.first_name }} {{ patient.last_name }}</h3>
+
+        {% if prescription_history %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date & Time Slot</th>
+                        <th>Medicine</th>
+                        <th>Dosage</th>
+                        <th>Duration</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prescription in prescription_history %}
+                        <tr>
+                            <td>
+                                <div class="date-time-container">
+                                    {% if not forloop.first and prescription.appointment.date == prescription_history.0.appointment.date and prescription.appointment.time_slot == prescription_history.0.appointment.time_slot %}
+                                        <!-- Only display date and time slot once for consecutive prescriptions with the same date and time slot -->
+                                    {% else %}
+                                        <span>Date: {{ prescription.appointment.date }}</span>
+                                        <span>Time Slot: {{ prescription.appointment.time_slot }}</span>
+                                        <span> Reason:{{ prescription.appointment.reason }}</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="medicine-container">{{ prescription.medicine }}</td>
+                            <td class="medicine-container">{{ prescription.dosage }}</td>
+                            <td class="medicine-container">{{ prescription.duration }}</td>
+                          
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No prescription history for this patient.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

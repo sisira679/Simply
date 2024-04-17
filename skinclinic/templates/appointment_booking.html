@@ -1,0 +1,17 @@
+<!-- appointment_booking.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking Details</title>
+    <div class="container">
+        <h1>Appointment Details</h1>
+        <p><strong>Doctor:</strong> Dr. {{ appointment.doctor.first_name }}</p>
+        <p><strong>Patient:</strong> {{ appointment.patient.first_name }}</p>
+        <p><strong>Date:</strong> {{ appointment.date }}</p>
+        <p><strong>Time Slot:</strong> {{ appointment.time_slot }}</p>
+    </div>
+    

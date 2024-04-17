@@ -1,0 +1,344 @@
+{% comment %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Lumia Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white;
+    }
+    /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("{% static '/assets/img/loginback.jpg'%}");
+    background-size: cover; /* Adjust this as needed */
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.login-container {
+    max-width: 400px;
+    background-image: url("{% static '/assets/img/images.jpg'%}");
+    background-size: 400px 200px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Set a fixed width for input fields */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style the login button */
+.login-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.social-login {
+    margin-top: 20px;
+}
+
+/* Style social icons */
+.social-icon {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.social-icon i {
+    margin-right: 5px;
+}
+
+.social-icon:hover {
+    background-color: #eee;
+}
+
+.social-icon.google {
+    background-color: #dd4b39;
+    color: #fff;
+}
+
+.social-icon.facebook {
+    background-color: #1877f2;
+    color: #fff;
+}
+
+/* Style the "Forgot Password?" and "Create Account" links */
+.extra-options {
+    margin-top: 20px;
+}
+
+.extra-options a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.extra-options span {
+    margin: 0 10px;
+    font-weight: bold;
+}
+.extra-options {
+    text-align: center; /* Center align the links */
+    margin-top: 10px; /* Adjust the top margin as needed */
+}
+
+.forgot-password,
+.create-account {
+    font-size: 14px; /* Set the font size to your preference */
+    color: #333; /* Set the color to your preference */
+    /* Add any other styling properties you want */
+}
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% static '/index.html'%}">SIMPLY SKIN</a>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="{% static '/index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+      {% if user.is_authenticated %}
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% static '/#hero'%}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#about'%}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#services'%}">Services</a></li>
+          <li><a class="nav-link scrollto " href="{% static '/#portfolio'%}">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#testimonials'%}">Testimonials</a></li>
+          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="{% static '/#'%}">Drop Down 1</a></li>
+              <li class="dropdown"><a href="{% static '/#'%}"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="{% static '/#'%}">Deep Drop Down 1</a></li>
+                  <li><a href="{% static '/#'%}">Deep Drop Down 2</a></li>
+                  <li><a href="{% static '/#'%}">Deep Drop Down 3</a></li>
+                  <li><a href="{% static '/#'%}">Deep Drop Down 4</a></li>
+                  <li><a href="{% static '/#'%}">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="{% static '/#'%}">Drop Down 2</a></li>
+              <li><a href="{% static '/#'%}">Drop Down 3</a></li>
+              <li><a href="{% static '/#'%}">Drop Down 4</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        {% else %}
+
+   <!-- .navbar -->
+    {% endif %}
+</nav>
+    </div>
+  </header><!-- End Header -->
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Login Page</title>
+      <link rel="stylesheet" href="logincs.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+      <div class="login-container">
+          <h1>Login</h1>
+          <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+              <div class="input-group">
+                  <label for="username"><i class="fas fa-envelope"></i> username</label>
+                  <input type="text" id="username" name="username" required>
+              </div>
+              <div class="input-group">
+                  <label for="password"><i class="fas fa-lock"></i> Password</label>
+                  <input type="password" id="password" name="password" required>
+              </div>
+              <button type="submit" id="login-button"  class="login-button">Login</button>
+          </form>
+          <div class="extra-options">
+            <p class="forgot-password"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+            <span>|</span>
+            <p class="create-account"><a href="{% url 'register'%}">Create Account</a></p>
+        </div>
+        
+        
+  </body>
+  </html>
+   {% endcomment %}
+
+   {% load static %}
+   {% include 'home.html' %}
+   <br><br><br>
+   <!doctype html>
+   <html lang="en">
+   
+   <head>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <title> Free Dental Medical Hospital Website Template | Smarteyeapps.com</title>
+   
+       <link rel="shortcut icon" href="{% static '/assets2/images/fav.jpg'%}">
+       <link rel="stylesheet" href="{% static '/assets2/css/bootstrap.min.css'%}">
+       <link rel="stylesheet" href="{% static '/assets2/css/fontawsom-all.min.css'%}">
+       <link rel="stylesheet" type="text/css" href="{% static '/assets2/css/style.css'%}" />
+   </head>
+   
+       <body class="h-100">
+           <div class="container-fluid full-bg h-100">
+              <div class="container h-100">
+                 
+                  <div class="row no-margin">
+                      <div class="bg-layer  ">
+                        <form action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                           <div class="login-box row">
+                              <i class="fab fa-codepen"></i>
+                               <h3>User login</h3>
+                               <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                   <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+                                 </div>
+                                 <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"id="username" name="username" required>
+                               </div>
+                               <div class="input-group mb-3">
+                                 <div class="input-group-prepend">
+                                   <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                 </div>
+                                 <input type="password"  class="form-control form-control-sm" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1"id="password" name="password" required>
+                               </div>
+   
+                               <p>
+                                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                            </p>
+                            
+                               <button type="submit" class="btn btn-default" id="login-button" >Click to Login</button>
+                               
+                               <p class="no-c">Not a member yet? <a href="{% url 'register'%}">Create your Account</a></p>
+                           </div>
+                           </form>
+                       </div>    
+                  </div>
+                 
+                  <div class="foter-credit">
+                     <a href="https://smarteyeapps.com/"></a>  
+                  </div>
+              </div>
+               
+           </div>
+       </body>
+   
+   <script src="{% static 'assets2/js/jquery-3.2.1.min.js'%}"></script>
+   <script src="{% static 'assets2/js/popper.min.js'%}"></script>
+   <script src="{% static 'assets2/js/bootstrap.min.js'%}"></script>        
+   <script src="{% static 'assets2/js/script.js'%}"></script>
+   
+   
+   </html>

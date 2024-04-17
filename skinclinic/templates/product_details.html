@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        .product-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .product-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        .product-details {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .product-details h1 {
+            font-weight: bold;
+            font-size: 35px;
+        }
+        
+        .product-details .category-name {
+            color: #666; /* Dimmed color */
+            font-size: 16px;
+            font-style: italic; 
+
+            
+        }
+        
+        .product-details.skin_concerns {
+            font-weight: bold;
+        }
+        
+        .cart-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+        }
+        
+        .cart-btn:hover {
+            background-color: #0056b3;
+        }
+        .product-details .highlights {
+            color: #666; /* Dim color */
+            font-style: italic; 
+        }
+
+        .product-details .highlights-and-weight {
+            margin-bottom: 10px; /* Add margin if needed */
+        }
+        .price {
+            font-size: 16px; /* Example font size for prices */
+          
+
+        }
+    
+        .original-price {
+            color: #999; /* Dim color for original price */
+            text-decoration: line-through; /* Strikethrough effect for original price */
+            text-align: 12px;
+        }
+    
+        .rupee-symbol {
+            color: #333; /* Color for rupee symbol */
+        }
+        
+        .product-description p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-top: 20px;
+        }
+        
+        .ingredients-table {
+            margin-top: 20px; /* Adjust top margin as needed */
+        }
+        
+        .ingredients-table table {
+            border-collapse: collapse;
+        }
+        .ingredients-table {
+            margin-top: 20px; /* Adjust top margin as needed */
+            display: inline-block;
+        }
+        
+        .ingredients-table table {
+            border-collapse: collapse;
+            width: 100%; /* Ensure table takes full width */
+        }
+        
+        .ingredients-table th {
+            background-color: #f2f2f2; /* Background color for table header */
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .banner {
+            border-bottom: 2px solid #007bff; /* Blue border for the banner */
+            padding-bottom: 4px; /* Adjust spacing between text and border */
+        }
+        
+        
+    </style>
+</head>
+<body>
+    {% include 'home.html' %}
+    {% include 'naval.html'%}
+    <div class="product-container">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-details">
+            <h1>{{ product.name }}</h1>
+            <p><span class="category-name">Category: {{ product.category }}</span></p>
+            <p>
+                {% for concern in product.skin_concerns %}
+                    <strong>{{ concern }}</strong>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            
+          
+            <p> {{ product.description }}</p>
+            <p class="highlights-and-weight">
+                <span class="highlights">{{ product.highlights }}</span> 
+                <strong> {{ product.weight }} </strong>
+            </p>
+            
+            <div class="price-container"> <!-- Container for price and discount box -->
+                <div class="price">
+                    <span class="original-price">₹{{ product.price }}</span>
+                    <span class="rupee-symbol">₹</span>{{ product.sale_price }}
+                </div>
+                
+       
+                <form action="{% url 'add-to-cart' product.id %}" method="post" id="addToCartForm">
+                    {% csrf_token %}
+                    <input type="hidden" id="quantityField" name="quantity" value="1">
+                    <button type="submit" class="cart-btn">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    
+    <div class="ingredients-table" style="margin: 0 auto; text-align: center;">
+        <table>
+            <tr>
+                <th style="text-align: left; border-bottom: 2px solid #007bff; padding-bottom: 4px;">Ingredient</th>
+            </tr>
+           
+            <tr>
+                <td>{{ product.ingredients }}</td>
+            </tr>
+            <tr>
+                <th style="text-align: left; border-bottom: 2px solid #007bff; padding-bottom: 4px;">Skin Type</th>
+            </tr>
+            <tr>
+                <td>{{ product.skin_type }}</td>
+            </tr>
+        </table>
+    </div>
+    

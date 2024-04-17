@@ -1,0 +1,404 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce Template</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* General CSS styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px; /* Reduced padding */
+        }
+      
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .user-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .icon {
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        /* Category navigation styles */
+        .category-nav {
+            background-color: #ddb497 !important; /* Set background color for body */
+            color: #fff;
+            padding: 15px 0; /* Reduced padding */
+            text-align: left; /* Align text to the left */
+        }
+        .category-nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-start; /* Align items to the start (left) */
+        }
+        .category-nav li {
+            margin: 0 20px; /* Adjusted margin */
+            position: relative;
+        }
+        .category-nav li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px; /* Adjusted font size */
+            padding: 5px 10px; /* Adjusted padding */
+            display: block;
+        }
+        .category-nav li:hover {
+            background-color: #a57f67; /* Highlight color on hover */
+        }
+        .category-nav li:hover .subcategory {
+            display: block;
+        }
+        .subcategory {
+            display: none;
+            position: absolute;
+            background-color:#d7887b ;
+            width: 150px; /* Adjusted width */
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            font-size: 14px; /* Adjusted font size */
+        }
+        
+        .subcategory a {
+            color: #fff;
+            padding: 10px;
+            display: block;
+            transition: color 0.3s ease; /* Add transition for color change */
+        }
+        
+        .subcategory a:hover {
+            background-color: #a57f67; /* Highlight color on hover */
+            transform: scale(1.1); /* Enlarge on hover */
+            color: #f5c842; /* Change color on hover */
+            font-size: 18px; /* Increase font size on hover */
+        }
+        
+        /* CSS for the dropdown menu */
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .dropbtn {
+          background-color: transparent;
+          color: #333;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+        }
+
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 120px;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        .dropdown-content a {
+          color: #f4ece1;
+          padding: 8px 12px; /* Adjusted padding */
+          text-decoration: none;
+          display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f4ece1;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Four columns per row */
+            gap: 20px; /* Gap between grid items */
+        }
+    
+        .product {
+            border: 1px solid #ccc; /* Border for product container */
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s; /* Smooth transition effect */
+            position: relative; /* Position relative for absolute positioning of discount square */
+        }
+    
+        .product:hover {
+            transform: scale(1.2); /* Enlarge container on hover */
+            z-index: 1; /* Ensure enlarged container overlaps other containers */
+        }
+    
+        .product img {
+            width: 100%; /* Ensure images take up full width of container */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .product-name {
+            font-size: 15px; /* Example font size */
+            color: #333; /* Example color */
+            margin-top: 10px; /* Example margin */
+            font-weight: bold; /* Make text bold */
+        }
+        .product-highlights {
+            color: green; /* Set text color to green */
+            font-style: italic; /* Set text to italic */
+            font-size: 14px;
+        }
+        .price {
+            font-size: 14px; /* Example font size for prices */
+        }
+    
+        .original-price {
+            color: #999; /* Dim color for original price */
+            text-decoration: line-through; /* Strikethrough effect for original price */
+        }
+    
+        .rupee-symbol {
+            color: #333; /* Color for rupee symbol */
+        }
+        
+        .discount-box {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            display: flex; /* Flex display for centering content */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            border-radius: 60%; /* Rounded corners for discount square */
+        }
+    
+        /* CSS for the price container */
+        .price-container {
+            display: flex; /* Flex display for horizontal alignment */
+            align-items: center; /* Center content vertically */
+            justify-content: center; /* Center content horizontally */
+        }
+       
+        
+        
+        .wishlist-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        /* CSS to adjust the size of the wishlist icon */
+        .wishlist-btn img {
+            width: 20px; /* Adjust as needed */
+            height: 20px; /* Adjust as needed */
+        }
+
+        /* styles.css */
+.out-of-stock {
+    color: red;
+    font-weight: bold;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the search input field */
+.search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 200px; /* Adjust width as needed */
+}
+
+/* Style for the search button */
+.search-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hover effect for the search button */
+.search-button:hover {
+    background-color: #0056b3;
+}
+.cart-icon img,
+.wishlist-icon img {
+    width: 30px; /* Adjust width as needed */
+    height: 30px; /* Adjust height as needed */
+}
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 6px;
+    font-size: 12px;
+}
+    </style>
+</head>
+<body>
+{% include 'home.html' %}
+<br><br>
+<div class="category-nav">
+    <div class="container">
+        <ul>
+            {% for category in categories %}
+            <li>
+               
+                <a href="?category={{ category.name }}" class="category-link">{{ category.name }}</a> <!-- Added category-link class -->
+                <div class="subcategory">
+                    {% for subcategory in category.subcategory_set.all %}
+                    <a href="?subcategory={{ subcategory.name }}">{{ subcategory.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+      
+        <form class="search-form" method="get" action="{% url 'display_product' %}">
+            <input class="search-input" type="text" name="q" placeholder="Search products...">
+            <button class="search-button" type="submit">Search</button>
+        </form>
+        
+    
+
+        <div class="cart-icon">
+            <a href="{% url 'cart' %}" class="view-cart-link">
+                <img src="{% static 'assets/img/cart1.png' %}" alt="Cart">
+                {% if cart_count > 0 %}
+                <span class="cart-count">{{ cart_count }}</span>
+                {% endif %}
+            </a>
+        </div>
+
+        
+        <div class="wishlist-icon">
+            <a href="{% url 'wishlist' %}" class="view-wishlist-link">
+                <img src="{% static 'assets/img/wishlist.png' %}" alt="Wishlist">
+            </a>
+        </div>
+    </div>
+    
+</div>
+
+<div class="container">
+    {% for product in products %}
+     <a href="{% url 'product_details' product.id %}">
+    <div class="product">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-highlights">Highlights: {{ product.highlights }}</div>
+            <br>
+        <div class="product-info">
+            <div class="price-container"> <!-- Container for price and discount box -->
+                <div class="price">
+                    <span class="original-price">₹{{ product.price }}</span>
+                    <span class="rupee-symbol">₹</span>{{ product.sale_price }}
+                </div>
+                <!-- Discount box -->
+                <div class="discount-box">
+                    {{ product.discount }}% <!-- Assuming the discount is stored in product.discount -->
+                </div>
+                
+            </div>
+
+            
+            <br>
+            <div class="product-icons">
+                <form id="wishlist-form-{{ product.id }}" action="{% url 'add_to_wishlist' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="wishlist-btn" data-product-id="{{ product.id }}">
+                        <img src="{% if product.in_wishlist %}{{ wishlist_icon }}{% else %}{{ default_icon }}{% endif %}" alt="Add to Wishlist" width="30" height="30">
+                    </button>
+                </form>
+                {% comment %} <form action="{% url 'add-to-cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="cart-btn">
+                        <img src="{% static 'assets/img/cart1.png' %}" alt="Add to Cart" width="30" height="30">
+                    </button>
+                </form>
+                 {% endcomment %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $('#search-input').on('input', function(){
+            var query = $(this).val();
+            $.ajax({
+                url: '/search/',  // URL to your Django view handling the search
+                data: {
+                    'query': query
+                },
+                success: function(data){
+                    $('#search-results').html(data);
+                }
+            });
+        });
+    });
+    // Function to handle clicking on the wishlist icon
+    function addToWishlist(productId) {
+        // Get the wishlist icon element
+        var wishlistIcon = document.getElementById(productId);
+
+        // Add a class to change the color to red
+        wishlistIcon.classList.add('red');
+
+        // Redirect to the wishlist page
+        window.location.href = '/wishlist.html'; // Update the URL as per your project structure
+    }
+    // Function to handle clicking on the category link
+    document.querySelectorAll('.category-link').forEach(item => {
+        item.addEventListener('click', event => {
+            // Remove existing active class from all category links
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            // Add active class to the clicked category link
+            event.target.classList.add('active');
+        });
+    });
+    
+    document.querySelectorAll('.wishlist-btn').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            var productId = this.getAttribute('data-product-id');
+            var form = document.getElementById('wishlist-form-' + productId);
+            form.submit(); // Submit the form
+        });
+    });
+   
+
+    // Add this JavaScript code to your template or a separate static file
+
+</script>
+
+</body>
+</html>

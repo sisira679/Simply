@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SIMPLY SKIN - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white;
+    }
+    /* Add this CSS in your stylesheets or <style> tag in the HTML file */
+      .profile-picture-round {
+          width: 50px; /* Set the desired width */
+          height: 50px; /* Set the desired height */
+          border-radius: 50%; /* Make the element round */
+          overflow: hidden; /* Hide any overflow content */
+      }
+      
+      .profile-picture-round img {
+          width: 100%; /* Make sure the image fills the round container */
+          height: 100%; /* Make sure the image fills the round container */
+          object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      .button-32 {
+        background-color: #fff000;
+        border-radius: 12px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: center;
+        transition: 200ms;
+        width: 100%;
+        box-sizing: border-box;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      
+      .button-32:not(:disabled):hover,
+      .button-32:not(:disabled):focus {
+        outline: 0;
+        background: #f4e603;
+        box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+      }
+      
+      .button-32:disabled {
+        filter: saturate(0.2) opacity(0.5);
+        -webkit-filter: saturate(0.2) opacity(0.5);
+        cursor: not-allowed;
+      }
+      img
+      {
+        width: 180px; /* Set the desired width */
+        height: 180px; /* Set the desired height */
+      }
+      .search-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .search-input {
+        padding: 10px;
+        width: 300px;
+        font-size: 16px;
+    }
+
+    .search-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .doctor-container {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+  }
+
+  .doctor-picture {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+  }
+  .doctor-container {
+    display: inline-block;
+    margin: 30px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+  
+  </style>
+</head>
+
+<body>
+  
+  <!-- ======= Header ======= -->
+ 
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% static '/index.html'%}">SIMPLY SKIN</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="{% static '/index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% static '/#hero'%}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#about'%}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#services'%}">Services</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+        <ul>
+          <li>
+              <a href="{% url 'booking' %}">
+                  <button class="button-32" role="button">Make Appointment</button>
+              </a>
+          </li>
+      </ul>
+      
+        <ul>
+          <li class="dropdown">
+              <a class="nav-link scrollto" href="#" id="usernameDropdown" name="profile_picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <strong> Welcome, {{ user.username }}</strong> <i class="bi bi-caret-down"></i>
+                  <div class="profile-picture-round">
+                    {% if user_profile.profile_picture %}
+                      <img src="{{ user_profile.profile_picture.url }}" alt="User Profile Picture">
+                    {% else %}
+                    <!-- Display a default profile picture or an empty image -->
+                      <img src="{% static '/assets/img/profile_default.png' %}" alt="Default Profile Picture">
+                    {% endif %}
+                  </div>
+                </a>
+
+              <ul class="dropdown-menu" aria-labelledby="usernameDropdown">
+                  <li><a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                  <li><a href="{% url 'profile' %}"><i class="bi bi-person"></i> Profile</a></li>
+                  <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
+              </ul>
+          </li>
+      </ul>
+      
+        {% else %}
+          <ul>
+          <li><a href="login.html"><button class="bn33">Sign In</button></a></li>
+      </ul>
+      <ul>
+        <li><a href="register.html"><button class="bn33">Register</button></a></li>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </ul>
+     {% endif %}
+    </nav><!-- .navbar -->
+    
+    </div>
+
+  </header>
+
+<br><br><br><br><br>
+
+<body>
+    <div class="container">
+      <h1> ALL DOCTOR </h1>
+        {% for doctor in doctors %}
+        <div class="doctor-container">
+            {% if doctor.doctorprofile.profile_picture %}
+            <img src="{{ doctor.doctorprofile.profile_picture.url }}" class="doctor-picture" alt="{{ doctor.first_name }} Profile Picture">
+            {% else %}
+            <!-- Display a default profile picture or an empty image -->
+            <img src="{% static 'path/to/default/profile_picture.png' %}" class="doctor-picture" alt="{{ doctor.first_name }} Profile Picture">
+            {% endif %}
+            <p><strong> Dr &nbsp;{{ doctor.first_name }} {{ doctor.last_name }}</strong></p>
+            <p><strong> {{ doctor.doctorprofile.consultation_fee }}</strong></p>
+            <button class="btn btn-primary">Make Appointment</button>
+        </div>
+        {% empty %}
+        <p>No doctors available.</p>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

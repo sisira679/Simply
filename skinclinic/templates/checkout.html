@@ -1,0 +1,642 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container1 {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0; /* Background color for the slider */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease; /* Smooth transition effect */
+        }
+        
+        .slider.active {
+            opacity: 1; /* Show the slider with opacity transition */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .order-summary {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .shipping-address-heading {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .product-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-info img {
+            width: 100px; /* Adjust according to your preference */
+            height: auto;
+            margin-right: 10px;
+        }
+        
+        .product-info h4,
+        .product-info h5 {
+            margin: 0;
+        }
+        
+        .sale-price,
+        .regular-price {
+            font-weight: bold;
+        }
+        
+        .quantity {
+            font-size: 14px;
+        }
+        
+        #total_item_amount {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* Highlight in green and italic */
+        .highlight {
+            color: green;
+            font-style: italic;
+            font-size: 15px;
+        }
+       
+        #rzp-button1 {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* styles.css */
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+select#country {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.edit-button,
+.delete-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background-color: #2980b9;
+}
+
+/* CSS styles for existing address */
+.existing-address {
+    background-color: #f4f4f4; /* Set the background color to a dim shade */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.existing-address h3 {
+    color: #666; /* Set the heading color to a darker shade */
+}
+.existing-address p {
+    color: #888; /* Set the paragraph text color to a lighter shade */
+    margin-bottom: 10px; /* Add some space between paragraphs */
+}
+
+h5.shipping-address-heading {
+    color: #2c3e50; /* Set text color */
+    font-size:16px; /* Set font size */
+    margin-bottom: 10px; /* Set bottom margin */
+    text-transform: uppercase; /* Convert text to uppercase */
+}
+#order-placed-section {
+    display: none; /* Initially hide the section */
+}
+
+#order-placed-section h2 {
+    color: blue;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+#order-success-message {
+    /* Add any additional styles for the success message */
+}
+    </style>
+</head>
+{% include "home.html" %}
+<br><br><br>
+<body>
+<div class="container1">
+    <div id="order-placed-section" style="display: none;">
+        <h2 style="color: blue; font-size: 24px; font-weight: bold;">Order Placed</h2>
+        
+        <p id="order-success-message"></p>
+        <P><a href="{% url 'bill_invoice'  %}" target="_blank">View Invoice</a></P>
+    </div>
+    <h1>Checkout</h1>
+
+{% comment %} <a href="{% url 'bill_invoice' order.id %}" class="btn btn-primary">View Bill Invoice</a> {% endcomment %}
+
+  <br>
+<form method="post" class="shipping-address-form">
+    {% csrf_token %}
+    <h5 class="shipping-address-heading">Shipping Address</h5>
+
+    <div class="form-group">
+        <label for="street_address">Street Address</label>
+        <input type="text" id="street_address" name="street_address" value="{{ shipping_address.street_address|default_if_none:'' }}" required>
+        <div id="street_address_error" style="color: red; display: none;">Enter a valid street address.</div>
+    </div>
+    
+    <div class="form-group">
+        <label for="apartment_address">Apartment Address</label>
+        <input type="text" id="apartment_address" name="apartment_address" value="{{ shipping_address.apartment_address|default_if_none:'' }}" oninput="validateApartmentAddress(this)">
+        <span id="apartment_address_error" style="color: red; display: none;">Enter a Apartment address.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="country">Country</label>
+        <select id="country" name="country" required>
+            <option value="" disabled selected>Select Country</option>
+            {% for country_code, country_name in countries %}
+                <option value="{{ country_code }}" {% if shipping_address.country == country_code %}selected{% endif %}>{{ country_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="zip">ZIP Code</label>
+        <input type="text" id="zip" name="zip" value="{{ shipping_address.zip|default_if_none:'' }}">
+        <span id="zip-error" style="color: red;"></span>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-success">Save</button>
+    </div>
+</form>
+
+   <!-- Display existing address -->
+<div class="existing-address">
+    <h5 class="shipping-address-heading">Existing Shipping Address</h5>
+    
+    <p><strong>Street Address:</strong> {{ shipping_address.street_address }}</p>
+    <p><strong>Apartment Address:</strong> {{ shipping_address.apartment_address }}</p>
+    <p><strong>Country:</strong> {{ shipping_address.country }}</p>
+    <p><strong>ZIP Code:</strong> {{ shipping_address.zip }}</p>
+</div>
+
+<br>
+    <div class="order-summary">
+        
+        <h5 class="shipping-address-heading">Order Summary</h5>
+        
+        <ul>
+            {% for item in cart_items %}
+            <li class="product-item">
+                <div class="product-info">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    <div>
+                        <h4>{{ item.product.name }}</h4>
+                        <h4 class="highlight"> {{ item.product.highlights }}</h4>
+                        <p>Sale Price: &#8377;{{ item.product.sale_price }}</p>
+                        <p>Price: &#8377;{{ item.product.price }}</p>
+                    </div>
+                </div>
+                <div>
+                    <p>Quantity: {{ item.quantity }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        
+
+    </div>
+    <p>Total Amount: &#8377;<span id="total_item_amount">{{ total_amount }}</span></p>
+      
+   <button id="rzp-button1">Pay with Razorpay</button>
+    </div>
+    
+  
+    
+</div>
+
+
+{% comment %} </div>
+    <button id="rzp-button1">Pay with Razorpay</button>
+</div> {% endcomment %}
+<div id="checkout-data" data-email="{{ email }}" data-fullname="{{ full_name }}"></div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var handlePaymentUrl = "{% url 'handle-payment' %}";
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkoutButton = document.getElementById('rzp-button1');
+        const checkoutData = document.getElementById("checkout-data");
+        const email = checkoutData.getAttribute("data-email");
+        const fullName = checkoutData.getAttribute("data-fullname");
+        const totalItemAmount = document.getElementById("total_item_amount");
+
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+        checkoutButton.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const rawPrice = totalItemAmount.textContent;
+            const totalPrice = parseFloat(rawPrice.replace('₹', '').trim());
+
+            fetch("http://127.0.0.1:3000/create-order/", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    var options = {
+                        "key": "rzp_test_sfFJaXgQPv4B3T",
+                        "amount": totalPrice * 100,
+                        "currency": "INR",
+                        "name": "Ecommerce",
+                        "description": "Order Payment",
+                        "order_id": data['order_id'],
+                        "prefill": {
+                            "name": fullName,
+                            "email": email
+                        },
+                        "handler": function (response) {
+                            const razorpay_order_id = response.razorpay_order_id;
+                            const payment_id = response.razorpay_payment_id;
+                            console.log(razorpay_order_id, payment_id)
+
+                            fetch("http://127.0.0.1:3000/handle-payment/", {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': getCookie('csrftoken')
+                                },
+                                body: JSON.stringify({
+                                    'order_id': razorpay_order_id,
+                                    'payment_id': payment_id
+                                })
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok during payment handling');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    if (data.message === 'Payment successful') {
+                                        const orderSection = document.getElementById('order-placed-section');
+                                        const orderMessage = document.getElementById('order-success-message');
+
+                                        orderMessage.textContent = "Successfully placed order!";
+                                        orderSection.style.display = "block";
+                                    } else {
+                                        alert('Payment failed');
+                                    }
+                                })
+                                .then(data => {
+                                    if (data.message === 'Payment successful') {
+                                        // Redirect to payment_done page
+                                        window.location.href = "/payment_done"; // Change the URL as per your application setup
+                                    } else {
+                                        alert('Payment failed');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('An error occurred while processing the payment.', error);
+                                    alert('There was an issue processing your payment. Please try again.');
+                                });
+                        }
+                    };
+
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+                })
+                .catch(error => {
+                    console.error('Error creating order:', error);
+                    alert('There was an issue initiating your order. Please try again.');
+                });
+        });
+
+        document.getElementById('zip').addEventListener('input', function() {
+            var zipInput = this.value.trim();
+            var errorSpan = document.getElementById('zip-error');
+            var isValid = true;
+        
+            // Check if the ZIP code is exactly 6 characters
+            if (zipInput.length !== 6) {
+                errorSpan.textContent = 'Enter a Valid pin.';
+                isValid = false;
+            } else {
+                // Check if there are any letters
+                if (/[a-zA-Z]/.test(zipInput)) {
+                    errorSpan.textContent = 'Letters are not allowed.';
+                    isValid = false;
+                }
+                // Check if there are any consecutive numbers
+                
+                // Check if there are any special characters or spaces
+                else if (/[^0-9]/.test(zipInput)) {
+                    errorSpan.textContent = 'Special characters or spaces are not allowed.';
+                    isValid = false;
+                }
+            }
+        
+            // If all checks pass, clear the error message
+            if (isValid) {
+                errorSpan.textContent = '';
+            }
+        });
+// countries.js
+document.getElementById('street_address').addEventListener('input', function() {
+    var streetAddress = this.value;
+    var errorDiv = document.getElementById('street_address_error');
+
+    // Regular expression to match consecutive repeating numbers (2 or more)
+    var consecutiveNumbersRegex = /(\d)\1{1,}/;
+    // Regular expression to match special characters
+    var specialCharsRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+    // Regular expression to match two words with space between them
+    var twoWordsRegex = /^[a-zA-Z]+\s[a-zA-Z]+$/;
+
+    if (consecutiveNumbersRegex.test(streetAddress)) {
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = 'Consecutive repeating numbers are not allowed.';
+    } else if (specialCharsRegex.test(streetAddress)) {
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = 'Special characters are not allowed.';
+    } 
+     else {
+        errorDiv.style.display = 'none';
+    }
+});
+
+
+function validateApartmentAddress(input) {
+    var apartmentAddress = input.value;
+    var errorSpan = document.getElementById('apartment_address_error');
+
+    // Regular expression to match special characters (comma only)
+    var specialCharsRegex = /[^,]/;
+    // Regular expression to match consecutive repeating numbers (2 or more)
+    var consecutiveNumbersRegex = /(\d)\1{1,}/;
+
+    if (specialCharsRegex.test(apartmentAddress)) {
+        errorSpan.style.display = 'block';
+        errorSpan.textContent = 'Only commas are allowed.';
+    } else if (consecutiveNumbersRegex.test(apartmentAddress)) {
+        errorSpan.style.display = 'block';
+        errorSpan.textContent = 'Consecutive repeating numbers are not allowed.';
+    } else {
+        errorSpan.style.display = 'none';
+    }
+}
+
+// Function to load the list of countries dynamically
+
+function loadCountries() {
+    const countrySelect = document.getElementById('country');
+
+    // Array of countries
+    const countries = [
+        "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+        // Add more countries as needed...
+    ];
+
+    // Populate the select dropdown with countries
+    countries.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country;
+        option.textContent = country;
+        countrySelect.appendChild(option);
+    });
+}
+
+// Call the loadCountries function when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', loadCountries);
+
+    });
+
+    
+    function showEditForm(addressId) {
+        // Hide all existing edit forms
+        var editForms = document.querySelectorAll('.edit-form');
+        editForms.forEach(function(form) {
+            form.style.display = 'none';
+        });
+
+        // Show the edit form for the selected address
+        var editForm = document.getElementById('edit-form-' + addressId);
+        editForm.style.display = 'block';
+    }
+
+    $(document).ready(function() {
+        $('#edit-button').click(function() {
+            $('#street_address, #apartment_address, #country, #zip').prop('disabled', false);
+            $(this).hide();
+            $('#save-button').show();
+        });
+    });
+    
+    function validateAddress(input) {
+        var regex = /^[a-zA-Z0-9, ]*$/;
+        var errorMessage = document.getElementById("address_error");
+        
+        if (!regex.test(input.value)) {
+            errorMessage.style.display = "inline";
+        } else {
+            errorMessage.style.display = "none";
+        }
+    }
+    function validateApartmentAddress(input) {
+        var regex = /^[a-zA-Z0-9, ]*$/;
+        var consecutiveNumbersRegex = /(\d)\1{2,}/; // Checks for consecutive repeating numbers
+        var errorMessage = document.getElementById("apartment_address_error");
+
+        if (!regex.test(input.value) || consecutiveNumbersRegex.test(input.value)) {
+            errorMessage.style.display = "inline";
+        } else {
+            errorMessage.style.display = "none";
+        }
+    }
+    function validatePincode(input) {
+        var pincodeRegex = /^\d{6}$/; // Regular expression for Indian PIN code format
+        
+        var errorMessage = document.getElementById("pincode_error");
+
+        if (!pincodeRegex.test(input.value)) {
+            errorMessage.style.display = "inline";
+        } else {
+            errorMessage.style.display = "none";
+        }
+    }
+    
+    $(document).ready(function() {
+        // Show the slider with a delay of 2 seconds
+        setTimeout(function() {
+            $('#order-placed-section').addClass('active');
+        }, 2000);
+    });
+    
+</script>
+</body>
+</html>

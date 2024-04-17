@@ -1,0 +1,413 @@
+{% load static %}
+
+
+  <!-- ======= Hero Section ======= -->
+  {% include 'home.html' %}
+  <html>
+    <head>
+      <style>
+        .container {
+          text-align: left;
+        }
+        
+        .box {
+          background: linear-gradient(to right, #c55340, #40b2c5);
+          color: white;
+          --width: 180px; /* Reduce the width */
+          --height: calc(var(--width) / 3);
+          width: var(--width);
+          height: var(--height);
+          text-align: center;
+          line-height: var(--height);
+          font-size: calc(var(--height) / 4);
+          font-family: sans-serif;
+          letter-spacing: 0.3em;
+          border: 1px solid darkgoldenrod;
+          border-radius: 10px; /* Modify the border radius */
+          transform: perspective(500px) rotateY(-15deg);
+          text-shadow: 3px 2px 2px rgba(0, 0, 0, 0.2); /* Adjust text shadow */
+          box-shadow: 2px 0 0 3px rgba(0, 0, 0, 0.2); /* Adjust box shadow */
+          transition: 0.5s;
+          position: relative;
+          overflow: hidden;
+          display: inline-block;
+          margin-right: 20px;
+        }
+        
+        .box:hover {
+          transform: perspective(500px) rotateY(15deg);
+          text-shadow: -3px 2px 2px rgba(0, 0, 0, 0.2); /* Adjust text shadow */
+          box-shadow: -2px 0 0 3px rgba(0, 0, 0, 0.2); /* Adjust box shadow */
+        }
+        
+        .box::before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to right, transparent, white, transparent);
+          left: -100%;
+          transition: 0.5s;
+        }
+        
+        .box:hover::before {
+          left: 100%;
+        }
+         #doctors .product-container {
+            display: flex; /* Use flexbox to display containers inline */
+            flex-wrap: wrap; /* Allow containers to wrap to the next line */
+            max-width: calc(70vw - 50px); /* Adjust the maximum width of the container */
+            margin: 0 auto; /* Center the container horizontally */
+            /* Add more styles as needed */
+        }
+        .product {
+            width: calc(33.33% - 20px); /* Set the width of each container to one-third of the available space */
+            margin: 10px; /* Add some margin between containers */
+            background-color: #f0f0f0; /* Background color for the container */
+            padding: 70px; /* Add padding to the container */
+            text-align: center; /* Center align content */
+            box-sizing: border-box; /* Include padding and border in the width */
+            /* Set a fixed height equal to the width to make the container square */
+            height: calc(33.33% - 20px);
+            max-height: 380px; /* Set a maximum height to avoid excessive height */
+            /* Add more styles as needed */
+        }
+        .product img {
+            max-width: 110%; /* Ensure images don't exceed container width */
+            height: auto;
+            /* Add more styles as needed */
+        }
+        /* Add more custom styles as needed */
+        .product h6 {
+          font-size: 12px; /* Adjust the font size */
+          font-weight: bold; /* Apply bold font weight */
+          text-transform: uppercase; /* Convert text to uppercase */
+          letter-spacing: 1px; /* Add spacing between letters */
+          color: #333; /* Set the text color */
+          margin-top: 10px; /* Add top margin for spacing */
+          transition: color 0.3s ease; /* Smooth color transition on hover */
+      }
+      
+      .product h6:hover {
+          color: #f44336; /* Change text color on hover */
+      }
+      
+      /* Add more styles as needed */
+      
+      </style>
+    </head>
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center" style="background-image: url('static/assets/img/pic.png');">
+    <div class="container text-center text-md-left" style="text-align: left;">
+      <div class="container text-left" style="text-align: left;">
+        <div class="box" onclick="location.href='{% url 'appointment' %}'" style="margin-right: 20px;">Appointment</div>
+        <div class="box" onclick="location.href='{% url 'display_product' %}'"style="margin-left:680px;">Products</div>
+        
+      
+    </div>
+    
+    
+   
+  
+    
+    
+</section>
+<section id="doctors" class="container mt-5">
+  <div class="product-container">
+      {% for product in products %}
+      <div class="product">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          <h6>{{ product.name }}</h6>
+          <!-- Add other details you want to display -->
+         
+          <p>Brand: {{ product.brand }}</p>
+         
+          <!-- Add more fields as needed -->
+      </div>
+      {% endfor %}
+  </div>
+</section>
+
+<!-- ======= Hero Section ======= -->
+<section id="doctors" class="container mt-5">
+  <h2>Registered Doctors</h2>
+  <div class="row">
+      {% for doctor in users %}
+      <div class="col-md-4 mb-4">
+          <div class="card">
+              {% if doctor.doctorprofile.profile_picture %}
+              <img src="{{ doctor.doctorprofile.profile_picture.url }}" class="card-img-top rounded-circle" alt="{{ doctor.first_name }} Profile Picture" style="width: 180px; height: 180px;">
+              {% else %}
+              <!-- Display a default profile picture or an empty image -->
+              <img src="{% static 'path/to/default/profile_picture.png' %}" class="card-img-top rounded-circle" alt="{{ doctor.first_name }} Profile Picture">
+              {% endif %}
+              <div class="card-body">
+                  <h5 class="card-title"> Dr &nbsp;{{ doctor.first_name }}</h5>
+                  <!-- Add more doctor information here -->
+                  <a href="#" class="btn btn-primary">Book Appointment</a>
+              </div>
+
+          </div>
+      </div>
+      {% empty %}
+      <div class="col-md-12">
+          <p>No doctors registered yet.</p>
+      </div>
+      {% endfor %}
+      <div class="text-center mt-3">
+        <a href="{% url 'alldoctorlist'%}" class="btn btn-primary">View All</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+    
+
+  <main id="main">
+<!-- ======= Services Section ======= -->
+<section id="services" class="services section-bg">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Services</h2>
+      <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="icon-box">
+          <i class="bi bi-briefcase"></i>
+          <h4><a href="#">Lorem Ipsum</a></h4>
+          <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4 mt-lg-0">
+        <div class="icon-box">
+          <i class="bi bi-card-checklist"></i>
+          <h4><a href="#">Dolor Sitema</a></h4>
+          <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-bar-chart"></i>
+          <h4><a href="#">Sed ut perspiciatis</a></h4>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-binoculars"></i>
+          <h4><a href="#">Nemo Enim</a></h4>
+          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-brightness-high"></i>
+          <h4><a href="#">Magni Dolore</a></h4>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="icon-box">
+          <i class="bi bi-calendar4-week"></i>
+          <h4><a href="#">Eiusmod Tempor</a></h4>
+          <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section><!-- End Services Section -->
+    
+    
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="{% static '/assets/img/unisex.png'%}" class="img-fluid" alt="">
+        
+          </div>
+         
+          
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+   
+    
+  
+             
+
+
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Team</h2>
+          <p>Sit sint consectetur velit quos quisquam cupiditate nemo qui</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="assets/img/team/team-1.jpg" alt="">
+              <h4>Walter White</h4>
+              <span>Chief Executive Officer</span>
+              <p>
+                Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut aut aut
+              </p>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="assets/img/team/team-2.jpg" alt="">
+              <h4>Sarah Jhinson</h4>
+              <span>Product Manager</span>
+              <p>
+                Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum temporibus
+              </p>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="assets/img/team/team-3.jpg" alt="">
+              <h4>William Anderson</h4>
+              <span>CTO</span>
+              <p>
+                Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
+              </p>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+   
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Lumia</h3>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Lumia</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/lumia-bootstrap-business-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+      <div class="social-links text-center text-md-right pt-3 pt-md-0">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    </div>
+  </form>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static '/assets/vendor/purecounter/purecounter_vanilla.js'%}"></script>
+  <script src="{% static '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{% static '/assets/vendor/waypoints/noframework.waypoints.js'%}"></script>
+  <script src="{% static '/assets/vendor/php-email-form/validate.js'%}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+
+
+</body>
+
+</html>

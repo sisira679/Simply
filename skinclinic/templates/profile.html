@@ -1,0 +1,421 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SIMPLY SKIN - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static '/assets/img/favicon.png'%}" rel="icon">
+  <link href="{% static '/assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="{% static '/https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'%}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'%}">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static '/assets/css/style.css'%}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Include Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+  <!-- icons-->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- =======================================================
+  * Template Name: Lumia
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  <style>
+    .bn33 {
+      border: 5em;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+      -webkit-transform: translate(0);
+      transform: translate(0);
+      background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+      padding: 0.7em 2em;
+      border-radius: 1px;
+      box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+      -webkit-transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s;
+      color: white;
+    }
+    /* Add this CSS in your stylesheets or <style> tag in the HTML file */
+      .profile-picture-round {
+          width: 50px; /* Set the desired width */
+          height: 50px; /* Set the desired height */
+          border-radius: 50%; /* Make the element round */
+          overflow: hidden; /* Hide any overflow content */
+      }
+      
+      .profile-picture-round img {
+          width: 100%; /* Make sure the image fills the round container */
+          height: 100%; /* Make sure the image fills the round container */
+          object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        margin-top: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 80%;
+        display: flex;
+    }
+
+    .left-panel {
+        width: 35%;
+        padding: 20px;
+        background-color: #343a40;
+        color: #fff;
+        text-align: center;
+    }
+
+    .round-box {
+        width: 150px;
+        height: 150px;
+        background-color: #fff;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .round-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .right-panel {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+
+    .label {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        margin-left: 80px;
+        position: relative;
+    }
+
+    .form-control {
+        width: 60%;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        border-radius: 0.25rem;
+        margin-top: 8px;
+    }
+
+    
+
+    hr {
+        width: 55%;
+        margin: 20px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin-left: 80px;
+    }
+    .error-message {
+        color: red;
+    }
+      
+  
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+ 
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo me-auto">
+        <h1><a href="{% static '/index.html'%}">SIMPLY SKIN</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="{% static '/index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% static '/#hero'%}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#about'%}">About</a></li>
+          <li><a class="nav-link scrollto" href="{% static '/#services'%}">Services</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        {% if user.is_authenticated %}
+        <ul>
+          <li class="dropdown">
+              <a class="nav-link scrollto" href="#" id="usernameDropdown" name="profile_picture" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <strong> Welcome, {{ user.username }}</strong> <i class="bi bi-caret-down"></i>
+                  <div class="profile-picture-round">
+                    {% if user_profile.profile_picture %}
+                      <img src="{{ user_profile.profile_picture.url }}" alt="User Profile Picture">
+                    {% else %}
+                    <!-- Display a default profile picture or an empty image -->
+                      <img src="{% static '/assets/img/profile_default.png' %}" alt="Default Profile Picture">
+                    {% endif %}
+                  </div>
+                </a>
+              <ul class="dropdown-menu" aria-labelledby="usernameDropdown">
+                  <li><a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                  <li><a href="{% url 'profile' %}"><i class="bi bi-person"></i> Profile</a></li>
+                  <li><a href="#"><i class="bi bi-gear"></i> Settings</a></li>
+              </ul>
+          </li>
+      </ul>
+      
+        {% else %}
+          <ul>
+          <li><a href="login.html"><button class="bn33">Sign In</button></a></li>
+      </ul>
+      <ul>
+        <li><a href="register.html"><button class="bn33">Register</button></a></li>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </ul>
+     {% endif %}
+    </nav><!-- .navbar -->
+    
+    </div>
+
+  </header>
+  <body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="round-box" id="uploaded-image-box">
+                {% if user_profile.profile_picture %}
+                   <img id="uploaded-image" src="{{ user_profile.profile_picture.url }}" alt="User Image">
+                {% else %}
+                   <img id="uploaded-image" src="#" alt="User Image">
+                {% endif %}
+            </div>
+            <h4><b>{{user.first_name}}  {{user.last_name}}</b></h4>
+            <label>Email: {{ user.email }}</label>
+        </div>
+        <div class="right-panel">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label for="user-image" class="label">Upload Profile Image</label>
+                            <input type="file" name="profile_picture" id="user-image" class="form-control" accept="image/*" {% if user_profile.profile_picture %}required{% endif %} onchange="updateFileName(this)">
+                            <span id="file-name-placeholder">
+                                {% if user_profile.profile_picture %}
+                                    {{ user_profile.profile_picture.name }}
+                                {% endif %}
+                            </span>
+                            <hr>
+                            
+                            <label for="phonenumber" class="label">Phone Number</label>
+                            <input type="tel" name="phonenumber" id="phonenumber" class="form-control" value="{% if user_profile.phonenumber %}{{ user_profile.phonenumber }}{% endif %}" {% if not user_profile.phonenumber %}required{% endif %} readonly oninput="validatePhoneNumber(this)">
+                            <div id="phone-error-message" class="error-message"></div>
+                            <hr>
+
+                            <label for="address" class="label">Address</label>
+                            <input type="text" name="address" id="address" class="form-control" value="{% if user_profile.address %}{{ user_profile.address }}{% endif %}" {% if not user_profile.address %}required{% endif %} readonly>
+                            <hr>
+                            
+                            <label for="pincode" class="label">Pincode</label>
+                            <input type="text" name="pincode" id="pincode" class="form-control" value="{% if user_profile.pincode %}{{ user_profile.pincode }}{% endif %}" {% if not user_profile.pincode %}required{% endif %}>
+                            <hr>
+                            
+                            <label for="city" class="label">City</label>
+                            <input type="text" name="city" id="city" class="form-control" value="{% if user_profile.city %}{{ user_profile.city }}{% endif %}" {% if not user_profile.city %}required{% endif %}>
+                            <hr>
+                            
+                            <label for="district" class="label">District</label>
+                            <input type="text" name="district" id="district" class="form-control" value="{% if user_profile.district %}{{ user_profile.district }}{% endif %}" {% if not user_profile.district %}required{% endif %}>
+                            <hr>
+                            
+                            
+                            
+                            <label for="dob" class="label">Date of Birth</label>
+                            <input type="date" name="dob" id="dob" class="form-control" value="{% if user_profile.dob %}{{ user_profile.dob|date:'Y-m-d' }}{% endif %}" {% if not user_profile.dob %}required{% endif %} oninput="calculateAge()">
+                            <hr>
+
+                            <label for="age" class="label">Age</label>
+                            <input type="number" name="age" id="age" class="form-control" value="{% if user_profile.age %}{{ user_profile.age }}{% endif %}"  {% if not user_profile.age %}required{% endif %} readonly>
+                            <hr>
+                            
+                            <label for="state" class="label">State</label>
+                            <select name="state" id="state" class="form-control" {% if not user_profile.state %}required{% endif %}>
+                                <option value="" {% if not user_profile.state %}selected{% endif %}>Select State</option>
+                                {% for state in indian_states %}
+                                    <option value="{{ state }}" {% if user_profile.state == state %}selected{% endif %}>{{ state }}</option>
+                                {% endfor %}
+                            </select>
+                            <hr>
+                            
+                            <label for="bloodgroup" class="label">Blood Group</label>
+                            <select name="bloodgroup" id="bloodgroup" class="form-control" {% if not user_profile.bloodgroup %}required{% endif %} readonly>
+                                <option value="" {% if not user_profile.bloodgroup %}selected{% endif %}>Select Blood Group</option>
+                                <option value="A+" {% if user_profile.bloodgroup == 'A+' %}selected{% endif %}>A+</option>
+                                <option value="A-" {% if user_profile.bloodgroup == 'A-' %}selected{% endif %}>A-</option>
+                                <option value="B+" {% if user_profile.bloodgroup == 'B+' %}selected{% endif %}>B+</option>
+                                <option value="B-" {% if user_profile.bloodgroup == 'B-' %}selected{% endif %}>B-</option>
+                                <option value="AB+" {% if user_profile.bloodgroup == 'AB+' %}selected{% endif %}>AB+</option>
+                                <option value="AB-" {% if user_profile.bloodgroup == 'AB-' %}selected{% endif %}>AB-</option>
+                                <option value="O+" {% if user_profile.bloodgroup == 'O+' %}selected{% endif %}>O+</option>
+                                <option value="O-" {% if user_profile.bloodgroup == 'O-' %}selected{% endif %}>O-</option>
+                            </select>
+                            <hr>
+
+                            <div class="form-group">
+                                {% if created %}
+                                    <button type="submit" class="btn btn-lg btn-success" id="save-button">Save</button>
+                                {% else %}
+                                    <button type="button" class="btn btn-lg btn-primary" id="edit-button">Edit</button>
+                                    <button type="submit" class="btn btn-lg btn-success" id="save-button" style="display: none;">Save</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+  
+    <!-- Add this div where it makes sense, for example, at the end of the body -->
+    <div id="hasDetails" style="display:none;" data-has-details="{% if user_profile.first_name or user_profile.last_name or user_profile.mobile or user_profile.address %}true{% else %}false{% endif %}"></div>
+
+    <!-- Your existing scripts -->
+    <script>
+        var hasDetails = document.getElementById('hasDetails').getAttribute('data-has-details') === 'true';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleReadOnly(hasDetails);
+        });
+
+        document.getElementById('edit-button').addEventListener('click', function() {
+            toggleReadOnly(false);
+        });
+
+        function toggleReadOnly(readOnly) {
+            var formFields = document.querySelectorAll('.form-control');
+            formFields.forEach(function(field) {
+                field.readOnly = readOnly;
+            });
+
+            document.getElementById('save-button').style.display = readOnly ? 'none' : 'block';
+            document.getElementById('edit-button').style.display = readOnly ? 'block' : 'none';
+        }
+        function calculateAge() {
+            var dob = document.getElementById("dob").value;
+            var dobDate = new Date(dob);
+            var today = new Date();
+            var age = today.getFullYear() - dobDate.getFullYear();
+        
+            // Check if the birthday has occurred this year or not
+            if (today.getMonth() < dobDate.getMonth() || (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())) {
+                age--;
+            }
+        
+            // Get the current year
+            var currentYear = today.getFullYear();
+        
+            // Get the selected year from the Date of Birth input
+            var selectedYear = dobDate.getFullYear();
+        
+            // Check if the selected year is in the future
+            if (selectedYear > currentYear) {
+                // Display validation error (you can customize this according to your UI framework)
+                alert("Invalid Date of Birth. Please select a past date.");
+                // Clear the input field value to prevent further submission
+                document.getElementById("dob").value = "";
+                // Optional: You can focus on the input field to bring the user's attention
+                document.getElementById("dob").focus();
+                // Optional: You can clear the age field as well
+                document.getElementById("age").value = "";
+                return;
+            }
+        
+            // Update the age input field
+            document.getElementById("age").value = age;
+        }
+        
+
+        document.getElementById("user-image").addEventListener("change", function(event) {
+            var fileName = event.target.files[0] ? event.target.files[0].name : "No file chosen";
+            document.getElementById("file-name-placeholder").textContent = fileName;
+          });
+
+            function updateFileName(input) {
+                var fileName = input.value.split("\\").pop();
+                var filePlaceholder = document.getElementById("file-name-placeholder");
+            
+                if (fileName) {
+                    filePlaceholder.textContent = fileName;
+                }
+            }
+            
+            function validatePhoneNumber(input) {
+                var phoneNumber = input.value.replace(/\D/g, ''); // Remove non-digit characters
+                var errorMessageElement = document.getElementById('phone-error-message');
+                errorMessageElement.textContent = '';
+                errorMessageElement.className = ''; // Reset the class name
+                
+                if (phoneNumber.length !== 10) {
+                    errorMessageElement.textContent = 'Phone number must be 10 digits long.';
+                    errorMessageElement.className = 'error-message'; // Set the class name for red color
+                    return;
+                }
+            
+                // Regular expression to match 10 digits, not starting with zero
+                var validPhoneNumber = /^[1-9]\d{9}$/;
+                if (!validPhoneNumber.test(phoneNumber)) {
+                    errorMessageElement.textContent = 'Invalid phone number. Must start with a digit from 1 to 9.';
+                    errorMessageElement.className = 'error-message'; // Set the class name for red color
+                    return;
+                }
+            
+                // If validation passes, you can use the `phoneNumber` variable for further processing
+            }
+          
+           
+            </script>
+</body>
+
+</html>

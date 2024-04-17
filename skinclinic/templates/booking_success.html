@@ -1,0 +1,256 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Razorpay JavaScript -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- Custom CSS -->
+    <style>
+        /* Custom styles for the form */
+        .form-container {
+            max-width: 700px; /* Adjust form container width as needed */
+            margin: 50px auto; /* Center the form */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        /* Custom styles for headings */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* Custom styles for the form fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            padding: 5px;
+        }
+        /* Custom styles for the submit button */
+        .btns-submit {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            background-color: #d7887b; /* Change button color */
+            border-color: #d7887b; /* Change button border color */
+        }
+        /* Custom styles for the button hover effect */
+        .btns-submit:hover {
+            background-color: #c17057; /* Change button color on hover */
+            border-color: #c17057; /* Change button border color on hover */
+        }
+    </style>
+</head>
+<body>
+    <br><br><br>
+    <div class="container">
+        <div class="form-container">
+            <h1>Booking Confirmation</h1>
+            <form method="post" id="bookingDetailsForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingDate" class="form-label">Booking Date</label>
+                    <input type="text" class="form-control" id="bookingDate" name="bookingDate" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="bookingTimeSlot" class="form-label">Booking Time Slot</label>
+                    <input type="text" class="form-control" id="bookingTimeSlot" name="bookingTimeSlot" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="serviceName" class="form-label">Service Name</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" readonly>
+                </div>
+                <input type="button" class="btns btns-primary btns-submit" id="confirmBookingBtn" value="Confirm Booking">
+            </form>
+        </div>
+    </div>
+    
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Populate form fields with data
+            document.getElementById('username').value = "{{ user.username }}";
+            document.getElementById('email').value = "{{ user.email }}";
+            document.getElementById('bookingDate').value = "{{ booking.date }}";
+            document.getElementById('bookingTimeSlot').value = "{{ booking.time_slot }}";
+            document.getElementById('serviceName').value = "{{ booking.service.name }}";
+            
+            // Add event listener to confirm booking button
+            document.getElementById('confirmBookingBtn').addEventListener('click', function() {
+                var amount = parseFloat("{{ booking.service.advance_payment }}"); // Fetch the advance payment amount from Django template
+    
+                var options = {
+                    key: 'rzp_test_sfFJaXgQPv4B3T', // Replace with your Razorpay key
+                    amount: amount * 100, // Amount in paise
+                    currency: 'INR',
+                    name: 'Your Company Name',
+                    description: 'Advance Payment for Booking',
+                    handler: function(response) {
+                        // This function will be called after payment completion
+                        // You can send the payment confirmation to your server for validation
+                        // Handle the payment confirmation logic here
+                        console.log(response);
+                        // Example: You can submit the form after successful payment
+                        document.getElementById("bookingDetailsForm").submit();
+                    },
+                    prefill: {
+                        name: "{{ user.username }}",
+                        email: "{{ user.email }}",
+                    }
+                };
+    
+                var rzp = new Razorpay(options);
+                rzp.open();
+            });
+        });
+    </script>
+    
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Custom styles for the form */
+        .form-container {
+            max-width: 700px; /* Adjust form container width as needed */
+            margin: 50px auto; /* Center the form */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Custom styles for headings */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Custom styles for the form fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        /* Custom styles for the submit button */
+        .btns-submit {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            background-color: #d7887b; /* Change button color */
+            border-color: #d7887b; /* Change button border color */
+        }
+
+        /* Custom styles for the button hover effect */
+        .btns-submit:hover {
+            background-color: #c17057; /* Change button color on hover */
+            border-color: #c17057; /* Change button border color on hover */
+        }
+    </style>
+</head>
+<body>
+    <br><br><br>
+    <div class="container">
+        <div class="form-container">
+            <h1>Booking Confirmation</h1>
+            <form method="post" id="bookingDetailsForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ booking.user.username }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ booking.user.email }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="bookingDate" class="form-label">Booking Date</label>
+                    <input type="text" class="form-control" id="bookingDate" name="bookingDate" value="{{ booking.date }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="bookingTimeSlot" class="form-label">Booking Time Slot</label>
+                    <input type="text" class="form-control" id="bookingTimeSlot" name="bookingTimeSlot" value="{{ booking.time_slot }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="serviceName" class="form-label">Service Name</label>
+                    <input type="text" class="form-control" id="serviceName" name="serviceName" value="{{ booking.service.name }}" readonly>
+                </div>
+                <button type="button" class="btns btns-primary btns-submit" id="confirmBookingBtn">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Include Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add event listener to confirm booking button
+            document.getElementById('confirmBookingBtn').addEventListener('click', function() {
+                var amount = "{{ amount }}"; // Fetch the advance payment amount from Django template
+                var razorpay_key = "{{ razorpay_key }}"; // Fetch Razorpay key from Django template
+    
+                var options = {
+                    key: razorpay_key, // Replace with your Razorpay key
+                    amount: amount, // Amount in smallest currency unit (e.g., paise for INR)
+                    currency: 'INR',
+                    name: 'Your Company Name',
+                    description: 'Advance Payment for Booking',
+                    handler: function(response) {
+                        // This function will be called after payment completion
+                        // You can send the payment confirmation to your server for validation
+                        // Handle the payment confirmation logic here
+                        console.log(response);
+                        // Example: You can submit the form after successful payment
+                        document.getElementById("bookingDetailsForm").submit();
+                    },
+                    prefill: {
+                        name: '{{ booking.user.username }}',
+                        email: '{{ booking.user.email }}',
+                    }
+                };
+    
+                var rzp = new Razorpay(options);
+                rzp.open();
+            });
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+  
+  <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #f0f0f0;
+    }
+
+    h2 {
+        color: #333;
+        text-align: center;
+        padding: 20px;
+        background-color: #3498db;
+        margin: 0;
+    }
+
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+  
+
+    a {
+        display: inline-block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    a.approve {
+        background-color: #2ecc71;
+    }
+
+    a.reject {
+        background-color: #e74c3c;
+    }
+
+    a:hover {
+        background-color: #333;
+    }
+
+    p {
+        text-align: center;
+        color: #333;
+    }
+    p.no-requests {
+      text-align: center;
+      color: #555;
+      font-size: 18px;
+      margin-top: 20px;
+  }
+  
+  p.no-requests::before {
+      content: "\f071";  /* Unicode for the font-awesome exclamation-circle icon */
+      font-family: FontAwesome;  /* Use a font that supports icons, e.g., Font Awesome */
+      font-size: 36px;
+      margin-right: 10px;
+      color: #e74c3c;
+  }
+  
+  
+</style>
+</head>
+{% include 'admin.html'%}
+<body>
+        <div class="page-wrapper">
+          <h2>Leave Approval</h2>
+
+          {% if pending_leave_requests %}
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Leave Type</th>
+                          <th>Leave Date</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for leave in pending_leave_requests %}
+                          <tr>
+                              <td>{{ leave.doctor.first_name }}</td>
+                              <td>{{ leave.leave_type }}</td>
+                              <td>{{ leave.date }}</td>
+                              <td>
+                                  <a href="{% url 'approve_leave' leave.id %}" class="approve">Approve</a>
+                                  /
+                                  <a href="{% url 'reject_leave' leave.id %}" class="reject">Reject</a>
+                              </td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          {% else %}
+          <p class="no-requests">No pending leave requests.</p>
+          {% endif %}
+      
+   
+</div>
+              
+											
+
+                    
+    
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/Chart.bundle.js'%}"></script>
+    <script src="{% static 'assets1/js/chart.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+
+</body>
+
+
+
+</html>

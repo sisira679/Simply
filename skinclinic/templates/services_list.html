@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service List</title>
+  
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+       
+
+        th, td {
+            border: 1px solid #000; /* Set default border color */
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Image styling */
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Form styling */
+        form {
+            display: inline-block;
+            margin: 0;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 2px solid #000; /* Set border for the whole table */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+{% include 'admin.html'%}
+<body>
+    <br><br><br>
+    <h1>Service List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>highlight</th>
+           
+                <th>Actions</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Assume services is provided from your server-side code -->
+            <!-- {% for service in services %} -->
+            <tr>
+                <td><img src="service_image.jpg" alt="Service Image" width="100"></td>
+                <td>{{service.name}}</td>
+                <td>{{service.highlights}}</td>
+                <td>
+                    <form action="{% url 'add_time_slot' service_id=service.id %}" method="get">
+                        <button type="submit">Add Time Slot</button>
+                    </form>
+                </td>
+              <td>
+                    <form action="{% url 'delete_service' service_id=service.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td> 
+            </tr>
+            <!-- {% endfor %} -->
+        </tbody>
+    </table>
+</body>
+</html>

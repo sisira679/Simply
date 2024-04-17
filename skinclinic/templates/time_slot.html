@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Time Slot</title>
+</head>
+<body>
+    <h1>Book Time Slot</h1>
+    <form method="POST" action="{% url 'book_time_slot' %}">
+        {% csrf_token %}
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="time">Select Time Slot:</label>
+        <select id="time" name="time" required>
+            <option value="09:00">9:00 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="service">Select Service:</label>
+        <select id="service" name="service" required>
+            {% for service in services %}
+                <option value="{{ service.id }}">{{ service.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Book</button>
+    </form>
+</body>
+</html>

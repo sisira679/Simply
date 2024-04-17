@@ -1,0 +1,375 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+  <style>
+    /* Add some basic styling for the table */
+    {% comment %} table {
+      width: 100%;
+      max-width: 600px; /* Adjust the value as needed */
+      margin: 20px auto; /* Center the table horizontally with a bit of top margin */
+      border-collapse: collapse;
+      margin-top: 10px;
+      background-color: #f9f9f9; /* Light color for table body */
+   
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      max-width: 250px; /* Adjust the value as needed */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    } {% endcomment %}
+    /* Adjustments to table alignment */
+    table {
+        width: 100%;
+        max-width: 800px; /* Adjust the value as needed */
+        margin: 20px 20px 20px 250px; /* Center the table horizontally with a bit of top margin and move away from the sidebar */
+        border-collapse: collapse;
+        margin-top: 10px;
+        background-color: #f9f9f9; /* Light color for table body */
+    }
+
+    th, td {
+        max-width: 150px; /* Adjust the value as needed */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      max-width: 250px; /* Adjust the value as needed */
+    }
+    /* Style for Date */
+    .date-th {
+      background-color: #bbdefb; /* Light blue */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for Time Slot */
+    .time-th {
+      background-color: #81c784; /* Light green */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for Patient Name */
+    .name-th {
+      background-color: #ffcc80; /* Light orange */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for Email */
+    .email-th {
+      background-color: #f48fb1; /* Light pink */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for Reason */
+    .reason-th {
+      background-color: #90a4ae; /* Light gray */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for Prescription */
+    .prescription-th {
+      background-color: #bcaaa4; /* Light brown */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for today's appointments */
+    .today {
+      background-color: #c8e6c9; /* Light green */
+    }
+
+    /* Style for tomorrow's appointments */
+    .tomorrow {
+      background-color: #bbdefb; /* Light blue */
+    }
+    .history-th{
+      background-color: #f48fb1; /* Light pink */
+      color: white; /* Text color for th */
+    }
+
+    /* Style for the prescription button */
+.prescription-button {
+  display: inline-block;
+  padding: 10px;
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Arial', sans-serif; /* Specify your preferred font-family */
+  font-size: 14px; /* Adjust font size as needed */
+  font-weight: bold; /* Specify font weight if needed */
+  text-decoration: none; /* Remove underlines */
+  text-align: center; /* Center text within the button */
+}
+
+/* Hover effect for the prescription button */
+.prescription-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Style for the added state of the prescription button */
+.prescription-button.added {
+  background-color: #f44336; /* Red */
+}
+h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Text color */
+  background: linear-gradient(to right, #3498db, #e74c3c); /* Gradient background */
+  padding: 10px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
+  font-size: 30px;
+  max-width: 950px; /* Set the same max-width as the table */
+  margin: 20px auto; /* Center the h3 horizontally with a bit of top margin */
+}
+/* Add this to your CSS */
+.history-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    border-radius: 5px;
+}
+
+.history-button:hover {
+    background-color: #0056b3;
+}
+
+/* If you want to style the disabled state of the button */
+.history-button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+  </style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png' %}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                  {% if doctor_profile.profile_picture %}
+                                   <img class="rounded-circle" src="{{doctor_profile.profile_picture.url }}" width="24" alt="Doctor Profile Picture">
+                                  {% else %}
+                                   <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                  {% endif %}
+                                  <span class="status online"></span>
+                            </span>
+                            {% if user.is_authenticated %}
+                            <span>Welcome,Dr.{{ user.username }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'doctorprofile' %}">Edit Profile</a>
+                            <a class="dropdown-item" href="{% url 'changepassword' %}">change password</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="doctordashboard.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="{% url 'today_appointments' %}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_dashboard.html"><i class="fa fa-hospital-o"></i> <span>All Patients</span></a>
+                        </li>
+                        <li>
+                            <a href="scheduling.html"><i class="fa fa-calendar-check-o"></i> <span>Scheduling</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="apply_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave status</span></a>
+                        </li>
+						
+	
+                       
+						
+                       
+                      
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <body>
+
+ 
+          <div class="page-content">
+          {% if doctor_appointments %}
+          <br><br><br>
+            <h3>All Patients</h3>
+            
+            <table>
+              <thead>
+                <tr>
+                  
+                  <th class="date-th">Date</th>
+                  <th class="time-th">Time Slot</th>
+                  <th class="name-th">Patient Name</th>
+                  <th class="email-th">Email</th>
+                  <th class="reason-th">Reason</th>
+                  <th class="prescription-th">Prescription</th>
+                  <th class="history-th">History</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for appointment in doctor_appointments %}
+                  <tr class="{% if appointment.date == today %}today{% elif appointment.date == tomorrow %}tomorrow{% endif %}">
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time_slot }}</td>
+                    <td>{{ appointment.user.first_name }}</td>
+                    <td>{{ appointment.user.email }}</td>
+                    <td>{{ appointment.reason }}</td>
+                 
+                    {% comment %} <td>
+                      <a href="{% url 'add_prescription' appointment.id %}">
+                          <button class="prescription-button {% if appointment.prescription %}added{% endif %}"
+                                  {% if appointment.prescription %}disabled{% endif %}>
+                              {% if appointment.prescription %}View Prescription{% else %}Add Prescription{% endif %}
+                          </button>
+                      </a>
+                  </td> {% endcomment %}
+                  <td>
+                    <a href="{% url 'add_prescription' appointment.id %}">
+                        <button class="prescription-button {% if appointment.prescriptions.exists %}added{% endif %}">
+                            {% if appointment.prescriptions.exists %}Edit Prescription{% else %}Add Prescription{% endif %}
+                        </button>
+                    </a>
+                </td>
+                
+                  <td>
+                    <a href="{% url 'view_patient_history' appointment.user.id %}">
+                        <button class="history-button">View History</button>
+                    </a>
+                </td>
+                <!-- Inside the for loop -->
+<td>
+  <form action="{% url 'delete_appointment' appointment.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="delete-button">Delete</button>
+  </form>
+</td>
+
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>No scheduled appointments.</p>
+          {% endif %}
+         
+
+        </div>
+       {% else %}	
+                {% endif %}
+                <script>
+                  $(document).ready(function () {
+                      // Iterate through each prescription button
+                      $(".prescription-button").each(function () {
+                          // Check if prescription is added for the corresponding appointment
+                          var prescriptionAdded = $(this).hasClass("added");
+              
+                          if (prescriptionAdded) {
+                              // Change the background color of the button
+                              $(this).css("background-color", "#ccc");
+                          } else {
+                              // Enable the button if prescription is not added
+                              $(this).on("click", function () {
+                                  window.location.href = $(this).closest("a").attr("href");
+                              });
+                          }
+                      });
+                  });
+              </script>
+              
+              
+											
+      </div>
+      <script>
+        
+      </script>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/Chart.bundle.js'%}"></script>
+    <script src="{% static 'assets1/js/chart.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+
+</body>
+
+
+
+</html>
+
+
+
+
+</body>
+</html>

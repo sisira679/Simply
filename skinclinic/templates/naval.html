@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce Template</title>
+    <style>
+        /* General CSS styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px; /* Reduced padding */
+        }
+      
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .user-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+        }
+        .icon {
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        /* Category navigation styles */
+        .category-nav {
+            background-color: #ddb497 !important; /* Set background color for body */
+            color: #fff;
+            padding: 15px 0; /* Reduced padding */
+            text-align: left; /* Align text to the left */
+        }
+        .category-nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-start; /* Align items to the start (left) */
+        }
+        .category-nav li {
+            margin: 0 20px; /* Adjusted margin */
+            position: relative;
+        }
+        .category-nav li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px; /* Adjusted font size */
+            padding: 5px 10px; /* Adjusted padding */
+            display: block;
+        }
+        .category-nav li:hover {
+            background-color: #a57f67; /* Highlight color on hover */
+        }
+        .category-nav li:hover .subcategory {
+            display: block;
+        }
+        .subcategory {
+            display: none;
+            position: absolute;
+            background-color:#d7887b ;
+            width: 150px; /* Adjusted width */
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            font-size: 14px; /* Adjusted font size */
+        }
+        
+        .subcategory a {
+            color: #fff;
+            padding: 10px;
+            display: block;
+            transition: color 0.3s ease; /* Add transition for color change */
+        }
+        
+        .subcategory a:hover {
+            background-color: #a57f67; /* Highlight color on hover */
+            transform: scale(1.1); /* Enlarge on hover */
+            color: #f5c842; /* Change color on hover */
+            font-size: 18px; /* Increase font size on hover */
+        }
+        
+        /* CSS for the dropdown menu */
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .dropbtn {
+          background-color: transparent;
+          color: #333;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+        }
+
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 120px;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+
+        .dropdown-content a {
+          color: #f4ece1;
+          padding: 8px 12px; /* Adjusted padding */
+          text-decoration: none;
+          display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f4ece1;
+        }
+    </style>
+</head>
+<body>
+{% include 'home.html' %}
+<br><br>
+<div class="category-nav">
+    <div class="container">
+        <ul>
+            {% for category in categories %}
+            <li>
+               
+                <a href="?category={{ category.name }}" class="category-link">{{ category.name }}</a> <!-- Added category-link class -->
+                <div class="subcategory">
+                    {% for subcategory in category.subcategory_set.all %}
+                    <a href="?subcategory={{ subcategory.name }}">{{ subcategory.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+      
+
+    </div>
+   
+    
+   
+</div>

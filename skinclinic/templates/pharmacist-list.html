@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Pharmacist List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pharmacist in pharmacists %}
+            <tr>
+                <td>{{ pharmacist.username }}</td>
+                <td>{{ pharmacist.first_name }}</td>
+                <td>{{ pharmacist.last_name }}</td>
+                <td>{{ pharmacist.gender }}</td>
+                <td>{{ pharmacist.role }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

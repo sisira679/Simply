@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .success-tick {
+            color: green;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .payment-details {
+            border-top: 2px solid red;
+            padding-top: 20px;
+        }
+        .payment-details p {
+            margin: 10px 0;
+        }
+        .price {
+            color: red; /* or any color you desire */
+            font-weight: bold;
+        }
+        .sale-price {
+            color: green; /* or any color you desire */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-tick">&#10003;</div>
+        <p class="message">Payment successful</p>
+        <p>Thank you for your payment ₹{{ total_amount }} has been received</p>
+
+        <div class="payment-details">
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Transaction ID:</strong> {{ order.transaction_id }}</p>
+            <p><strong>Payment Details:</strong></p>
+            <p>Price: <span class="price">₹{{ order.total_amount }}</span></p>
+            <p>Sale Price: <span class="sale-price">₹{{ order.sale_price }}</span></p>
+        </div>
+    </div>
+    <a href="{% url 'bill_invoice' order.id %}" class="btn btn-primary">View Bill Invoice</a>
+
+</body>
+</html>

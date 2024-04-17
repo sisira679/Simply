@@ -1,0 +1,181 @@
+<!-- wishlist.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <style>
+        /* Wishlist title */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Container for the wishlist */
+        .container2-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Individual product container */
+        .container4 {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            text-align: center;
+        }
+        
+        /* Product image */
+        .container4 img {
+            width: 70%;
+            height: auto;
+        }
+        
+        /* Product name */
+        .name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        /* Prices */
+        .prices {
+            margin-top: 10px;
+        }
+        
+        .price {
+            color: #999; /* Dim color for regular price */
+            text-decoration: line-through; /* Line through regular price */
+        }
+        
+        .sale-price {
+            font-weight: bold;
+        }
+        
+        /* Product description */
+        .container4 p {
+            margin-top: 10px;
+        }
+        
+        /* Product buttons */
+        .product-buttons {
+            margin-top: 10px;
+        }
+        
+        .product-buttons form {
+            display: inline-block;
+        }
+        
+        
+        /* Button styles */
+        /* Button styles */
+        .product-buttons button {
+            background-color: black; /* Black background */
+            border: none;
+            color: white; /* White text color */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .product-buttons button.remove-btn {
+            background-color: #f44336; /* Red for remove button */
+        }
+        
+        .product-buttons button:hover {
+            background-color: #333; /* Slightly darker black on hover */
+        }
+        
+
+.product-buttons button.remove-btn {
+    background-color: #f44336; /* Red for remove button */
+}
+
+.product-buttons button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+    </style>
+</head>
+{% include 'home.html'%}
+
+<body>
+   
+    
+   
+        
+<br><br><br>
+<h1 style="color: #333; text-align: center;">Your Wishlist</h1>
+
+    <div class="container2-wrapper">
+        {% for product in wishlist.products.all %}
+            <div class="container4">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="name">{{ product.name }}</div>
+                <div class="highlights">{{ product.highlights }}</div>
+                <div class="prices">
+                    <span class="price">{{ product.price }}</span>
+                    <span class="sale-price">{{ product.sale_price }}</span>
+                </div>
+                
+                <div class="product-buttons">
+                    <form action="{% url 'remove_from_wishlist' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="remove-btn" type="submit">Remove</button>
+                    </form>
+                    <form action="{% url 'add-to-cart' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </div>
+                
+                
+                
+                
+                
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <script>
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const form = this.closest('form');
+                const formData = new FormData(form);
+    
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Product added to cart successfully!');
+                        // You can redirect the user to the cart page here if needed
+                        window.location.href = '{% url "cart" %}';
+                    } else {
+                        alert('Failed to add product to cart. Please try again later.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding product to cart:', error);
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

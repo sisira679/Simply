@@ -1,0 +1,106 @@
+
+{% comment %} <!-- razorpay_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <!-- Include Razorpay JavaScript SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Online Payment</h2>
+    <p>Please wait while we redirect you to the payment gateway...</p>
+
+    <form id="razorpay-payment-form" action="{% url 'payment_success' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Displaying the doctor's consultation fee dynamically -->
+        <p>Doctor's Consultation Fee: {{ doctor_consultation_fee|floatformat:2 }} INR</p>
+
+        <script>
+            var options = {
+                "key": "rzp_test_sfFJaXgQPv4B3T",
+                "amount": "{{ doctor_consultation_fee|floatformat:2 }}00",  // Amount in paisa (multiply by 100)
+                "currency": "INR",
+                "name": "Your Clinic Name",
+                "description": "Appointment Fee",
+                "order_id": "{{ payment.razorpay_order_id }}",
+                "prefill": {
+                    "name": "{{ payment.appointment.user.get_full_name }}",
+                    "email": "sisiras2024b@mca.ajce.in",  // Update with your email
+                    "contact": "{{ payment.appointment.user.userprofile.phone_number }}"
+                },
+                "theme": {
+                    "color": "#007bff"
+                },
+                "handler": function (response) {
+                    // Redirect to payment success page after successful payment
+                    window.location.href = "{% url 'payment_success' %}";
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        </script>
+    </form>
+</body>
+</html>
+ {% endcomment %}
+
+
+
+
+
+ razorpay_client = razorpay.Client(auth=("rzp_test_sfFJaXgQPv4B3T", "vwLALrKy2MeB3dnNFTQs0Fdu"))
+
+def payment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        payment_form = PaymentForm(request.POST)
+
+        if payment_form.is_valid():
+            payment_method = payment_form.cleaned_data['method']
+            
+            try:
+                payment = Payment.objects.get(appointment=appointment)
+            except Payment.DoesNotExist:
+                payment = Payment(appointment=appointment)
+
+            if payment_method == 'online':
+                # Get the consultation fee from the DoctorProfile
+                doctor_consultation_fee = (
+                    appointment.doctor_profile.consultation_fee
+                    if hasattr(appointment, 'doctor_profile') and appointment.doctor_profile
+                    else 500
+                )
+
+                order_amount = int(doctor_consultation_fee * 100)
+                order_currency = 'INR'
+                order_receipt = 'order_rcptid_' + str(random.randint(1000, 9999))
+
+                order_response = razorpay_client.order.create({
+                    'amount': order_amount,
+                    'currency': order_currency,
+                    'receipt': order_receipt,
+                    'payment_capture': '1',
+                })
+
+                payment.razorpay_order_id = order_response['id']
+
+            payment.method = payment_method
+            payment.otp = str(random.randint(100000, 999999))
+            payment.save()
+
+            if payment_method == 'online':
+                return render(request, 'razorpay_payment.html', {'payment': payment, 'doctor_consultation_fee': doctor_consultation_fee})
+            else:
+                send_otp_email(appointment.user.email, payment.otp)
+                return redirect('verify_payment', appointment_id=appointment.id)
+
+    else:
+        payment_form = PaymentForm()
+
+    return render(request, 'payment.html', {'appointment': appointment, 'payment_form': payment_form})

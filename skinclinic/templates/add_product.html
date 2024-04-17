@@ -1,0 +1,450 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #007bff; /* Dark blue */
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top:50px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 1px #ccc; /* Shadow effect */
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #007bff; /* Dark blue */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select {
+            background-color: #f0f8ff; /* Alice blue */
+        }
+
+        button {
+            background-color: #007bff; /* Dark blue */
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Medium blue */
+        }
+
+        h2 {
+            color: black; /* Dark blue */
+            font-family: Arial, sans-serif; /* Specify custom font family */
+            font-size: 44px; /* Specify custom font size */
+            text-align: center; /* Center the text horizontally */
+
+            margin-top:30px;
+        }
+
+        .image-preview-container {
+            margin-bottom: 20px;
+        }
+        
+        .image-preview {
+            max-width: 200px; /* Adjust the maximum width of the image */
+            max-height: 200px; /* Adjust
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none; /* Hide by default */
+        }
+        input[type="text"],
+        input[type="number"], /* Include DecimalField as it behaves like a number input */
+        select,
+        textarea {
+            width: calc(100% - 22px); /* Adjust width to account for label width and padding */
+            padding: 10px; /* Add padding */
+            margin-bottom: 20px; /* Add margin for spacing between fields */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            border: 1px solid #ccc; /* Add a border */
+            border-radius: 4px; /* Add border radius */
+        }
+       
+        .close-symbol {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png'%}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        <div class="drop-scroll">
+                            <ul class="notification-list">
+                       
+                                <li class="notification-message">
+                                    <a href="activities.html">
+                                        <div class="media">
+											<span class="avatar">V</span>
+											<div class="media-body">
+												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
+												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+											</div>
+                                        </div>
+                                    </a>
+                                </li>
+                              
+                                
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities.html">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
+                </li>
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                <span class="status online"></span>
+                            </span>
+                            {% if user.is_authenticated %}
+                            <span id="welcomeMessage">Welcome, {{ user.username }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="#">Edit Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="pharmacistdashboard.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+						<li>
+                            <a href="add_product.html"><i class="fa fa-hospital-o"></i> <span>Products</span></a>
+                        </li>
+                        <li>
+                            <a href="product_list.html"><i class="fa fa-hospital-o"></i> <span>Products List</span></a>
+                        </li>
+						
+					
+                        
+          
+                                  
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        {% else %}	
+                {% endif %}
+      			
+
+    
+<body>
+
+    <form method="post" enctype="multipart/form-data" id="product-form">
+        {% csrf_token %}
+        <h2>Add Product</h2>
+        <div class="image-preview-container">
+            <label for="id_image">Image Preview:</label>
+            <img id="image-preview" class="image-preview" src="{% static 'assets/img/product_default.png' %}" alt="Image Preview">
+        </div>
+    
+   
+    {{ form.as_p }}
+  
+        
+    <button type="submit">Add Product</button> 
+</form>
+    
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.querySelector('input[type="file"]');
+            const imagePreview = document.getElementById('image-preview');
+
+            fileInput.addEventListener('change', function() {
+                const file = fileInput.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        imagePreview.src = event.target.result;
+                        imagePreview.style.display = 'block'; // Show the image preview
+                    }
+
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.src = '#';
+                    imagePreview.style.display = 'none'; // Hide the image preview if no file selected
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const categorySelect = document.getElementById('id_category');
+            const subcategorySelect = document.getElementById('id_subcategory');
+
+            categorySelect.addEventListener('change', function() {
+                const selectedCategoryId = categorySelect.value;
+
+                fetch(`/get_subcategories/${selectedCategoryId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        subcategorySelect.innerHTML = '<option value="">---------</option>';
+                        data.forEach(subcategory => {
+                            const option = document.createElement('option');
+                            option.value = subcategory.id;
+                            option.textContent = subcategory.name;
+                            subcategorySelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching subcategories:', error));
+            });
+        });
+        {% comment %} document.addEventListener('DOMContentLoaded', function() {
+            const priceInput = document.getElementById('id_price');
+            const discountInput = document.getElementById('id_discount');
+            const salePriceInput = document.getElementById('id_sale_price');
+
+            // Function to calculate sale price
+            function calculateSalePrice() {
+                const price = parseFloat(priceInput.value);
+                const discount = parseFloat(discountInput.value);
+
+                // Calculate sale price
+                const salePrice = price - discount;
+                salePriceInput.value = salePrice.toFixed(2); // Limit to 2 decimal places
+            }
+
+            // Event listeners for price and discount inputs
+            priceInput.addEventListener('input', calculateSalePrice);
+            discountInput.addEventListener('input', calculateSalePrice);
+
+            // Function to ensure discount price cannot be greater than original price
+            function validateDiscount() {
+                const price = parseFloat(priceInput.value);
+                const discount = parseFloat(discountInput.value);
+                const salePrice = parseFloat(salePriceInput.value);
+
+                // If discount price is greater than original price, set discount to 0
+                if (salePrice > price) {
+                    discountInput.value = 0;
+                    calculateSalePrice();
+                }
+            }
+
+            // Event listener for sale price input
+            salePriceInput.addEventListener('input', validateDiscount);
+        }); {% endcomment %}
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceInput = document.getElementById('id_price');
+            const discountInput = document.getElementById('id_discount');
+            const salePriceInput = document.getElementById('id_sale_price');
+    
+            // Function to calculate sale price
+            function calculateSalePrice() {
+                const price = parseFloat(priceInput.value);
+                const discount = parseFloat(discountInput.value);
+    
+                // Check if discount is greater than price
+                if (discount > price) {
+                    // Clear sale price field if discount is greater than price
+                    salePriceInput.value = "";
+                } else {
+                    // Calculate sale price if discount is valid
+                    const salePrice = price - discount;
+                    salePriceInput.value = salePrice.toFixed(2); // Limit to 2 decimal places
+                }
+            }
+    
+            // Function to ensure discount price cannot be greater than original price
+            function validateDiscount() {
+                const price = parseFloat(priceInput.value);
+                const discount = parseFloat(discountInput.value);
+                const salePrice = parseFloat(salePriceInput.value);
+    
+                // If discount price is greater than original price, set discount to 0
+                if (salePrice > price) {
+                    discountInput.value = 0;
+                }
+            }
+    
+            // Event listeners for price and discount inputs
+            priceInput.addEventListener('input', calculateSalePrice);
+            discountInput.addEventListener('input', calculateSalePrice);
+    
+            // Event listener for sale price input
+            salePriceInput.addEventListener('input', validateDiscount);
+    
+            // Initial calculation
+            calculateSalePrice();
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            var qualityField = document.getElementById('id_quality');
+            
+            // Create a <span> element to hold the error message
+            var errorSpan = document.createElement('span');
+            errorSpan.style.color = 'red';
+            qualityField.parentNode.appendChild(errorSpan); // Append it after the quality field
+    
+            qualityField.addEventListener('input', function () {
+                var qualityValue = parseInt(qualityField.value);
+    
+                // Check if quality is zero or negative
+                if (isNaN(qualityValue) || qualityValue <= 0) {
+                    errorSpan.textContent = "Quality must be a positive integer greater than zero.";
+                } else {
+                    errorSpan.textContent = "";
+                }
+            });
+    
+            qualityField.addEventListener('keydown', function (event) {
+                // Clear error message when user starts typing (e.g., presses backspace)
+                errorSpan.textContent = "";
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var priceField = document.getElementById('id_price');
+            var discountField = document.getElementById('id_discount');
+            
+            // Create <span> elements to hold the error messages
+            var priceErrorSpan = document.createElement('span');
+            priceErrorSpan.style.color = 'red';
+            priceField.parentNode.appendChild(priceErrorSpan); // Append it after the price field
+    
+            var discountErrorSpan = document.createElement('span');
+            discountErrorSpan.style.color = 'red';
+            discountField.parentNode.appendChild(discountErrorSpan); // Append it after the discount field
+    
+            function validatePrice() {
+                var priceValue = parseFloat(priceField.value.trim());
+                if (isNaN(priceValue) || priceValue <= 0) {
+                    priceErrorSpan.textContent = "Price must be a valid number greater than zero.";
+                    return false;
+                } else {
+                    priceErrorSpan.textContent = "";
+                    return true;
+                }
+            }
+    
+            function validateDiscount() {
+                var discountValue = parseFloat(discountField.value.trim());
+                var priceValue = parseFloat(priceField.value.trim());
+    
+                if (isNaN(discountValue) || discountValue <= 0 || discountValue >= priceValue) {
+                    discountErrorSpan.textContent = "Discount must be a valid number greater than zero and less than the price.";
+                    return false;
+                } else {
+                    discountErrorSpan.textContent = "";
+                    return true;
+                }
+            }
+    
+            priceField.addEventListener('input', function () {
+                validatePrice();
+                validateDiscount(); // Re-validate discount when price changes
+            });
+    
+            discountField.addEventListener('input', function () {
+                validateDiscount();
+            });
+    
+            priceField.addEventListener('keydown', function (event) {
+                priceErrorSpan.textContent = "";
+            });
+    
+            discountField.addEventListener('keydown', function (event) {
+                discountErrorSpan.textContent = "";
+            });
+        });
+        
+    </script>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/Chart.bundle.js'%}"></script>
+    <script src="{% static 'assets1/js/chart.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+
+</body>
+</body>
+
+</html> 
+ 

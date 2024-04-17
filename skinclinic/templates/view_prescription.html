@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Details</title>
+    <link rel="stylesheet" href="{% static 'css/prescription.css' %}">
+    <style>
+      /* prescription.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.page-content {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Prescription item styles */
+.prescription-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.add-to-cart-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+
+/* Service suggestion styles */
+.service-suggestions {
+    margin-top: 20px;
+}
+
+.suggestion-list {
+    list-style: none;
+    padding: 0;
+}
+
+.suggestion-item {
+    margin-bottom: 10px;
+}
+
+.book-service-btn {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.book-service-btn:hover {
+    background-color: #0073aa;
+}
+
+.already-booked-msg {
+    color: #777;
+}
+
+.no-suggestions-msg {
+    color: #777;
+}
+
+/* Button container */
+.button-container {
+    margin-top: 20px;
+}
+
+.back-btn {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 12px;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background-color: #ccc;
+}
+
+    </style>
+    {% include 'home.html'%}
+</head>
+
+<body>
+  <br><br><br>
+    <div class="page-content">
+        <div class="prescription-details">
+            <h2 class="section-title">Prescription Details</h2>
+
+            {% if prescriptions %}
+            {% for prescription in prescriptions %}
+            <div class="prescription-item">
+                <p><strong>Date:</strong> {{ prescription.appointment.date }}</p>
+                <p><strong>Time Slot:</strong> {{ prescription.appointment.time_slot }}</p>
+                <p><strong>Medicine:</strong> {{ prescription.medicine }}</p>
+                <p><strong>Dosage:</strong> {{ prescription.dosage }}</p>
+                <p><strong>Duration:</strong> {{ prescription.duration }}</p>
+                <!-- Add other prescription details as needed -->
+                <!-- Add to cart form -->
+                <form action="{% url 'add-to-cart' prescription.medicine.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                </form>
+            </div>
+            {% endfor %}
+
+            <!-- Service Suggestions -->
+            <div class="service-suggestions">
+                <h2 class="section-title">Service Suggestions</h2>
+                <ul class="suggestion-list">
+                    {% for suggestion in suggestions %}
+                    <li class="suggestion-item">
+                        <p><strong>Suggested Service:</strong> {{ suggestion.service.name }}</p>
+                        {% if not suggestion.booked %}
+                        <form action="{% url 'service_list'  %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="book-service-btn">Book Service</button>
+                        </form>
+                        {% else %}
+                        <p class="already-booked-msg">This service has already been booked.</p>
+                        {% endif %}
+                    </li>
+                    {% empty %}
+                    <li class="no-suggestions-msg">No service suggestions available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% else %}
+            <p>No prescriptions available for this appointment.</p>
+            {% endif %}
+            <!-- Back button -->
+            <div class="button-container">
+                <a href="{% url 'view_appointment_details' prescriptions.first.appointment.id %}"
+                    class="back-btn">Back to Appointment Details</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

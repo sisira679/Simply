@@ -1,0 +1,315 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <style>
+        /* General styles */
+        .container1 {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: ;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold; /* Add this line to make the text bold */
+        }
+        
+        
+        /* Table styles */
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .cart-table th,
+        .cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* CSS styles for cart item quantity */
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+}
+
+/* CSS styles for quantity buttons */
+.quantity-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+}
+
+/* Hover effect for quantity buttons */
+.quantity-btn:hover {
+    background-color: #2980b9;
+}
+
+/* CSS styles for quantity number */
+.item-quantity {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 5px;
+    padding: 8px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    color: #333;
+}
+
+        
+        /* Remove button styles */
+        .remove-from-cart-btn {
+            background-color: #d2d2d2;
+            color: #777;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .remove-from-cart-btn:hover {
+            background-color: #bbb;
+            color: #333;
+        }
+        
+        /* Total price styles */
+        .total-price-data {
+            text-align: right;
+        }
+        
+        /* Button container styles */
+        .button-container {
+            margin-top: 20px;
+            text-align: right;
+        }
+        
+        .button-container a {
+            margin-left: 10px;
+        }
+        
+        .button-container {
+            display: flex; /* Use flexbox */
+            justify-content: space-between; /* Distribute items evenly */
+            margin-top: 20px;
+        }
+        
+        .continue-shopping-link {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .checkout-button {
+            background-color: black; /* Set background color to black */
+            color: white; /* Set font color to white */
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-button:hover {
+            background-color: #333; /* Darken the background color on hover if desired */
+        }
+        .total-price-data {
+            font-weight: bold;
+            font-size: 15px; /* Adjust font size as needed */
+        }
+        
+        #total-price {
+            color: #3498db; /* Set color of the total price */
+            font-weight: bold;
+            font-size: 15px; /* Adjust font size as needed */
+        }
+        
+       
+    </style>
+</head>
+{% include "home.html" %}
+{% include "naval.html"%}
+<br>
+<body>
+    <header>
+    
+        <h1 class="cart-header">Your Cart</h1>
+             
+<div class="container1">
+  
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% comment %} {% for item in cart_items %}
+            <tr class="cart-item">
+                <td>
+                    <div class="cart-item-details">
+                       
+                        <div class="cart-item-image">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 100px; max-height: 100px;">
+                        </div>
+                        <div class="cart-item-name">{{ item.product.name }}</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="cart-item-quantity">
+                        <form action="{% url 'decrease-cart-item' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="quantity-btn decrease-quantity" type="submit">-</button>
+                        </form>
+                        <span class="item-quantity" data-quality="{{ item.product.quality }}">{{ item.quantity }}</span>
+                        <form action="{% url 'increase-cart-item' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="quantity-btn increase-quantity" type="submit">+</button>
+                        </form>
+                    </div>
+                    
+                </td>
+                <td class="cart-item-price" data-price="{{ item.product.sale_price }}">₹{{ item.product.sale_price }}</td>
+                <td>
+                    <form action="{% url 'remove-from-cart' item.product.id %}" method="post" class="remove-from-cart-form">
+                        {% csrf_token %}
+                        <button type="submit" class="remove-from-cart-btn">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %} {% endcomment %}
+            {% for item in cart_items %}
+<tr class="cart-item {% if item.product.remaining_quantity < item.quantity %}out-of-stock{% endif %}">
+    <td>
+        <div class="cart-item-details">
+            <div class="cart-item-image">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-width: 100px; max-height: 100px;">
+            </div>
+            <div class="cart-item-name">{{ item.product.name }}</div>
+        </div>
+    </td>
+    <td>
+        <div class="cart-item-quantity">
+            <form action="{% url 'decrease-cart-item' item.product.id %}" method="post">
+                {% csrf_token %}
+                <button class="quantity-btn decrease-quantity" type="submit">-</button>
+            </form>
+            <span class="item-quantity" data-quality="{{ item.product.quality }}">{{ item.quantity }}</span>
+            <form action="{% url 'increase-cart-item' item.product.id %}" method="post">
+                {% csrf_token %}
+                <button class="quantity-btn increase-quantity" type="submit">+</button>
+            </form>
+        </div>
+        {% if item.product.remaining_quantity < item.quantity %}
+        <p class="out-of-stock-message">Out of Stock</p>
+        {% endif %}
+    </td>
+    <td class="cart-item-price" data-price="{{ item.product.sale_price }}">₹{{ item.product.sale_price }}</td>
+    <td>
+        <form action="{% url 'remove-from-cart' item.product.id %}" method="post" class="remove-from-cart-form">
+            {% csrf_token %}
+            <button type="submit" class="remove-from-cart-btn">Remove</button>
+        </form>
+    </td>
+</tr>
+{% endfor %}
+
+        </tbody>
+    </table>
+    <p class="total-price-data">Total Price: <span id="total-price"></span></p>
+    <div class="button-container">
+        <a class="continue-shopping-link" href="{% url 'display_product' %}">Continue Shopping</a>
+        <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
+    </div>
+    
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let total = 0;
+
+        updateTotalPrice();
+
+        const increaseButtons = document.querySelectorAll(".increase-quantity");
+        const decreaseButtons = document.querySelectorAll(".decrease-quantity");
+
+        increaseButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                const currentItem = event.target.closest(".cart-item");
+                const quantityElement = currentItem.querySelector(".item-quantity");
+                const quality = parseInt(quantityElement.getAttribute("data-quality"));
+                const priceElement = currentItem.querySelector(".cart-item-price");
+                const pricePerItem = parseFloat(priceElement.getAttribute("data-price"));
+                let currentQuantity = parseInt(quantityElement.textContent);
+        
+                if (currentQuantity < quality) {
+                    quantityElement.textContent = currentQuantity + 1;
+                    updateCartItemPrice(priceElement, pricePerItem, currentQuantity + 1);
+                    updateTotalPrice();
+                } else {
+                    // Display a message indicating that the maximum quantity has been reached
+                    alert("Maximum quantity reached.");
+                }
+            });
+        });
+        decreaseButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                const currentItem = event.target.closest(".cart-item");
+                const quantityElement = currentItem.querySelector(".item-quantity");
+                const priceElement = currentItem.querySelector(".cart-item-price");
+                const pricePerItem = parseFloat(priceElement.getAttribute("data-price"));
+                let currentQuantity = parseInt(quantityElement.textContent);
+
+                if (currentQuantity > 1) {
+                    quantityElement.textContent = currentQuantity - 1;
+                    updateCartItemPrice(priceElement, pricePerItem, currentQuantity - 1);
+                    updateTotalPrice();
+                }
+            });
+        });
+
+        function updateCartItemPrice(priceElement, pricePerItem, quantity) {
+            const totalPrice = (pricePerItem * quantity).toFixed(2);
+            priceElement.textContent = "₹" + totalPrice;
+        }
+
+        function updateTotalPrice() {
+            total = 0;
+            const itemElements = document.querySelectorAll(".cart-item");
+
+            itemElements.forEach(function (itemElement) {
+                const price = parseFloat(itemElement.querySelector(".cart-item-price").getAttribute("data-price"));
+                const quantity = parseInt(itemElement.querySelector(".item-quantity").textContent);
+                total += price * quantity;
+            });
+
+            const totalPriceElement = document.getElementById("total-price");
+            totalPriceElement.textContent = total.toFixed(2);
+        }
+    });
+</script>
+</body>
+</html> 
+
+
+<!-- cart.html -->
+

@@ -1,0 +1,19 @@
+<!-- email.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Boy Account Information</title>
+</head>
+<body>
+    <p>Dear {{ user.first_name }},</p>
+    <p>Your Delivery Boy account has been created successfully.</p>
+    <p>Here are your account details:</p>
+    <ul>
+        <li>Username: {{ user.username }}</li>
+        <li>Password: {{ password }}</li>
+    </ul>
+    <p>Please keep this information secure.</p>
+</body>
+</html>

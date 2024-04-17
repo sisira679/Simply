@@ -1,0 +1,65 @@
+<!-- service_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Detail</title>
+    <style>
+        
+        .container5 {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        strong {
+            font-weight: bold;
+        }
+
+        /* Specific styles for service details */
+        .description {
+            margin-bottom: 20px;
+        }
+        .procedure,
+        .post-procedure {
+            margin-bottom: 20px;
+        }
+        /* Specific styles for service details */
+.description strong,
+.procedure strong,
+.post-procedure strong {
+    color: #007bff; /* Changed title color */
+    font-family: "Arial Black", sans-serif; /* Changed font family */
+    font-weight: bold; /* Added font weight */
+}
+    </style>
+</head>
+{% include 'home.html' %}
+<br><br>
+<body>
+    <div class="container5">
+        <h1>{{ service.name }}</h1>
+        <img src="{{ service.image.url }}" alt="{{ service.name }}">
+        <p class="description"><strong>Description:</strong> {{ service.description }}</p>
+        <p class="procedure"><strong>Procedure:</strong> {{ service.procedure }}</p>
+        <p class="post-procedure"><strong>Post-Procedure:</strong> {{ service.post_procedure }}</p>
+    </div>
+</body>
+</html>

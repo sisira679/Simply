@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets1/img/favicon.ico'%}">
+    <title>SIMPLY SKIN</title>
+    <link href="{% static 'https://fonts.googleapis.com/icon?family=Material+Icons'%}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets1/css/style.css'%}">
+    <!--[if lt IE 9]>
+		<script src="assets1/js/html5shiv.min.js"></script>
+		<script src="assets1/js/respond.min.js"></script>
+	<![endif]-->
+  <style>
+     body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+       
+    }
+
+     h2 {
+        color: #333; /* Set the text color for the heading */
+        text-align: center;
+        padding: 20px;
+        background-color: #3498db; /* Set a background color for the heading */
+        margin: 0;
+    }
+    
+     table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff; /* Set a white background color for the table */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    }
+
+     th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+     th {
+        background-color: #3498db; /* Set a background color for the table header */
+        color: #fff; /* Set the text color for the table header */
+    }
+
+     tr:hover {
+        background-color: #f5f5f5; /* Add a background color on row hover */
+    }
+
+     ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+
+  
+</style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="{% static 'assets1/img/logo.png' %}" width="35" height="35" alt=""> <span>SIMPLY SKIN</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                  {% if doctor_profile.profile_picture %}
+                                   <img class="rounded-circle" src="{{doctor_profile.profile_picture.url }}" width="24" alt="Doctor Profile Picture">
+                                  {% else %}
+                                   <img class="rounded-circle" src="{% static '/assets1/img/user.jpg'%}" width="24" alt="Admin">
+                                  {% endif %}
+                                  <span class="status online"></span>
+                            </span>
+                            {% if user.is_authenticated %}
+                            <span>Welcome,Dr.{{ user.username }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'doctorprofile' %}">Edit Profile</a>
+                            <a class="dropdown-item" href="{% url 'changepassword' %}">change password</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>                    
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="doctordashboard.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="{% url 'today_appointments' %}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_dashboard.html"><i class="fa fa-hospital-o"></i> <span>All Patients</span></a>
+                        </li>
+                        <li>
+                            <a href="scheduling.html"><i class="fa fa-calendar-check-o"></i> <span>Scheduling</span></a>
+                        </li>
+                       
+                        <li>
+                            <a href="apply_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave</span></a>
+                        </li>
+                        <li>
+                            <a href="doctor_leave.html"><i class="fa fa-hospital-o"></i> <span>Leave status</span></a>
+                        </li>
+						
+					
+						
+                          
+                      
+                       
+						
+                       
+                      
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+ 
+
+        <div class="page-wrapper">
+          <body>
+            <h2>Your Leave Requests</h2>
+        
+            {% if leave_requests %}
+            <table>
+              <thead>
+                  <tr>
+                      <th>Leave Type</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for leave in leave_requests %}
+                  <tr class="{% if leave.is_approved %}approved{% elif not leave.is_approved %}pending{% endif %}">
+                          <td>{{ leave.leave_type }}</td>
+                          <td>{{ leave.date }}</td>
+                          <td style="{% if leave.is_approved %}background-color: #2ecc71; color: #fff;{% elif not leave.is_approved %}background-color: #4CAF50; color: #fff;{% else %}background-color: #f39c12; color: #fff;{% endif %}">
+                            {% if leave.is_approved %}
+                                Approved
+                            {% else %}
+                                Pending
+                            {% endif %}
+                        </td>
+                        
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          
+          
+                </table>
+            {% else %}
+                <p>No leave requests submitted.</p>
+            {% endif %}
+        
+     
+        </div>
+    
+        {% else %}	
+                {% endif %}
+											
+
+                    
+    <script>
+        // Disable the back button to prevent navigating back to the previous page
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/Chart.bundle.js'%}"></script>
+    <script src="{% static 'assets1/js/chart.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+
+</body>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

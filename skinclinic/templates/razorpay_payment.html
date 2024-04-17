@@ -1,0 +1,157 @@
+{% comment %} <!-- razorpay_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <!-- Include Razorpay JavaScript SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Online Payment</h2>
+    <p>Please wait while we redirect you to the payment gateway...</p>
+
+    <form id="razorpay-payment-form" action="{% url 'payment_success' %}" method="POST">
+        {% csrf_token %}
+
+    <script>
+        var options = {
+            "key": "rzp_test_sfFJaXgQPv4B3T",
+            "amount": "50000",  // Amount in paisa (500 * 100)
+            "currency": "INR",
+            "name": "SIMPLY SKIN CLINIC",
+            "description": "Appointment Fee",
+            "order_id": "{{ payment.razorpay_order_id }}",
+            "prefill": {
+                "name": "{{ payment.appointment.user.get_full_name }}",
+                "email": "sisiras2024b@mca.ajce.in",  // Update with your email
+                "contact": "{{ payment.appointment.user.userprofile.phone_number }}"
+            },
+            "theme": {
+                "color": "#007bff"
+            },
+            "handler": function (response) {
+                // Redirect to payment success page after successful payment
+                window.location.href = "{% url 'payment_success' %}";
+            }
+            
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+
+ {% comment %} <!-- razorpay_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <!-- Include Razorpay JavaScript SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Online Payment</h2>
+    <p>Please wait while we redirect you to the payment gateway...</p>
+
+    <form id="razorpay-payment-form" action="{% url 'payment_success' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Displaying the doctor's consultation fee dynamically -->
+        <p>Doctor's Consultation Fee: {{ doctor_consultation_fee|floatformat:2 }} INR</p>
+
+        <script>
+            var options = {
+                "key": "rzp_test_sfFJaXgQPv4B3T",
+                "amount": "{{ doctor_consultation_fee|floatformat:2 }}00",  // Amount in paisa (multiply by 100)
+                "currency": "INR",
+                "name": "Your Clinic Name",
+                "description": "Appointment Fee",
+                "order_id": "{{ payment.razorpay_order_id }}",
+                "prefill": {
+                    "name": "{{ payment.appointment.user.get_full_name }}",
+                    "email": "sisiras2024b@mca.ajce.in",  // Update with your email
+                    "contact": "{{ payment.appointment.user.userprofile.phone_number }}"
+                },
+                "theme": {
+                    "color": "#007bff"
+                },
+                "handler": function (response) {
+                    // Redirect to payment success page after successful payment
+                    window.location.href = "{% url 'payment_success' %}";
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        </script>
+    </form>
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- razorpay_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <!-- Include Razorpay JavaScript SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Online Payment</h2>
+    <p>Please wait while we redirect you to the payment gateway...</p>
+
+    <form id="razorpay-payment-form" action="{% url 'payment_success' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Displaying the doctor's consultation fee dynamically -->
+        <p>Doctor's Consultation Fee: {{ doctor_consultation_fee|floatformat:2 }} INR</p>
+
+        <script>
+            var options = {
+                "key": "rzp_test_sfFJaXgQPv4B3T",
+                "amount": "{{ doctor_consultation_fee|floatformat:2 }}00",  // Amount in paisa (multiply by 100)
+                "currency": "INR",
+                "name": "SIMPLY SKIN CLINIC",
+                "description": "Appointment Fee",
+                "order_id": "{{ payment.razorpay_order_id }}",
+                "prefill": {
+                    "name": "{{ payment.appointment.user.get_full_name }}",
+                    "email": "sisiras2024b@mca.ajce.in",  // Update with your email
+                    "contact": "{{ payment.appointment.user.userprofile.phone_number }}"
+                },
+                "theme": {
+                    "color": "#007bff"
+                },
+                "handler": function (response) {
+                    // Redirect to payment success page after successful payment
+                    window.location.href = "{% url 'payment_success' %}";
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        </script>
+    </form>
+</body>
+</html>

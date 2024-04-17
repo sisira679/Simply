@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+    <title>Select Time Slots</title>
+</head>
+<body>
+    <h1>Select Time Slots</h1>
+
+    <form method="post" action="{% url 'schedule-appointments' %}">
+        {% csrf_token %}
+        
+        <h2>Morning Slots:</h2>
+        {% for slot in morning_slots %}
+            <input type="checkbox" name="morning_slots[]" value="{{ slot.slot_time }}"> {{ slot.slot_time }}<br>
+        {% endfor %}
+
+        <h2>Evening Slots:</h2>
+        {% for slot in evening_slots %}
+            <input type="checkbox" name="evening_slots[]" value="{{ slot.slot_time }}"> {{ slot.slot_time }}<br>
+        {% endfor %}
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

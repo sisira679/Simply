@@ -1,0 +1,16 @@
+<!-- edit-doctor.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Doctor</title>
+</head>
+<body>
+    <h1>Edit Doctor Profile</h1>
+    <form method="post" action="{% url 'edit_doctor' doctor_id=user.id %}">
+        {% csrf_token %}
+        {{ doctor_form.as_p }}
+        {{ specializations_form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>

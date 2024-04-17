@@ -1,0 +1,91 @@
+<!-- services.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <style>
+        /* services.html */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .service-container {
+            border: 1px solid #ccc;
+            margin: 20px;
+            width: calc(31.33% - 40px);
+            display: inline-block;
+            vertical-align: top;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-container img {
+            width: 100%; /* Image fills the container */
+            height: 200px; /* Set a fixed height for the image */
+            object-fit: cover; /* Ensure the entire image is visible */
+            border-radius: 8px 8px 0 0; /* Rounded corners on the top */
+        }
+        
+        .service-info {
+            padding: 20px;
+        }
+        
+        .service-info h2 {
+            margin-top: 0;
+        }
+        
+        .service-info p {
+            margin-top: 10px;
+            color: green;
+            font-style: italic;
+        }
+        
+        .service-info button {
+            display: block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .service-info button:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+{% include 'home.html' %}
+<body>
+    <h1>Services</h1>
+    <div class="container">
+        {% for service in services %}
+        <div class="service-container">
+            <a href="{% url 'service_detail' service.id %}">
+                <img src="{{ service.image.url }}" alt="{{ service.name }}">
+            </a>
+            <div class="service-info">
+                <h2>{{ service.name }}</h2>
+               
+                <a href="{% url 'book_service' service.id %}?name={{ service.name }}&image={{ service.image.url }}">
+                    <button>Book Service</button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

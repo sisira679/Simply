@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Done</title>
+</head>
+<body>
+    <h1>Payment Successful</h1>
+    
+    <h2>Order Details</h2>
+    <p>Order ID: {{ order.id }}</p>
+    <p>Total Amount: ${{ order.total_amount }}</p>
+    <p>Payment Status: {% if order.payment_status %}Paid{% else %}Pending{% endif %}</p>
+
+   
+
+    <!-- Add any other content or styling as needed -->
+</body>
+</html>
+

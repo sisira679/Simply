@@ -1,0 +1,88 @@
+<html>
+  {% include 'home.html'%}
+  <head>
+    <style>
+    /* Style for the page-content div */
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Style for the appointment-details div */
+.appointment-details {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.appointment-details p {
+  margin: 5px 0;
+}
+
+/* Style for the button-container div */
+.button-container {
+  margin-top: 20px;
+}
+
+.button-container a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.button-container a:hover {
+  background-color: #0056b3;
+}
+</style>
+
+  </head>
+ 
+ <body>
+  <br><br> <br><br>
+ <div class="page-content">
+  <h3 style="color: #333; font-size: 24px; margin-bottom: 20px;">Prescription Details</h3>
+
+    {% for appointment in user_appointments %}
+        <div class="appointment-details">
+          <p><strong>Date:</strong> {{ appointment.date }}</p>
+          <p><strong>Time Slot:</strong> {{ appointment.time_slot }}</p>
+          <p><strong>Reason:</strong> {{ appointment.reason }}</p>
+          <p><strong>Doctor Name:</strong> {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</p>
+          <p><strong>Method:</strong> {{ appointment.payment.method }}</p>
+          
+            {% comment %} <p>OTP: {{ appointment.payment.otp }}</p> {% endcomment %}
+
+            {% if appointment.prescriptions.all %}
+                {% comment %} <h3>Prescriptions</h3> {% endcomment %}
+                {% for prescription in appointment.prescriptions.all %}
+                    {% comment %} <p>Prescription ID: {{ prescription.id }}</p>
+                    <p>Medicine: {{ prescription.medicine }}</p>
+                    <p>Dosage: {{ prescription.dosage }}</p>
+                    <p>Duration: {{ prescription.duration }}</p> {% endcomment %}
+                {% endfor %}
+                <div class="button-container">
+                    <a href="{% url 'view_prescription' appointment.id %}">View Prescription</a>
+
+                    <a href="{% url 'download_prescription' appointment.id %}">Download Prescription</a>
+                </div>
+            {% else %}
+                <p>No Prescription</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    
+    <!-- Move the button-container div outside the loop -->
+    <div class="button-container">
+        <!-- You can add any common buttons or links here -->
+    </div>
+</div> 
+</body>
+</html>
+
+

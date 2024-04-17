@@ -1,0 +1,8 @@
+Prescription Added
+
+Dear {{ appointment.user.first_name }},
+
+Your prescription has been added. You can download it from your profile.
+
+Best regards,
+Your Clinic Team

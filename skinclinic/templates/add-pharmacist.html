@@ -1,0 +1,461 @@
+{% load static %}
+<!DOCTYPE html>
+{% include 'admin.html'%}
+<html lang="en">
+
+
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h4 class="page-title">Add Pharmacist</h4>
+                   
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'add-pharmacist' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    
+                                    <div class="form-group">
+
+                                        <label>First Name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" id="first-name-input" name="first_name">
+                                        <div id="first-name-error" class="text-danger"></div>
+                                        
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input class="form-control" type="text" id="last_name" name="last_name">
+                                    <small id="last-name-error" class="text-danger"></small>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Username <span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" id="username-input" name="username">
+                                    <div id="username-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Email <span class="text-danger">*</span></label>
+                                    <input class="form-control" type="email" id="email-input" name="email">
+                                    <div id="email-error" class="text-danger"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" name="password" oninput="validatePassword(this)">
+                                    <div id="password-error-message"></div>
+                                    <div id="password-strength-message" class="success-message"></div>
+
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input class="form-control" type="password" name="confirm_password" oninput="validateConfirmPassword(this)">
+                                    <div id="confirm-password-error-message"></div>
+                                </div>
+                            </div>
+                            
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Gender</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="male" name="gender" value="male">
+                                            <label class="form-check-label" for="male">Male</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="female" name="gender" value="female">
+                                            <label class="form-check-label" for="female">Female</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="other" name="gender" value="other">
+                                            <label class="form-check-label" for="other">Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                            <select id="role" class="custom-select" name="role" style="display: none;" >
+                    
+                                <option value="pharmacist">pharmacist</option>
+                            </select>
+                        </div>
+                    </div>
+                            
+							
+                            </div>
+                            <div class="m-t-20 text-center">
+                                <button id="create-doctor" class="btn btn-primary submit-btn">Create Pharmacist</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+			<div class="notification-box">
+                <div class="msg-sidebar notifications msg-noti">
+                    <div class="topnav-dropdown-header">
+                        <span>Messages</span>
+                    </div>
+                    <div class="drop-scroll msg-list-scroll" id="msg_list">
+                        <ul class="list-box">
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">R</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">Richard Miles </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item new-message">
+                                        <div class="list-left">
+                                            <span class="avatar">J</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">John Doe</span>
+                                            <span class="message-time">1 Aug</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">T</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author"> Tarah Shropshire </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">M</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">Mike Litorus</span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">C</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author"> Catherine Manseau </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">D</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author"> Domenic Houston </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">B</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author"> Buster Wigton </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">R</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author"> Rolland Webber </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">C</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author"> Claire Mapes </span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">M</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">Melita Faucher</span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">J</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">Jeffery Lalor</span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">L</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">Loren Gatlin</span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="chat.html">
+                                    <div class="list-item">
+                                        <div class="list-left">
+                                            <span class="avatar">T</span>
+                                        </div>
+                                        <div class="list-body">
+                                            <span class="message-author">Tarah Shropshire</span>
+                                            <span class="message-time">12:28 AM</span>
+                                            <div class="clearfix"></div>
+                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="topnav-dropdown-footer">
+                        <a href="chat.html">See all messages</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const firstNameInput = document.getElementById('first-name-input');
+        const firstNameError = document.getElementById('first-name-error');
+    
+        firstNameInput.addEventListener('input', function() {
+            const firstNameValue = this.value.trim();
+    
+            // Regular expression to validate first name
+            const firstNameRegex = /^[A-Z][a-z]*$/;
+    
+            if (!firstNameRegex.test(firstNameValue)) {
+                // Display error message if the first name doesn't match the pattern
+                firstNameError.textContent = 'First Name must start with a capital letter and contain only letters (no spaces, special characters, or numbers).';
+            } else {
+                firstNameError.textContent = '';
+            }
+        });
+        document.getElementById('last_name').addEventListener('input', function() {
+            var lastName = this.value;
+            var errorElement = document.getElementById('last-name-error');
+    
+            // Regular expression to match only letters (no spaces, numbers, or special characters)
+            var regex = /^[A-Za-z]+$/;
+    
+            if (!regex.test(lastName)) {
+                errorElement.textContent = 'Last name should contain only letters.';
+                this.classList.add('is-invalid');
+            } else {
+                errorElement.textContent = ''; // Clear the error message
+                this.classList.remove('is-invalid');
+            }
+        });
+        const usernameInput = document.getElementById('username-input');
+const usernameError = document.getElementById('username-error');
+
+usernameInput.addEventListener('input', function() {
+    const usernameValue = this.value.trim();
+
+    // Regular expression to validate username
+    const usernameRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d_!@#$%^&*()]*$/;
+
+    if (!usernameRegex.test(usernameValue)) {
+        // Display error message if the username doesn't match the pattern
+        usernameError.textContent = 'Username must start with a capital letter, contain only letters, numbers, or underscores, and have at least one letter, one number, and one special character.';
+    } else {
+        usernameError.textContent = '';
+    }
+});
+
+
+    const emailInput = document.getElementById('email-input');
+    const emailError = document.getElementById('email-error');
+
+    emailInput.addEventListener('input', function() {
+        const emailValue = this.value.trim();
+
+        // Regular expression to validate email
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|in)$/;
+
+        if (!emailRegex.test(emailValue)) {
+            // Display error message if the email doesn't match the pattern
+            emailError.textContent = 'Invalid email format. Please enter a valid email address with domain extensions .com, .org, or .in.';
+        } else {
+            emailError.textContent = '';
+        }
+    });
+    function validatePassword(input) {
+        var password = input.value;
+        var errorMessageElement = document.getElementById('password-error-message');
+        errorMessageElement.textContent = '';
+        errorMessageElement.className = '';
+    
+        // Regular expression for password validation
+        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+        
+        if (!passwordPattern.test(password)) {
+            errorMessageElement.textContent = 'Password must be at least 6 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.';
+            errorMessageElement.className = 'error-message'; // Set the class name for red color
+        }
+    }
+    function validatePassword(input) {
+        var password = input.value;
+        var errorMessageElement = document.getElementById('password-error-message');
+        var strengthMessageElement = document.getElementById('password-strength-message');
+        errorMessageElement.textContent = '';
+        errorMessageElement.className = '';
+        strengthMessageElement.textContent = '';
+        strengthMessageElement.className = '';
+    
+        // Check if the input value is empty, if so, clear the messages
+        if (password.length === 0) {
+            return;
+        }
+    
+        // Regular expression for password validation
+        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    
+        if (!passwordPattern.test(password)) {
+            errorMessageElement.textContent = 'Password must be at least 6 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.';
+            errorMessageElement.className = 'error-message'; // Set the class name for red color
+        } else {
+            strengthMessageElement.textContent = 'Password is strong';
+            strengthMessageElement.className = 'success-message'; // Set the class name for green color
+        }
+    }
+
+    function validateConfirmPassword(input) {
+        var confirmPassword = input.value;
+        var password = document.querySelector('input[name="password"]').value;
+        var errorMessageElement = document.getElementById('confirm-password-error-message');
+        var successMessageElement = document.getElementById('password-match-success-message');
+        
+        errorMessageElement.textContent = '';
+        successMessageElement.textContent = '';
+        errorMessageElement.className = '';
+        successMessageElement.className = '';
+        
+        // Check if the confirm password matches the original password
+        if (confirmPassword !== password) {
+            errorMessageElement.textContent = 'Passwords do not match.';
+            errorMessageElement.className = 'error-message'; // Set the class name for red color
+        } else {
+            successMessageElement.textContent = 'Passwords match.';
+            successMessageElement.className = 'success-message'; // Set the class name for green color
+        }
+    }
+    
+    
+    </script>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="{% static 'assets1/js/jquery-3.2.1.min.js'%}"></script>
+	<script src="{% static 'assets1/js/popper.min.js'%}"></script>
+    <script src="{% static 'assets1/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets1/js/jquery.slimscroll.js'%}"></script>
+    <script src="{% static 'assets1/js/select2.min.js'%}"></script>
+	<script src="{% static 'assets1/js/moment.min.js'%}"></script>
+	<script src="{% static 'assets1/js/bootstrap-datetimepicker.min.js'%}"></script>
+    <script src="{% static 'assets1/js/app.js'%}"></script>
+</body>
+
+
+<!-- add-doctor24:06-->
+</html>

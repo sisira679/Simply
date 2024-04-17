@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container3 {
+            max-width: 650px; /* Increased max-width */
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Added margin-bottom */
+        }
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: glow 2s infinite alternate;
+            margin-bottom: 20px;
+        }
+        @keyframes glow {
+            0% {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+            }
+        }
+        label {
+            font-weight: bold;
+            font-size: 15px;
+            background: linear-gradient(to right, #3498db 50%, #2980b9 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background: linear-gradient(90deg, #0077cc, #004c99, #002366);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #004080; /* Dark blue */
+        }
+
+        .table-container {
+            margin-left: 330px; /* Move the table to the right */
+            margin-right: -90px; /* Add some space between the table and the rest of the content */
+        }
+
+        table {
+            width: 60%; /* Adjust the width as needed */
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        td {
+            font-size: 14px;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tbody tr:hover {
+            background-color: #e5e5e5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .delete-btn, .add-subcategory-btn {
+            background-color: transparent;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .delete-btn:hover, .add-subcategory-btn:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .add-subcategory-btn {
+            border-color: #28a745;
+            color: #28a745;
+        }
+        
+        .add-subcategory-btn:hover {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+{% include 'admin.html'%}
+<br><br>
+<body>
+    <div class="container3">
+        <h1>Add Category</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Render the form fields -->
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="table-container">
+        <h2>Categories</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Add Subcategory</th>
+                    <th>Action</th>
+                    <th>Subcategories</th> <!-- Added -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                       
+                        <td>
+                            <ul>
+                                {% for subcategory in category.subcategory_set.all %}
+                                    <li>{{ subcategory.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <form action="{% url 'delete_category' category.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="delete-btn" type="submit">Delete</button>
+                             
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'add_subcategory' category.id %}" method="get">
+                                <button class="add-subcategory-btn" type="submit">Add Subcategory</button>
+                            </form>
+                        </td>
+    
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
